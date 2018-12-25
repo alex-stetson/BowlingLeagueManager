@@ -1,7 +1,7 @@
 <?php
 
-session_start()
-if (!isset($_SESSION['userEmail']) || $_SESSION['userEmail'] == '') {
+session_start();
+if (isset($_SESSION['userEmail']) && $_SESSION['userEmail'] != '') {
     header("Location: index.php");
     exit();
 }

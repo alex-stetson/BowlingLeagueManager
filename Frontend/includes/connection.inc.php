@@ -5,9 +5,9 @@ $dbUsername = "";
 $dbPassword = "";
 $dbName = "bowling_league_database";
 
-$link = mysqli_connect($servername, $dbUsername, $dbPassword, $dbName)
+$link = mysqli_connect($servername, $dbUsername, $dbPassword, $dbName);
 
 if (!$link) {
-    die ("Database Connection Failed")
+    die ("Database Connection Failed");
 }
 ?>
