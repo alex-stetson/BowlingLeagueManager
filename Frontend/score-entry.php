@@ -1,0 +1,231 @@
+<?php
+
+session_start();
+if (!isset($_SESSION['userEmail']) || $_SESSION['userEmail'] == '') {
+    header("Location: index.php");
+    exit();
+}
+
+if (!isset($_GET['matchId'])) {
+    header("Location: score-entry-list.php");
+    exit();
+}
+
+include_once "navbar.php";
+require "includes/connection.inc.php";
+
+$matchId = $_GET['matchId'];
+
+$sql = "SELECT players.playerName, teams.teamName, teammembers.playerEmail, teammembers.teamId, matches.team1, matches.team2
+FROM players
+INNER JOIN teammembers ON players.email = teammembers.playerEmail
+INNER JOIN teams ON teammembers.teamId = teams.id
+INNER JOIN matches ON teams.id = matches.team1 OR teams.id = matches.team2
+WHERE matches.id = ?;";
+if ($stmt = mysqli_prepare($link, $sql)) {
+    mysqli_stmt_bind_param($stmt, "i", $matchId);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    mysqli_stmt_close($stmt);
+    $team1Members = array();
+    $team2Members = array();
+    $team1Id = 0;
+    $team2Id = 0;
+    $team1Name = "";
+    $team2Name = "";
+    while ($row = mysqli_fetch_assoc($result)) {
+        if ($row['teamId'] == $row['team1']) {
+            $team1Members[] = $row['playerEmail'];
+            $team1Members[] = $row['playerName'];
+            $team1Name = $row['teamName'];
+            $team1Id = $row['team1'];
+        } else {
+            $team2Members[] = $row['playerEmail'];
+            $team2Members[] = $row['playerName'];
+            $team2Name = $row['teamName'];
+            $team2Id = $row['team2'];
+        }
+    }
+} else {
+    header("Location: score-entry-list.php");
+    exit();
+}
+
+?>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <title>Score Entry</title>
+
+    <!-- Favicon -->
+    <link href="assets/img/brand/favicon.png" rel="icon" type="image/png" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+
+    <!-- Icons -->
+    <link href="assets/vendor/nucleo/css/nucleo.css" rel="stylesheet" />
+    <link href="assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+
+    <!-- Argon CSS -->
+    <link type="text/css" href="assets/css/argon.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="row justify-content-center mt-md">
+        <div class="col-lg-12">
+            <form role="form" action="includes/score-entry.inc.php" method="post">
+                <h1 class="h1 font-weight-bold mb-4">Score Entry</h1>
+                <input type="hidden" name="matchId" value=<?php echo $matchId; ?>>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <?php echo '<h2 class="h3 font-weight-bold mb-4">'.$team1Name.'</h2>'; ?>
+                        <hr><hr>
+                        <div class ="row">
+                            <div class="col-lg-4">
+                                <?php echo $team1Members[1]."<br> (".$team1Members[0].")"; ?>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <input type="hidden" name="p1Email" value=<?php echo $team1Members[0]; ?>>
+                                    <input type="number" placeholder="Handicap" name="p1Handicap" class="form-control" />
+                                    <input type="number" placeholder="Game 1 Score" name="p1g1" class="form-control" />
+                                    <input type="number" placeholder="Game 2 Score" name="p1g2" class="form-control" />
+                                    <input type="number" placeholder="Game 3 Score" name="p1g3" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class ="row">
+                            <div class="col-lg-4">
+                                <?php echo $team1Members[3]."<br> (".$team1Members[2].")"; ?>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <input type="hidden" name="p2Email" value=<?php echo $team1Members[2]; ?>>
+                                    <input type="number" placeholder="Handicap" name="p2Handicap" class="form-control" />
+                                    <input type="number" placeholder="Game 1 Score" name="p2g1" class="form-control" />
+                                    <input type="number" placeholder="Game 2 Score" name="p2g2" class="form-control" />
+                                    <input type="number" placeholder="Game 3 Score" name="p2g3" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class ="row">
+                            <div class="col-lg-4">
+                                <?php echo $team1Members[5]."<br> (".$team1Members[4].")"; ?>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <input type="hidden" name="p3Email" value=<?php echo $team1Members[4]; ?>>
+                                    <input type="number" placeholder="Handicap" name="p3Handicap" class="form-control" />
+                                    <input type="number" placeholder="Game 1 Score" name="p3g1" class="form-control" />
+                                    <input type="number" placeholder="Game 2 Score" name="p3g2" class="form-control" />
+                                    <input type="number" placeholder="Game 3 Score" name="p3g3" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class ="row">
+                            <div class="col-lg-4">
+                                <?php echo $team1Members[7]."<br> (".$team1Members[6].")"; ?>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <input type="hidden" name="p4Email" value=<?php echo $team1Members[6]; ?>>
+                                    <input type="number" placeholder="Handicap" name="p4Handicap" class="form-control" />
+                                    <input type="number" placeholder="Game 1 Score" name="p4g1" class="form-control" />
+                                    <input type="number" placeholder="Game 2 Score" name="p4g2" class="form-control" />
+                                    <input type="number" placeholder="Game 3 Score" name="p4g3" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mt-4 mt-lg-0">
+                        <?php echo '<h2 class="h3 font-weight-bold mb-4">'.$team2Name.'</h2>'; ?>
+                        <hr><hr>
+                        <div class ="row">
+                            <div class="col-lg-4">
+                                <?php echo $team1Members[9]."<br> (".$team1Members[8].")"; ?>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <input type="hidden" name="p5Email" value=<?php echo $team1Members[8]; ?>>
+                                    <input type="number" placeholder="Handicap" name="p5Handicap" class="form-control" />
+                                    <input type="number" placeholder="Game 1 Score" name="p5g1" class="form-control" />
+                                    <input type="number" placeholder="Game 2 Score" name="p5g2" class="form-control" />
+                                    <input type="number" placeholder="Game 3 Score" name="p5g3" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class ="row">
+                            <div class="col-lg-4">
+                                <?php echo $team1Members[11]."<br> (".$team1Members[10].")"; ?>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <input type="hidden" name="p6Email" value=<?php echo $team1Members[10]; ?>>
+                                    <input type="number" placeholder="Handicap" name="p6Handicap" class="form-control" />
+                                    <input type="number" placeholder="Game 1 Score" name="p6g1" class="form-control" />
+                                    <input type="number" placeholder="Game 2 Score" name="p6g2" class="form-control" />
+                                    <input type="number" placeholder="Game 3 Score" name="p6g3" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class ="row">
+                            <div class="col-lg-4">
+                                <?php echo $team1Members[13]."<br> (".$team1Members[12].")"; ?>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <input type="hidden" name="p7Email" value=<?php echo $team1Members[12]; ?>>
+                                    <input type="number" placeholder="Handicap" name="p7Handicap" class="form-control" />
+                                    <input type="number" placeholder="Game 1 Score" name="p7g1" class="form-control" />
+                                    <input type="number" placeholder="Game 2 Score" name="p7g2" class="form-control" />
+                                    <input type="number" placeholder="Game 3 Score" name="p7g3" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class ="row">
+                            <div class="col-lg-4">
+                                <?php echo $team1Members[15]."<br> (".$team1Members[14].")"; ?>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <input type="hidden" name="p8Email" value=<?php echo $team1Members[14]; ?>>
+                                    <input type="number" placeholder="Handicap" name="p8Handicap" class="form-control" />
+                                    <input type="number" placeholder="Game 1 Score" name="p8g1" class="form-control" />
+                                    <input type="number" placeholder="Game 2 Score" name="p8g2" class="form-control" />
+                                    <input type="number" placeholder="Game 3 Score" name="p8g3" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary my-4" name="submit-scores">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Core -->
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/popper/popper.min.js"></script>
+    <script src="assets/vendor/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Theme JS -->
+    <script src="assets/js/argon.js"></script>
+</body>
+
+</html>

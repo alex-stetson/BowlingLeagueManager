@@ -32,7 +32,7 @@ if (isset($_POST['login-submit'])) {
                 exit();
             }
         } else {
-            header("Location: /login.php?error=incorrectcreds&loginEmail=".$email);
+            header("Location: /login.php?error=unknownerror&loginEmail=".$email);
         exit();
         }
     }
