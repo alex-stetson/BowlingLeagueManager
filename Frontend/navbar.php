@@ -80,6 +80,23 @@
                 <a class="nav-link" href="#">Past Matches</a>
               </li>
               <li class="nav-item"><a class="nav-link" href="#">Teams</a></li>
+              <?php
+              session_start();
+              if (isset($_SESSION['userEmail']) && $_SESSION['userEmail'] != '') { ?>
+                <li class="nav-item dropdown">
+                  <a href="#" class="nav-link" data-toggle="dropdown" href="#" role="button">
+                    <i class="ni ni-collection d-lg-none"></i>
+                    <span class="nav-link-inner--text">Administration</span>
+                  </a>
+                  <div class="dropdown-menu">
+                    <a href="#" class="dropdown-item">Enter Scores</a>
+                    <a href="#" class="dropdown-item">Create Match</a>
+                    <a href="#" class="dropdown-item">Create Player</a>
+                    <a href="#" class="dropdown-item">Create Team</a>
+                    <a href="/includes/logout.inc.php" class="dropdown-item">Logout</a>
+                  </div>
+                </li>
+              <?php; } ?>
             </ul>
           </div>
         </div>
