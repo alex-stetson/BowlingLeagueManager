@@ -1,7 +1,3 @@
-<?php
-    include_once "navbar.php";
-?>
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -34,6 +30,9 @@
   </head>
 
   <body>
+    <?php
+      include_once "navbar.php";
+    ?>
     <main>
         <!-- ENTER STUFF HERE -->
     </main>

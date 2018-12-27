@@ -11,7 +11,6 @@ if (!isset($_GET['matchId'])) {
     exit();
 }
 
-include_once "navbar.php";
 require "includes/connection.inc.php";
 
 $matchId = $_GET['matchId'];
@@ -77,6 +76,9 @@ if ($stmt = mysqli_prepare($link, $sql)) {
 </head>
 
 <body>
+    <?php
+      include_once "navbar.php";
+    ?>
     <div class="row justify-content-center mt-md">
         <div class="col-lg-12">
             <form role="form" action="includes/score-entry.inc.php" method="post">
