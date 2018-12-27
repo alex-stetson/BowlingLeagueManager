@@ -70,7 +70,7 @@ if (isset($_POST['submit-scores'])) {
         exit();
     } else {
         $sql = "INSERT INTO matchScores (`matchId`, `teamId`, `playerEmail`, `handicap`, `game1Score`, `game2Score`, `game3Score`)
-        SELECT ?, teammembers.teamId, ?, ?, ?, ?, ? FROM teammembers WHERE teammembers.playerEmail = ?;";
+        SELECT ?, teamMembers.teamId, ?, ?, ?, ?, ? FROM teamMembers WHERE teamMembers.playerEmail = ?;";
         if ($stmt = mysqli_prepare($link, $sql)) {
             mysqli_stmt_bind_param($stmt, "isiiiis", $matchId, $p1Email, $p1Handicap, $p1g1, $p1g2, $p1g3, $p1Email);
             mysqli_stmt_execute($stmt);
