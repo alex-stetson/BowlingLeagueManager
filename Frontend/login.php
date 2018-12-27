@@ -53,18 +53,18 @@ if (isset($_SESSION['userEmail']) && $_SESSION['userEmail'] != '') {
                 <div class="card-body px-lg-5 py-lg-5">
                   <div class="text-center text-muted mb-4">
                     <h5>Sign In</h5>
-                  </div>
                   <?php
                     if (isset($_GET['error'])) {
                       if ($_GET['error'] == "emptyfields") {
-                        echo '<small class="text-danger>Please fill out all the fields</small>';
+                        echo '<small class="text-danger">Please fill out all the fields</small>';
                       } else if ($_GET['error'] = "incorrectcreds") {
-                        echo '<small class="text-danger>Incorrect Email or Password</small>';
+                        echo '<small class="text-danger">Incorrect Email or Password</small>';
                       } else {
-                        echo '<small class="text-danger>Unknown error occured. Please try again</small>';
+                        echo '<small class="text-danger">Unknown error occured. Please try again</small>';
                       }
                     }
                   ?>
+                  </div>
                   <form role="form" action="includes/login.inc.php" method="post">
                     <div class="form-group mb-3">
                       <div class="input-group input-group-alternative">
