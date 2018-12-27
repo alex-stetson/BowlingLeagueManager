@@ -10,12 +10,14 @@ CREATE TABLE users (
 CREATE TABLE teams (
     id INT(11) NOT NULL UNIQUE AUTO_INCREMENT,
     teamName VARCHAR(255) NOT NULL,
+    totalPoints INT(11) DEFAULT 0,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE players (
     email VARCHAR(255) NOT NULL UNIQUE,
     playerName VARCHAR(255) NOT NULL,
+    currentHandicap INT(11) DEFAULT 0,
     PRIMARY KEY (email)
 );
 
@@ -24,7 +26,8 @@ CREATE TABLE matches (
     matchTime DATETIME DEFAULT NULL,
     team1 INT(11) DEFAULT NULL,
     team2 INT(11) DEFAULT NULL,
-    scoreObj VARCHAR(255) DEFAULT NULL,
+    team1Points INT(11) DEFAULT 0,
+    team2Points INT(11) DEFAULT 0,
     PRIMARY KEY (id),
     FOREIGN KEY (team1)
     REFERENCES teams(id),
