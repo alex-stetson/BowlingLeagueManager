@@ -52,8 +52,19 @@ if (isset($_SESSION['userEmail']) && $_SESSION['userEmail'] != '') {
               <div class="card bg-secondary shadow border-0">
                 <div class="card-body px-lg-5 py-lg-5">
                   <div class="text-center text-muted mb-4">
-                    <small>Sign In</small>
+                    <h5>Sign In</h5>
                   </div>
+                  <?php
+                    if (isset($_GET['error'])) {
+                      if ($_GET['error'] == "emptyfields") {
+                        echo '<small class="text-danger>Please fill out all the fields</small>';
+                      } else if ($_GET['error'] = "incorrectcreds") {
+                        echo '<small class="text-danger>Incorrect Email or Password</small>';
+                      } else {
+                        echo '<small class="text-danger>Unknown error occured. Please try again</small>';
+                      }
+                    }
+                  ?>
                   <form role="form" action="includes/login.inc.php" method="post">
                     <div class="form-group mb-3">
                       <div class="input-group input-group-alternative">
@@ -67,6 +78,11 @@ if (isset($_SESSION['userEmail']) && $_SESSION['userEmail'] != '') {
                           placeholder="Email"
                           type="email"
                           name="loginEmail"
+                          <?php
+                            if (isset($_GET['loginEmail'])) {
+                              echo 'value="'.$_GET['loginEmail'].'"';
+                            }
+                          ?>
                         />
                       </div>
                     </div>
