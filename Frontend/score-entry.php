@@ -2,7 +2,7 @@
 
 session_start();
 if (!isset($_SESSION['userEmail']) || $_SESSION['userEmail'] == '') {
-    header("Location: index.php");
+    header("Location: login.php");
     exit();
 }
 
@@ -16,10 +16,10 @@ require "includes/connection.inc.php";
 
 $matchId = $_GET['matchId'];
 
-$sql = "SELECT players.playerName, teams.teamName, teammembers.playerEmail, teammembers.teamId, matches.team1, matches.team2
+$sql = "SELECT players.playerName, teams.teamName, teamMembers.playerEmail, teamMembers.teamId, matches.team1, matches.team2
 FROM players
-INNER JOIN teammembers ON players.email = teammembers.playerEmail
-INNER JOIN teams ON teammembers.teamId = teams.id
+INNER JOIN teamMembers ON players.email = teamMembers.playerEmail
+INNER JOIN teams ON teamMembers.teamId = teams.id
 INNER JOIN matches ON teams.id = matches.team1 OR teams.id = matches.team2
 WHERE matches.id = ?;";
 if ($stmt = mysqli_prepare($link, $sql)) {
@@ -151,11 +151,11 @@ if ($stmt = mysqli_prepare($link, $sql)) {
                         <hr><hr>
                         <div class ="row">
                             <div class="col-lg-4">
-                                <?php echo $team1Members[9]."<br> (".$team1Members[8].")"; ?>
+                                <?php echo $team2Members[1]."<br> (".$team2Members[0].")"; ?>
                             </div>
                             <div class="col-lg-8">
                                 <div class="form-group">
-                                    <input type="hidden" name="p5Email" value=<?php echo $team1Members[8]; ?>>
+                                    <input type="hidden" name="p5Email" value=<?php echo $team2Members[0]; ?>>
                                     <input type="number" placeholder="Handicap" name="p5Handicap" class="form-control" />
                                     <input type="number" placeholder="Game 1 Score" name="p5g1" class="form-control" />
                                     <input type="number" placeholder="Game 2 Score" name="p5g2" class="form-control" />
@@ -166,11 +166,11 @@ if ($stmt = mysqli_prepare($link, $sql)) {
                         <hr>
                         <div class ="row">
                             <div class="col-lg-4">
-                                <?php echo $team1Members[11]."<br> (".$team1Members[10].")"; ?>
+                                <?php echo $team2Members[3]."<br> (".$team2Members[2].")"; ?>
                             </div>
                             <div class="col-lg-8">
                                 <div class="form-group">
-                                    <input type="hidden" name="p6Email" value=<?php echo $team1Members[10]; ?>>
+                                    <input type="hidden" name="p6Email" value=<?php echo $team2Members[2]; ?>>
                                     <input type="number" placeholder="Handicap" name="p6Handicap" class="form-control" />
                                     <input type="number" placeholder="Game 1 Score" name="p6g1" class="form-control" />
                                     <input type="number" placeholder="Game 2 Score" name="p6g2" class="form-control" />
@@ -181,11 +181,11 @@ if ($stmt = mysqli_prepare($link, $sql)) {
                         <hr>
                         <div class ="row">
                             <div class="col-lg-4">
-                                <?php echo $team1Members[13]."<br> (".$team1Members[12].")"; ?>
+                                <?php echo $team2Members[5]."<br> (".$team2Members[4].")"; ?>
                             </div>
                             <div class="col-lg-8">
                                 <div class="form-group">
-                                    <input type="hidden" name="p7Email" value=<?php echo $team1Members[12]; ?>>
+                                    <input type="hidden" name="p7Email" value=<?php echo $team2Members[4]; ?>>
                                     <input type="number" placeholder="Handicap" name="p7Handicap" class="form-control" />
                                     <input type="number" placeholder="Game 1 Score" name="p7g1" class="form-control" />
                                     <input type="number" placeholder="Game 2 Score" name="p7g2" class="form-control" />
@@ -196,11 +196,11 @@ if ($stmt = mysqli_prepare($link, $sql)) {
                         <hr>
                         <div class ="row">
                             <div class="col-lg-4">
-                                <?php echo $team1Members[15]."<br> (".$team1Members[14].")"; ?>
+                                <?php echo $team2Members[7]."<br> (".$team2Members[6].")"; ?>
                             </div>
                             <div class="col-lg-8">
                                 <div class="form-group">
-                                    <input type="hidden" name="p8Email" value=<?php echo $team1Members[14]; ?>>
+                                    <input type="hidden" name="p8Email" value=<?php echo $team2Members[6]; ?>>
                                     <input type="number" placeholder="Handicap" name="p8Handicap" class="form-control" />
                                     <input type="number" placeholder="Game 1 Score" name="p8g1" class="form-control" />
                                     <input type="number" placeholder="Game 2 Score" name="p8g2" class="form-control" />

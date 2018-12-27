@@ -1,5 +1,11 @@
 <?php
 
+session_start();
+if (!isset($_SESSION['userEmail']) || $_SESSION['userEmail'] == '') {
+    header("Location: login.php");
+    exit();
+}
+
 if (isset($_POST['submit-scores'])) {
 
     require "connection.inc.php";
@@ -63,7 +69,7 @@ if (isset($_POST['submit-scores'])) {
         header("Location: /score-entry.php?matchId=".$matchId);
         exit();
     } else {
-        $sql = "INSERT INTO matchscores (`matchId`, `teamId`, `playerEmail`, `handicap`, `game1Score`, `game2Score`, `game3Score`)
+        $sql = "INSERT INTO matchScores (`matchId`, `teamId`, `playerEmail`, `handicap`, `game1Score`, `game2Score`, `game3Score`)
         SELECT ?, teammembers.teamId, ?, ?, ?, ?, ? FROM teammembers WHERE teammembers.playerEmail = ?;";
         if ($stmt = mysqli_prepare($link, $sql)) {
             mysqli_stmt_bind_param($stmt, "isiiiis", $matchId, $p1Email, $p1Handicap, $p1g1, $p1g2, $p1g3, $p1Email);
