@@ -70,14 +70,14 @@ if (isset($_POST['submit-scores'])) {
         exit();
     } else {
         $sql = "INSERT INTO matchScores (`matchId`, `teamId`, `playerEmail`, `handicap`, `game1Score`, `game2Score`, `game3Score`) VALUES
-        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ? ? ? ? ?),
-        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ? ? ? ? ?),
-        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ? ? ? ? ?),
-        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ? ? ? ? ?),
-        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ? ? ? ? ?),
-        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ? ? ? ? ?),
-        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ? ? ? ? ?),
-        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ? ? ? ? ?);";
+        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ?, ?, ?, ?, ?),
+        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ?, ?, ?, ?, ?),
+        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ?, ?, ?, ?, ?),
+        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ?, ?, ?, ?, ?),
+        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ?, ?, ?, ?, ?),
+        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ?, ?, ?, ?, ?),
+        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ?, ?, ?, ?, ?),
+        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ?, ?, ?, ?, ?);";
         if ($stmt = mysqli_prepare($link, $sql)) {
             mysqli_stmt_bind_param($stmt, "issiiiiissiiiiissiiiiissiiiiissiiiiissiiiiissiiiiissiiii",
             $matchId, $p1Email, $p1Email, $p1Handicap, $p1g1, $p1g2, $p1g3,
