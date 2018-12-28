@@ -84,6 +84,8 @@ if ($stmt = mysqli_prepare($link, $sql)) {
             <form role="form" action="includes/score-entry.inc.php" method="post">
                 <h1 class="h1 font-weight-bold mb-4">Score Entry</h1>
                 <input type="hidden" name="matchId" value=<?php echo $matchId; ?>>
+                <input type="hidden" name="team1Id" value=<?php echo $team1Id; ?>>
+                <input type="hidden" name="team2Id" value=<?php echo $team2Id; ?>>
                 <div class="row">
                     <div class="col-lg-6">
                         <?php echo '<h2 class="h3 font-weight-bold mb-4">'.$team1Name.'</h2>'; ?>

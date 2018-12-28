@@ -11,8 +11,13 @@ if (isset($_POST['submit-scores'])) {
     require "connection.inc.php";
 
     $matchId = $_POST['matchId'];
+    $team1Id = $_POST['team1Id'];
+    $team2Id = $_POST['team2Id'];
     if (empty($matchId)) {
         header("Location: /score-entry-list.php");
+        exit();
+    } else if (empty($team1Id) || empty($team2Id)) {
+        header("Location: /score-entry.php?matchId=".$matchId);
         exit();
     }
 
@@ -69,25 +74,154 @@ if (isset($_POST['submit-scores'])) {
         header("Location: /score-entry.php?matchId=".$matchId);
         exit();
     } else {
+        # Insert matchScore Data
         $sql = "INSERT INTO matchScores (`matchId`, `teamId`, `playerEmail`, `handicap`, `game1Score`, `game2Score`, `game3Score`) VALUES
-        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ?, ?, ?, ?, ?),
-        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ?, ?, ?, ?, ?),
-        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ?, ?, ?, ?, ?),
-        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ?, ?, ?, ?, ?),
-        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ?, ?, ?, ?, ?),
-        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ?, ?, ?, ?, ?),
-        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ?, ?, ?, ?, ?),
-        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ?, ?, ?, ?, ?);";
+        (?, ?, ?, ?, ?, ?, ?),
+        (?, ?, ?, ?, ?, ?, ?),
+        (?, ?, ?, ?, ?, ?, ?),
+        (?, ?, ?, ?, ?, ?, ?),
+        (?, ?, ?, ?, ?, ?, ?),
+        (?, ?, ?, ?, ?, ?, ?),
+        (?, ?, ?, ?, ?, ?, ?),
+        (?, ?, ?, ?, ?, ?, ?);";
         if ($stmt = mysqli_prepare($link, $sql)) {
-            mysqli_stmt_bind_param($stmt, "issiiiiissiiiiissiiiiissiiiiissiiiiissiiiiissiiiiissiiii",
-            $matchId, $p1Email, $p1Email, $p1Handicap, $p1g1, $p1g2, $p1g3,
-            $matchId, $p2Email, $p2Email, $p2Handicap, $p2g1, $p2g2, $p2g3,
-            $matchId, $p3Email, $p3Email, $p3Handicap, $p3g1, $p3g2, $p3g3,
-            $matchId, $p4Email, $p4Email, $p4Handicap, $p4g1, $p4g2, $p4g3,
-            $matchId, $p5Email, $p5Email, $p5Handicap, $p5g1, $p5g2, $p5g3,
-            $matchId, $p6Email, $p6Email, $p6Handicap, $p6g1, $p6g2, $p6g3,
-            $matchId, $p7Email, $p7Email, $p7Handicap, $p7g1, $p7g2, $p7g3,
-            $matchId, $p8Email, $p8Email, $p8Handicap, $p8g1, $p8g2, $p8g3);
+            mysqli_stmt_bind_param($stmt, "iisiiiiiisiiiiiisiiiiiisiiiiiisiiiiiisiiiiiisiiiiiisiiii",
+            $matchId, $team1Id, $p1Email, $p1Handicap, $p1g1, $p1g2, $p1g3,
+            $matchId, $team1Id, $p2Email, $p2Handicap, $p2g1, $p2g2, $p2g3,
+            $matchId, $team1Id, $p3Email, $p3Handicap, $p3g1, $p3g2, $p3g3,
+            $matchId, $team1Id, $p4Email, $p4Handicap, $p4g1, $p4g2, $p4g3,
+            $matchId, $team2Id, $p5Email, $p5Handicap, $p5g1, $p5g2, $p5g3,
+            $matchId, $team2Id, $p6Email, $p6Handicap, $p6g1, $p6g2, $p6g3,
+            $matchId, $team2Id, $p7Email, $p7Handicap, $p7g1, $p7g2, $p7g3,
+            $matchId, $team2Id, $p8Email, $p8Handicap, $p8g1, $p8g2, $p8g3);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+        } else {
+            exit();
+        }
+        # Calculate team points for match
+        $t1Handicap = $p1Handicap + $p2Handicap + $p3Handicap + $p4Handicap;
+        $t2Handicap = $p5Handicap + $p6Handicap + $p7Handicap + $p8Handicap;
+        $t1g1 = $t1Handicap + $p1g1 + $p2g1 + $p3g1 + $p4g1;
+        $t2g1 = $t2Handicap + $p5g1 + $p6g1 + $p7g1 + $p8g1;
+        $t1g2 = $t1Handicap + $p1g2 + $p2g2 + $p3g2 + $p4g2;
+        $t2g2 = $t2Handicap + $p5g2 + $p6g2 + $p7g2 + $p8g2;
+        $t1g3 = $t1Handicap + $p1g3 + $p2g3 + $p3g3 + $p4g3;
+        $t2g3 = $t2Handicap + $p5g3 + $p6g3 + $p7g3 + $p8g3;
+        $t1Total = $t1g1 + $t1g2 + $t1g3;
+        $t2Total = $t2g1 + $t2g2 + $t2g3;
+
+        $team1Points = 0;
+        $team2Points = 0;
+        if ($t1g1 > $t2g1) {
+            $team1Points += 2;
+        } else if ($t1g1 < $t2g1) {
+            $team2Points += 2;
+        } else {
+            $team1Points += 1;
+            $team2Points += 1;
+        }
+        if ($t1g2 > $t2g2) {
+            $team1Points += 2;
+        } else if ($t1g2 < $t2g2) {
+            $team2Points += 2;
+        } else {
+            $team1Points += 1;
+            $team2Points += 1;
+        }
+        if ($t1g3 > $t2g3) {
+            $team1Points += 2;
+        } else if ($t1g3 < $t2g3) {
+            $team2Points += 2;
+        } else {
+            $team1Points += 1;
+            $team2Points += 1;
+        }
+        if ($t1Total > $t2Total) {
+            $team1Points += 2;
+        } else if ($t1Total < $t2Total) {
+            $team2Points += 2;
+        } else {
+            $team1Points += 1;
+            $team2Points += 1;
+        }
+        $sql = "UPDATE matches SET team1Points=?, team2Points=? WHERE id=?;";
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            mysqli_stmt_bind_param($stmt, "iii", $team1Points, $team2Points, $matchId);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+        } else {
+            exit();
+        }
+        # Update team total points
+        $sql = "UPDATE teams SET totalPoints=(SELECT SUM(IF(team1=?, team1Points, team2Points)) AS totalPts FROM matches WHERE team1=? OR team2=?) WHERE id=?;";
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            mysqli_stmt_bind_param($stmt, "iiii", $team1Id, $team1Id, $team1Id, $team1Id);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+        } else {
+            exit();
+        }
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            mysqli_stmt_bind_param($stmt, "iiii", $team2Id, $team2Id, $team2Id, $team2Id);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+        } else {
+            exit();
+        }
+        # Update player handicaps
+        $sql = "UPDATE players SET currentHandicap=(SELECT ROUND((AVG(`game1Score`)+AVG(`game2Score`)+AVG(`game3Score`))/3, 0) as Average FROM matchScores where playerEmail=?) WHERE email=?;";
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            mysqli_stmt_bind_param($stmt, "ss", $p1Email, $p1Email);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+        } else {
+            exit();
+        }
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            mysqli_stmt_bind_param($stmt, "ss", $p2Email, $p2Email);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+        } else {
+            exit();
+        }
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            mysqli_stmt_bind_param($stmt, "ss", $p3Email, $p3Email);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+        } else {
+            exit();
+        }
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            mysqli_stmt_bind_param($stmt, "ss", $p4Email, $p4Email);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+        } else {
+            exit();
+        }
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            mysqli_stmt_bind_param($stmt, "ss", $p5Email, $p5Email);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+        } else {
+            exit();
+        }
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            mysqli_stmt_bind_param($stmt, "ss", $p6Email, $p6Email);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+        } else {
+            exit();
+        }
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            mysqli_stmt_bind_param($stmt, "ss", $p7Email, $p7Email);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+        } else {
+            exit();
+        }
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            mysqli_stmt_bind_param($stmt, "ss", $p8Email, $p8Email);
             mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
         } else {
