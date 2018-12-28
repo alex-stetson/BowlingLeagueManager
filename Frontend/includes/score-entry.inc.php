@@ -69,59 +69,25 @@ if (isset($_POST['submit-scores'])) {
         header("Location: /score-entry.php?matchId=".$matchId);
         exit();
     } else {
-        $sql = "INSERT INTO matchScores (`matchId`, `teamId`, `playerEmail`, `handicap`, `game1Score`, `game2Score`, `game3Score`)
-        SELECT ?, teamMembers.teamId, ?, ?, ?, ?, ? FROM teamMembers WHERE teamMembers.playerEmail = ?;";
+        $sql = "INSERT INTO matchScores (`matchId`, `teamId`, `playerEmail`, `handicap`, `game1Score`, `game2Score`, `game3Score`) VALUES
+        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ? ? ? ? ?),
+        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ? ? ? ? ?),
+        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ? ? ? ? ?),
+        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ? ? ? ? ?),
+        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ? ? ? ? ?),
+        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ? ? ? ? ?),
+        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ? ? ? ? ?),
+        (?, (SELECT teamMembers.teamId from teamMembers WHERE teamMembers.playerEmail=?), ? ? ? ? ?);";
         if ($stmt = mysqli_prepare($link, $sql)) {
-            mysqli_stmt_bind_param($stmt, "isiiiis", $matchId, $p1Email, $p1Handicap, $p1g1, $p1g2, $p1g3, $p1Email);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_close($stmt);
-        } else {
-            exit();
-        }
-        if ($stmt = mysqli_prepare($link, $sql)) {
-            mysqli_stmt_bind_param($stmt, "isiiiis", $matchId, $p2Email, $p2Handicap, $p2g1, $p2g2, $p2g3, $p2Email);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_close($stmt);
-        } else {
-            exit();
-        }
-        if ($stmt = mysqli_prepare($link, $sql)) {
-            mysqli_stmt_bind_param($stmt, "isiiiis", $matchId, $p3Email, $p3Handicap, $p3g1, $p3g2, $p3g3, $p3Email);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_close($stmt);
-        } else {
-            exit();
-        }
-        if ($stmt = mysqli_prepare($link, $sql)) {
-            mysqli_stmt_bind_param($stmt, "isiiiis", $matchId, $p4Email, $p4Handicap, $p4g1, $p4g2, $p4g3, $p4Email);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_close($stmt);
-        } else {
-            exit();
-        }
-        if ($stmt = mysqli_prepare($link, $sql)) {
-            mysqli_stmt_bind_param($stmt, "isiiiis", $matchId, $p5Email, $p5Handicap, $p5g1, $p5g2, $p5g3, $p5Email);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_close($stmt);
-        } else {
-            exit();
-        }
-        if ($stmt = mysqli_prepare($link, $sql)) {
-            mysqli_stmt_bind_param($stmt, "isiiiis", $matchId, $p6Email, $p6Handicap, $p6g1, $p6g2, $p6g3, $p6Email);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_close($stmt);
-        } else {
-            exit();
-        }
-        if ($stmt = mysqli_prepare($link, $sql)) {
-            mysqli_stmt_bind_param($stmt, "isiiiis", $matchId, $p7Email, $p7Handicap, $p7g1, $p7g2, $p7g3, $p7Email);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_close($stmt);
-        } else {
-            exit();
-        }
-        if ($stmt = mysqli_prepare($link, $sql)) {
-            mysqli_stmt_bind_param($stmt, "isiiiis", $matchId, $p8Email, $p8Handicap, $p8g1, $p8g2, $p8g3, $p8Email);
+            mysqli_stmt_bind_param($stmt, "issiiiiissiiiiissiiiiissiiiiissiiiiissiiiiissiiiiissiiii",
+            $matchId, $p1Email, $p1Email, $p1Handicap, $p1g1, $p1g2, $p1g3,
+            $matchId, $p2Email, $p2Email, $p2Handicap, $p2g1, $p2g2, $p2g3,
+            $matchId, $p3Email, $p3Email, $p3Handicap, $p3g1, $p3g2, $p3g3,
+            $matchId, $p4Email, $p4Email, $p4Handicap, $p4g1, $p4g2, $p4g3,
+            $matchId, $p5Email, $p5Email, $p5Handicap, $p5g1, $p5g2, $p5g3,
+            $matchId, $p6Email, $p6Email, $p6Handicap, $p6g1, $p6g2, $p6g3,
+            $matchId, $p7Email, $p7Email, $p7Handicap, $p7g1, $p7g2, $p7g3,
+            $matchId, $p8Email, $p8Email, $p8Handicap, $p8g1, $p8g2, $p8g3);
             mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
         } else {
