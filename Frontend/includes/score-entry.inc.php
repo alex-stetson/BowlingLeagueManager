@@ -83,7 +83,12 @@ if (isset($_POST['submit-scores'])) {
         (?, ?, ?, ?, ?, ?, ?),
         (?, ?, ?, ?, ?, ?, ?),
         (?, ?, ?, ?, ?, ?, ?),
-        (?, ?, ?, ?, ?, ?, ?);";
+        (?, ?, ?, ?, ?, ?, ?)
+        ON DUPLICATE KEY UPDATE
+        handicap = VALUES(handicap),
+        game1Score = VALUES(game1Score),
+        game2Score = VALUES(game2Score),
+        game3Score = VALUES(game3Score);";
         if ($stmt = mysqli_prepare($link, $sql)) {
             mysqli_stmt_bind_param($stmt, "iisiiiiiisiiiiiisiiiiiisiiiiiisiiiiiisiiiiiisiiiiiisiiii",
             $matchId, $team1Id, $p1Email, $p1Handicap, $p1g1, $p1g2, $p1g3,
