@@ -45,6 +45,10 @@ if ($stmt = mysqli_prepare($link, $sql)) {
             $team2Id = $row['team2'];
         }
     }
+    if ($team1Id == 0 && $team2Id == 0) {
+        header("Location: score-entry-list.php");
+        exit();
+    }
 } else {
     header("Location: score-entry-list.php");
     exit();
