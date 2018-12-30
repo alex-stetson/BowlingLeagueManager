@@ -102,7 +102,7 @@ if (isset($_SESSION['userEmail']) && $_SESSION['userEmail'] != '') {
                       </div>
                     </div>
                     <div class="text-center">
-                      <button type="submit" class="btn btn-primary my-4" name="login-submit">
+                      <button type="submit" class="btn btn-default my-4" name="login-submit">
                         Sign in
                       </button>
                     </div>
