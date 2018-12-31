@@ -17,7 +17,7 @@ if (!isset($_SESSION['userEmail']) || $_SESSION['userEmail'] == '') {
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
 
-    <title>Create Player</title>
+    <title>add Player</title>
 
     <!-- Favicon -->
     <link href="assets/img/brand/favicon.png" rel="icon" type="image/png" />
@@ -50,7 +50,7 @@ if (!isset($_SESSION['userEmail']) || $_SESSION['userEmail'] == '') {
               <div class="card bg-secondary shadow border-0">
                 <div class="card-body px-lg-5 py-lg-5">
                   <div class="text-center text-muted mb-4">
-                    <h3>Create Player</h3>
+                    <h3>add Player</h3>
                     <?php
                     if (isset($_GET['success']) && $_GET['success'] == "true") {
                         echo '<small class="text-success">Player Added!</small>';
@@ -66,7 +66,7 @@ if (!isset($_SESSION['userEmail']) || $_SESSION['userEmail'] == '') {
                     }
                   ?>
                   </div>
-                  <form role="form" action="includes/create-player.inc.php" method="post">
+                  <form role="form" action="includes/add-player.inc.php" method="post">
                     <div class="form-group mb-3">
                       <div class="input-group input-group-alternative">
                         <div class="input-group-prepend">
@@ -98,7 +98,7 @@ if (!isset($_SESSION['userEmail']) || $_SESSION['userEmail'] == '') {
                       </div>
                     </div>
                     <div class="text-center">
-                      <button type="submit" class="btn btn-default my-4" name="create-player-submit">
+                      <button type="submit" class="btn btn-default my-4" name="add-player-submit">
                         Add Player
                       </button>
                     </div>

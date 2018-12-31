@@ -6,6 +6,8 @@ if (!isset($_SESSION['userEmail']) || $_SESSION['userEmail'] == '') {
     exit();
 }
 
+require "includes/connection.inc.php";
+
 $sql = "SELECT * FROM players;";
 if ($stmt = mysqli_prepare($link, $sql)) {
     mysqli_stmt_execute($stmt);
@@ -53,8 +55,8 @@ if ($stmt = mysqli_prepare($link, $sql)) {
       include_once "navbar.php";
     ?>
     <main>
-        <h2>Players</h2>
-        <a class="btn" href="/create-player.php"><i class="ni ni-fat-add"></i></a>
+        <h2 style="float: left">Players</h2>
+        <a style="float: right" class="btn btn-default" href="/add-player.php" role="button">Add Player</a>
         <table class="table">
             <thead>
                 <tr>
@@ -71,7 +73,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
                     echo '<td>'.$row['email'].'</td>';
                     echo '<td>'.$row['playerName'].'</td>';
                     echo '<td>'.$row['currentHandicap'].'</td>';
-                    echo '<a class="btn btn-default" href="/edit-player.php?playerEmail='.$row['email'].'" role="button">Edit Player</a>';
+                    echo '<td><a class="btn btn-default" href="/edit-player.php?playerEmail='.$row['email'].'" role="button">Edit Player</a></td>';
                     echo '</tr>';
                 }
                 ?>
