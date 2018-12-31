@@ -17,7 +17,7 @@ if (!isset($_SESSION['userEmail']) || $_SESSION['userEmail'] == '') {
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
 
-    <title>add Player</title>
+    <title>Add Player</title>
 
     <!-- Favicon -->
     <link href="assets/img/brand/favicon.png" rel="icon" type="image/png" />
@@ -50,7 +50,7 @@ if (!isset($_SESSION['userEmail']) || $_SESSION['userEmail'] == '') {
               <div class="card bg-secondary shadow border-0">
                 <div class="card-body px-lg-5 py-lg-5">
                   <div class="text-center text-muted mb-4">
-                    <h3>add Player</h3>
+                    <h3>Add Player</h3>
                     <?php
                     if (isset($_GET['success']) && $_GET['success'] == "true") {
                         echo '<small class="text-success">Player Added!</small>';

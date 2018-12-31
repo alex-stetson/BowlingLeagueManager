@@ -55,6 +55,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
       include_once "navbar.php";
     ?>
     <main>
+        <br>
         <h2 style="float: left">Players</h2>
         <a style="float: right" class="btn btn-default" href="/add-player.php" role="button">Add Player</a>
         <table class="table">
