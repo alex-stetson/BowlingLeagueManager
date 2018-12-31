@@ -71,11 +71,6 @@ if ($stmt = mysqli_prepare($link, $sql)) {
                 ?>
             </tbody>
         </table>
-        <?php
-        while ($row = mysqli_fetch_assoc($result)) {
-
-        }
-        ?>
     </main>
 
     <!-- Core -->
