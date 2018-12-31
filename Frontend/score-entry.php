@@ -2,12 +2,12 @@
 
 session_start();
 if (!isset($_SESSION['userEmail']) || $_SESSION['userEmail'] == '') {
-    header("Location: login.php");
+    header("Location: /login.php");
     exit();
 }
 
 if (!isset($_GET['matchId'])) {
-    header("Location: score-entry-list.php");
+    header("Location: /score-entry-list.php");
     exit();
 }
 
@@ -50,11 +50,11 @@ if ($stmt = mysqli_prepare($link, $sql)) {
         }
     }
     if ($team1Id == 0 && $team2Id == 0) {
-        header("Location: score-entry-list.php");
+        header("Location: /score-entry-list.php");
         exit();
     }
 } else {
-    header("Location: score-entry-list.php");
+    header("Location: /score-entry-list.php");
     exit();
 }
 

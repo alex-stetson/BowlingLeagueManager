@@ -2,7 +2,7 @@
 
 session_start();
 if (!isset($_SESSION['userEmail']) || $_SESSION['userEmail'] == '') {
-    header("Location: login.php");
+    header("Location: /login.php");
     exit();
 }
 
@@ -232,7 +232,7 @@ if (isset($_POST['submit-scores'])) {
         } else {
             exit();
         }
-        header("Location: /index.php");
+        header("Location: /");
     }
 } else {
     header("Location: /score-entry-list.php");

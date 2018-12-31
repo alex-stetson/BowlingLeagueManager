@@ -21,7 +21,7 @@ if (isset($_POST['login-submit'])) {
                 if (password_verify($password, $row['pass'])) {
                     session_start();
                     $_SESSION['userEmail'] = $row['email'];
-                    header("Location: /index.php");
+                    header("Location: /");
                     exit();
                 } else {
                     header("Location: /login.php?error=incorrectcreds&loginEmail=".$email);
@@ -37,7 +37,7 @@ if (isset($_POST['login-submit'])) {
         }
     }
 } else {
-    header("Location: /index.php");
+    header("Location: /");
     exit();
 }
 

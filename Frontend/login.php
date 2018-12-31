@@ -2,7 +2,7 @@
 
 session_start();
 if (isset($_SESSION['userEmail']) && $_SESSION['userEmail'] != '') {
-    header("Location: index.php");
+    header("Location: /");
     exit();
 }
 

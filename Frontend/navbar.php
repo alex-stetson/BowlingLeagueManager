@@ -7,7 +7,7 @@
     <header class="header-global">
       <nav class="navbar navbar-expand-lg navbar-dark bg-default">
         <div class="container">
-          <a class="navbar-brand" href="#">Bowling League</a>
+          <a class="navbar-brand" href="/">Bowling League</a>
           <button
             class="navbar-toggler"
             type="button"
@@ -48,7 +48,7 @@
                 <a class="nav-link" href="#">Upcoming Matches</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Standings</a>
+                <a class="nav-link" href="/standings.php">Standings</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Past Matches</a>
