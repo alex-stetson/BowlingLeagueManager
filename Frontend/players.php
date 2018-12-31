@@ -1,11 +1,12 @@
 <?php
 
-require "includes/connection.inc.php";
-$sql = "SELECT t1.id, t1.teamName, t1.totalPoints, COUNT(t2.totalPoints) AS Rank
-FROM teams t1
-JOIN teams t2 ON t1.totalPoints < t2.totalPoints OR (t1.totalPoints=t2.totalPoints and t1.id = t2.id)
-GROUP BY t1.id, t1.totalPoints
-ORDER BY t1.totalPoints DESC, t1.id DESC;";
+session_start();
+if (!isset($_SESSION['userEmail']) || $_SESSION['userEmail'] == '') {
+    header("Location: /login.php");
+    exit();
+}
+
+$sql = "SELECT * FROM players;";
 if ($stmt = mysqli_prepare($link, $sql)) {
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
@@ -13,6 +14,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
 } else {
     exit();
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +26,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
 
-    <title>Standings</title>
+    <title>Players</title>
 
     <!-- Favicon -->
     <link href="assets/img/brand/favicon.png" rel="icon" type="image/png" />
@@ -51,21 +53,25 @@ if ($stmt = mysqli_prepare($link, $sql)) {
       include_once "navbar.php";
     ?>
     <main>
+        <h2>Players</h2>
+        <a class="btn" href="/create-player.php"><i class="ni ni-fat-add"></i></a>
         <table class="table">
             <thead>
                 <tr>
-                <th scope="col">#</th>
-                <th scope="col">Team Name</th>
-                <th scope="col">Points</th>
+                <th scope="col">Email</th>
+                <th scope="col">Name</th>
+                <th scope="col">Current Handicap</th>
+                <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
                 <?php
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo '<tr>';
-                    echo '<th scope="row">'.$row['Rank'].'</th>';
-                    echo '<td>'.$row['teamName'].'</td>';
-                    echo '<td>'.$row['totalPoints'].'</td>';
+                    echo '<td>'.$row['email'].'</td>';
+                    echo '<td>'.$row['playerName'].'</td>';
+                    echo '<td>'.$row['currentHandicap'].'</td>';
+                    echo '<a class="btn btn-default" href="/edit-player.php?playerEmail='.$row['email'].'" role="button">Edit Player</a>';
                     echo '</tr>';
                 }
                 ?>

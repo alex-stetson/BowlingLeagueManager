@@ -17,7 +17,7 @@ if (!isset($_SESSION['userEmail']) || $_SESSION['userEmail'] == '') {
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
 
-    <title></title>
+    <title>Create Player</title>
 
     <!-- Favicon -->
     <link href="assets/img/brand/favicon.png" rel="icon" type="image/png" />
