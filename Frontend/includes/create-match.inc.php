@@ -16,6 +16,9 @@ if (isset($_POST['create-match-submit'])) {
     if (empty($team1) || empty($team2)) {
         header("Location: /create-match.php?error=emptyfields");
         exit();
+    } else if ($team1 == "NULL" || $team2 == "NULL") {
+        header("Location: /create-match.php?error=emptyfields");
+        exit();
     } else if ($team1 == $team2) {
         header("Location: /create-match.php?error=sameteam");
         exit();
@@ -33,10 +36,10 @@ if (isset($_POST['create-match-submit'])) {
                 exit();
             }
         } else {
-            $matchTime = strtotime($matchTime);
+            $matchTime = date ("Y-m-d H:i:s", strtotime($matchTime));
             $sql = "INSERT INTO matches (`team1`, `team2`, `matchTime`) VALUES (?, ?, ?);";
             if ($stmt = mysqli_prepare($link, $sql)) {
-                mysqli_stmt_bind_param($stmt, "ssi", $team1, $team2, $matchTime);
+                mysqli_stmt_bind_param($stmt, "sss", $team1, $team2, $matchTime);
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_close($stmt);
                 header("Location: /matches.php");
