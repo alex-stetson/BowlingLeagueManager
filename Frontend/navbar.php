@@ -50,7 +50,7 @@
                 <a class="nav-link" href="/standings.php">Standings</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Past Matches</a>
+                <a class="nav-link" href="/past-matches.php">Past Matches</a>
               </li>
               <li class="nav-item"><a class="nav-link" href="#">Teams</a></li>
               <?php
@@ -68,6 +68,10 @@
                     <a href="#" class="dropdown-item">Create Team</a>
                     <a href="/includes/logout.inc.php" class="dropdown-item">Logout</a>
                   </div>
+                </li>
+              <?php } else { ?>
+                <li class="nav-item">
+                  <a class="nav-link" href="/login.php"><i class="ni ni-key-25"></i></a>
                 </li>
               <?php } ?>
             </ul>

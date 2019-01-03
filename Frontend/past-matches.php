@@ -4,7 +4,7 @@ require "includes/connection.inc.php";
 $sql = "SELECT matches.matchTime, t1.teamName AS team1Name, t2.teamName AS team2Name
 FROM teams t1 LEFT OUTER JOIN matches ON t1.id = matches.team1
 LEFT OUTER JOIN teams t2 ON matches.team2 = t2.id
-WHERE matches.matchTime >= DATE_SUB(NOW(), INTERVAL 2 HOUR) ORDER BY matches.matchTime ASC;";
+WHERE matches.matchTime < DATE_SUB(NOW(), INTERVAL 2 HOUR) ORDER BY matches.matchTime DEC;";
 if ($stmt = mysqli_prepare($link, $sql)) {
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
@@ -23,7 +23,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
 
-    <title>Home</title>
+    <title>Past Matches</title>
 
     <!-- Favicon -->
     <link href="assets/img/brand/favicon.png" rel="icon" type="image/png" />
@@ -81,7 +81,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
                   echo '</tbody>';
                   echo '</table>';
                 } else {
-                  echo '<h2>No Upcoming Matches</h2>';
+                  echo '<h2>No Matches</h2>';
                 }
                 ?>
         </div>
