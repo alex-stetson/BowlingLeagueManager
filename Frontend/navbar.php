@@ -23,7 +23,6 @@
             <div class="navbar-collapse-header">
               <div class="row">
                 <div class="col-6 collapse-brand">
-                  <!-- CHANGE!!! -->
                   <a href="./index.html">
                     <img src="./assets/img/brand/blue.png" />
                   </a>
@@ -45,7 +44,7 @@
             </div>
             <ul class="navbar-nav ml-lg-auto">
               <li class="nav-item">
-                <a class="nav-link" href="#">Upcoming Matches</a>
+                <a class="nav-link" href="/">Upcoming Matches</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/standings.php">Standings</a>

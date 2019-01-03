@@ -1,3 +1,19 @@
+<?php
+
+require "includes/connection.inc.php";
+$sql = "SELECT matches.matchTime, t1.teamName AS team1Name, t2.teamName AS team2Name
+FROM teams t1 LEFT OUTER JOIN matches ON t1.id = matches.team1
+LEFT OUTER JOIN teams t2 ON matches.team2 = t2.id
+WHERE matches.matchTime >= DATE_SUB(NOW(), INTERVAL 2 HOUR) ORDER BY matches.matchTime ASC;";
+if ($stmt = mysqli_prepare($link, $sql)) {
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    mysqli_stmt_close($stmt);
+} else {
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -34,7 +50,42 @@
       include_once "navbar.php";
     ?>
     <main>
-        <!-- ENTER STUFF HERE -->
+      <div class="row justify-content-center mt-md">
+        <div class="col-lg-12">
+          <h1 class="h1 font-weight-bold mb-4">Upcoming Matches</h1>
+                <?php
+                $currTime = NULL;
+                if ($row = mysqli_fetch_assoc($result)) {
+                  echo '<table class="table">';
+                  echo '<tbody>';
+                  $currTime = $row['matchTime'];
+                  echo '<h3 style="font-weight:bold">'.date('m/d/y h:i A', strtotime($currTime)).'</h3>';
+                  echo '<tr>';
+                  echo '<td>'.$row['team1Name'].' vs '.$row['team2Name'].'</td>';
+                  echo '<td>'.$row['matchTime'].'</td>';
+                  echo '</tr>';
+                  while ($row = mysqli_fetch_assoc($result)) {
+                    if ($row['matchTime'] != $currTime) {
+                      $currTime = $row['matchTime'];
+                      echo '</tbody>';
+                      echo '</table>';
+                      echo '<h3 style="font-weight:bold">'.date('m/d/y h:i A', strtotime($currTime)).'</h3>';
+                      echo '<table class="table">';
+                      echo '<tbody>';
+                    }
+                    echo '<tr>';
+                    echo '<td>'.$row['team1Name'].' vs '.$row['team2Name'].'</td>';
+                    echo '<td>'.$row['matchTime'].'</td>';
+                    echo '</tr>';
+                  }
+                  echo '</tbody>';
+                  echo '</table>';
+                } else {
+                  echo '<h2>No Upcoming Matches</h2>';
+                }
+                ?>
+        </div>
+      </div>
     </main>
 
     <!-- Core -->
