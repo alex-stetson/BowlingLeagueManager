@@ -4,7 +4,7 @@ require "includes/connection.inc.php";
 $sql = "SELECT matches.matchTime, t1.teamName AS team1Name, t2.teamName AS team2Name
 FROM teams t1 LEFT OUTER JOIN matches ON t1.id = matches.team1
 LEFT OUTER JOIN teams t2 ON matches.team2 = t2.id
-WHERE matches.matchTime < DATE_SUB(NOW(), INTERVAL 2 HOUR) ORDER BY matches.matchTime DEC;";
+WHERE matches.matchTime < DATE_SUB(NOW(), INTERVAL 2 HOUR) ORDER BY matches.matchTime DESC;";
 if ($stmt = mysqli_prepare($link, $sql)) {
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
@@ -52,7 +52,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
     <main>
       <div class="row justify-content-center mt-md">
         <div class="col-lg-12">
-          <h1 class="h1 font-weight-bold mb-4">Upcoming Matches</h1>
+          <h1 class="h1 font-weight-bold mb-4">Past Matches</h1>
                 <?php
                 $currTime = NULL;
                 if ($row = mysqli_fetch_assoc($result)) {
