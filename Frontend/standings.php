@@ -51,7 +51,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
       include_once "navbar.php";
     ?>
     <main>
-        <h1 class="h1 font-weight-bold mb-4">Past Matches</h1>
+        <h1 class="h1 font-weight-bold mb-4">Standings</h1>
         <table class="table">
             <thead>
                 <tr>
