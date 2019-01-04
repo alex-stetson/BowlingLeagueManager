@@ -100,59 +100,70 @@ if (isset($_POST['submit-scores'])) {
         } else {
             exit();
         }
-        # Calculate team points for match
-        $t1Handicap = $p1Handicap + $p2Handicap + $p3Handicap + $p4Handicap;
-        $t2Handicap = $p5Handicap + $p6Handicap + $p7Handicap + $p8Handicap;
-        $t1g1 = $t1Handicap + $p1g1 + $p2g1 + $p3g1 + $p4g1;
-        $t2g1 = $t2Handicap + $p5g1 + $p6g1 + $p7g1 + $p8g1;
-        $t1g2 = $t1Handicap + $p1g2 + $p2g2 + $p3g2 + $p4g2;
-        $t2g2 = $t2Handicap + $p5g2 + $p6g2 + $p7g2 + $p8g2;
-        $t1g3 = $t1Handicap + $p1g3 + $p2g3 + $p3g3 + $p4g3;
-        $t2g3 = $t2Handicap + $p5g3 + $p6g3 + $p7g3 + $p8g3;
-        $t1Total = $t1g1 + $t1g2 + $t1g3;
-        $t2Total = $t2g1 + $t2g2 + $t2g3;
+        if (empty($_POST['shouldCountPoints'])) {
+            # Calculate team points for match
+            $t1Handicap = $p1Handicap + $p2Handicap + $p3Handicap + $p4Handicap;
+            $t2Handicap = $p5Handicap + $p6Handicap + $p7Handicap + $p8Handicap;
+            $t1g1 = $t1Handicap + $p1g1 + $p2g1 + $p3g1 + $p4g1;
+            $t2g1 = $t2Handicap + $p5g1 + $p6g1 + $p7g1 + $p8g1;
+            $t1g2 = $t1Handicap + $p1g2 + $p2g2 + $p3g2 + $p4g2;
+            $t2g2 = $t2Handicap + $p5g2 + $p6g2 + $p7g2 + $p8g2;
+            $t1g3 = $t1Handicap + $p1g3 + $p2g3 + $p3g3 + $p4g3;
+            $t2g3 = $t2Handicap + $p5g3 + $p6g3 + $p7g3 + $p8g3;
+            $t1Total = $t1g1 + $t1g2 + $t1g3;
+            $t2Total = $t2g1 + $t2g2 + $t2g3;
 
-        $team1Points = 0;
-        $team2Points = 0;
-        if ($t1g1 > $t2g1) {
-            $team1Points += 2;
-        } else if ($t1g1 < $t2g1) {
-            $team2Points += 2;
+            $team1Points = 0;
+            $team2Points = 0;
+            if ($t1g1 > $t2g1) {
+                $team1Points += 2;
+            } else if ($t1g1 < $t2g1) {
+                $team2Points += 2;
+            } else {
+                $team1Points += 1;
+                $team2Points += 1;
+            }
+            if ($t1g2 > $t2g2) {
+                $team1Points += 2;
+            } else if ($t1g2 < $t2g2) {
+                $team2Points += 2;
+            } else {
+                $team1Points += 1;
+                $team2Points += 1;
+            }
+            if ($t1g3 > $t2g3) {
+                $team1Points += 2;
+            } else if ($t1g3 < $t2g3) {
+                $team2Points += 2;
+            } else {
+                $team1Points += 1;
+                $team2Points += 1;
+            }
+            if ($t1Total > $t2Total) {
+                $team1Points += 2;
+            } else if ($t1Total < $t2Total) {
+                $team2Points += 2;
+            } else {
+                $team1Points += 1;
+                $team2Points += 1;
+            }
+            $sql = "UPDATE matches SET team1Points=?, team2Points=? WHERE id=?;";
+            if ($stmt = mysqli_prepare($link, $sql)) {
+                mysqli_stmt_bind_param($stmt, "iii", $team1Points, $team2Points, $matchId);
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_close($stmt);
+            } else {
+                exit();
+            }
         } else {
-            $team1Points += 1;
-            $team2Points += 1;
-        }
-        if ($t1g2 > $t2g2) {
-            $team1Points += 2;
-        } else if ($t1g2 < $t2g2) {
-            $team2Points += 2;
-        } else {
-            $team1Points += 1;
-            $team2Points += 1;
-        }
-        if ($t1g3 > $t2g3) {
-            $team1Points += 2;
-        } else if ($t1g3 < $t2g3) {
-            $team2Points += 2;
-        } else {
-            $team1Points += 1;
-            $team2Points += 1;
-        }
-        if ($t1Total > $t2Total) {
-            $team1Points += 2;
-        } else if ($t1Total < $t2Total) {
-            $team2Points += 2;
-        } else {
-            $team1Points += 1;
-            $team2Points += 1;
-        }
-        $sql = "UPDATE matches SET team1Points=?, team2Points=? WHERE id=?;";
-        if ($stmt = mysqli_prepare($link, $sql)) {
-            mysqli_stmt_bind_param($stmt, "iii", $team1Points, $team2Points, $matchId);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_close($stmt);
-        } else {
-            exit();
+            $sql = "UPDATE matches SET team1Points=0, team2Points=0 WHERE id=?;";
+            if ($stmt = mysqli_prepare($link, $sql)) {
+                mysqli_stmt_bind_param($stmt, "i", $matchId);
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_close($stmt);
+            } else {
+                exit();
+            }
         }
         # Update team total points
         $sql = "UPDATE teams SET totalPoints=(SELECT SUM(IF(team1=?, team1Points, team2Points)) AS totalPts FROM matches WHERE team1=? OR team2=?) WHERE id=?;";

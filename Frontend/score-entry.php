@@ -219,6 +219,12 @@ if ($stmt = mysqli_prepare($link, $sql)) {
                     </div>
                 </div>
                 <div class="text-center">
+                    <div class="custom-control custom-control-alternative custom-checkbox">
+                        <input class="custom-control-input" id="shouldCountPoints" name="shouldCountPoints" type="checkbox">
+                        <label class="custom-control-label" for="shouldCountPoints">
+                            <span>Check this box if this match should not affect team standings (i.e. match is only for handicaps)</span>
+                        </label>
+                    </div>
                     <button type="submit" class="btn btn-default my-4" name="submit-scores">
                         Submit
                     </button>
