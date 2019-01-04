@@ -1,10 +1,6 @@
 <?php
 
-session_start();
-if (!isset($_SESSION['userEmail']) || $_SESSION['userEmail'] == '') {
-    header("Location: /login.php");
-    exit();
-}
+require "requireAuth.inc.php";
 
 if (isset($_POST['create-match-submit'])) {
 

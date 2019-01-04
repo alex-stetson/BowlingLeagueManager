@@ -48,7 +48,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
 
   <body>
     <?php
-      include_once "navbar.php";
+      include_once "includes/navbar.inc.php";
     ?>
     <main>
         <h1 class="h1 font-weight-bold mb-4">Standings</h1>

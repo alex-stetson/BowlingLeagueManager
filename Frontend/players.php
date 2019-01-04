@@ -1,10 +1,6 @@
 <?php
 
-session_start();
-if (!isset($_SESSION['userEmail']) || $_SESSION['userEmail'] == '') {
-    header("Location: /login.php");
-    exit();
-}
+require "requireAuth.inc.php";
 
 require "includes/connection.inc.php";
 
@@ -52,7 +48,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
 
   <body>
     <?php
-      include_once "navbar.php";
+      include_once "includes/navbar.inc.php";
     ?>
     <main>
         <br>

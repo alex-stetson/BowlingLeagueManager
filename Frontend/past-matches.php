@@ -47,7 +47,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
 
   <body>
     <?php
-      include_once "navbar.php";
+      include_once "includes/navbar.inc.php";
     ?>
     <main>
       <div class="row justify-content-center">

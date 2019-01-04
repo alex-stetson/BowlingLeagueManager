@@ -1,10 +1,6 @@
 <?php
 
-session_start();
-if (!isset($_SESSION['userEmail']) || $_SESSION['userEmail'] == '') {
-    header("Location: /login.php");
-    exit();
-}
+require "requireAuth.inc.php";
 
 if (!isset($_GET['matchId'])) {
     header("Location: /score-entry-list.php");
@@ -85,7 +81,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
 
 <body>
     <?php
-      include_once "navbar.php";
+      include_once "includes/navbar.inc.php";
     ?>
     <div class="row justify-content-center mt-md">
         <div class="col-lg-12">
