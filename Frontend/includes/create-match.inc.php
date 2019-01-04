@@ -13,6 +13,7 @@ if (isset($_POST['create-match-submit'])) {
     $team1 = $_POST['team1'];
     $team2 = $_POST['team2'];
     $matchTime = $_POST['matchTime'];
+    $matchLocation = $_POST['matchLocation'];
     if (empty($team1) || empty($team2)) {
         header("Location: /create-match.php?error=emptyfields");
         exit();
@@ -24,29 +25,58 @@ if (isset($_POST['create-match-submit'])) {
         exit();
     } else {
         if (empty($matchTime)) {
-            $sql = "INSERT INTO matches (`team1`, `team2`) VALUES (?, ?);";
-            if ($stmt = mysqli_prepare($link, $sql)) {
-                mysqli_stmt_bind_param($stmt, "ss", $team1, $team2);
-                mysqli_stmt_execute($stmt);
-                mysqli_stmt_close($stmt);
-                header("Location: /matches.php");
-                exit();
+            if (empty($matchLocation)) {
+                $sql = "INSERT INTO matches (`team1`, `team2`) VALUES (?, ?);";
+                if ($stmt = mysqli_prepare($link, $sql)) {
+                    mysqli_stmt_bind_param($stmt, "ss", $team1, $team2);
+                    mysqli_stmt_execute($stmt);
+                    mysqli_stmt_close($stmt);
+                    header("Location: /matches.php");
+                    exit();
+                } else {
+                    header("Location: /create-match.php?error=unknownerror");
+                    exit();
+                }
             } else {
-                header("Location: /create-match.php?error=unknownerror");
-                exit();
+                $sql = "INSERT INTO matches (`team1`, `team2`, `matchLocation`) VALUES (?, ?, ?);";
+                if ($stmt = mysqli_prepare($link, $sql)) {
+                    mysqli_stmt_bind_param($stmt, "sss", $team1, $team2, $matchLocation);
+                    mysqli_stmt_execute($stmt);
+                    mysqli_stmt_close($stmt);
+                    header("Location: /matches.php");
+                    exit();
+                } else {
+                    header("Location: /create-match.php?error=unknownerror");
+                    exit();
+                }
             }
         } else {
-            $matchTime = date ("Y-m-d H:i:s", strtotime($matchTime));
-            $sql = "INSERT INTO matches (`team1`, `team2`, `matchTime`) VALUES (?, ?, ?);";
-            if ($stmt = mysqli_prepare($link, $sql)) {
-                mysqli_stmt_bind_param($stmt, "sss", $team1, $team2, $matchTime);
-                mysqli_stmt_execute($stmt);
-                mysqli_stmt_close($stmt);
-                header("Location: /matches.php");
-                exit();
+            if (empty($matchLocation)) {
+                $matchTime = date ("Y-m-d H:i:s", strtotime($matchTime));
+                $sql = "INSERT INTO matches (`team1`, `team2`, `matchTime`) VALUES (?, ?, ?);";
+                if ($stmt = mysqli_prepare($link, $sql)) {
+                    mysqli_stmt_bind_param($stmt, "sss", $team1, $team2, $matchTime);
+                    mysqli_stmt_execute($stmt);
+                    mysqli_stmt_close($stmt);
+                    header("Location: /matches.php");
+                    exit();
+                } else {
+                    header("Location: /create-match.php?error=unknownerror");
+                    exit();
+                }
             } else {
-                header("Location: /create-match.php?error=unknownerror");
-                exit();
+                $matchTime = date ("Y-m-d H:i:s", strtotime($matchTime));
+                $sql = "INSERT INTO matches (`team1`, `team2`, `matchTime`, `matchLocation`) VALUES (?, ?, ?, ?);";
+                if ($stmt = mysqli_prepare($link, $sql)) {
+                    mysqli_stmt_bind_param($stmt, "ssss", $team1, $team2, $matchTime, $matchLocation);
+                    mysqli_stmt_execute($stmt);
+                    mysqli_stmt_close($stmt);
+                    header("Location: /matches.php");
+                    exit();
+                } else {
+                    header("Location: /create-match.php?error=unknownerror");
+                    exit();
+                }
             }
         }
     }

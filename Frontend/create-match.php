@@ -84,6 +84,9 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <div class="form-group">
                         <input type="datetime-local" name="matchTime" />
                     </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Location" name="matchLocation" />
+                    </div>
                     <div class="text-center">
                       <button type="submit" class="btn btn-default my-4" name="create-match-submit">
                         Create Match
