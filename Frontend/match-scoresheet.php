@@ -15,7 +15,7 @@ require "includes/connection.inc.php";
 
 $matchId = $_GET['matchId'];
 
-$sql = "SELECT players.playerName, players.currentHandicap, teams.teamName, teamMembers.playerEmail, teamMembers.teamId, matches.team1, matches.team2
+$sql = "SELECT players.playerName, players.currentHandicap, teams.teamName, teamMembers.playerEmail, teamMembers.teamId, matches.team1, matches.team2, matches.matchLocation, matches.matchTime
 FROM players
 INNER JOIN teamMembers ON players.email = teamMembers.playerEmail
 INNER JOIN teams ON teamMembers.teamId = teams.id
@@ -34,6 +34,8 @@ if ($stmt = mysqli_prepare($link, $sql)) {
     $team2Id = 0;
     $team1Name = "";
     $team2Name = "";
+    $matchLocation = "";
+    $matchTime = "";
     while ($row = mysqli_fetch_assoc($result)) {
         if ($row['teamId'] == $row['team1']) {
             $team1Members[] = $row['playerName'];
@@ -46,6 +48,8 @@ if ($stmt = mysqli_prepare($link, $sql)) {
             $team2Name = $row['teamName'];
             $team2Id = $row['team2'];
         }
+        $matchLocation = $row['matchLocation'];
+        $matchTime = $row['matchTime'];
     }
     if ($team1Id == 0 && $team2Id == 0) {
         header("Location: /matches.php");
@@ -66,6 +70,12 @@ class PDF extends FPDF
     function setTeam2Name($team2Name) {
         $this->team2Name = $team2Name;
     }
+    function setDateTime($dateTime) {
+        $this->dateTime = date('m/d/y h:i A', strtotime($dateTime));
+    }
+    function setLocation($location) {
+        $this->location = $location;
+    }
     // Page header
     function Header()
     {
@@ -79,10 +89,15 @@ class PDF extends FPDF
         $this->Cell(0,8,"vs",0,0,'C');
         $this->Ln();
         $this->Cell(0,8,$this->team2Name,0,0,'C');
+        $this->Ln(10);
+        $this->SetFont('Times','',14);
+        $this->Cell(0,7,$this->dateTime,0,0,'C');
+        $this->Ln();
+        $this->Cell(0,7,$this->location,0,0,'C');
         // Logo
         $this->Image('assets/img/brand/trlogo.png',170,6,30);
         // Line break
-        $this->Ln(20);
+        $this->Ln(15);
     }
     function DataTable($names, $handicaps)
     {
@@ -122,6 +137,8 @@ class PDF extends FPDF
 $pdf = new PDF();
 $pdf->setTeam1Name($team1Name);
 $pdf->setTeam2Name($team2Name);
+$pdf->setDateTime($matchTime);
+$pdf->setLocation($matchLocation);
 $pdf->AliasNbPages();
 $pdf->AddPage();
 $pdf->SetFont('Times','',18);
@@ -136,6 +153,6 @@ $pdf->Ln(10);
 $pdf->Cell(0,8,$team1Name." Signature: ______________________________",0,0,'C');
 $pdf->Ln(12);
 $pdf->Cell(0,8,$team2Name." Signature: ______________________________",0,0,'C');
-$pdf->Output();
+$pdf->Output('I', 'Scoresheet.pdf');
 
 ?>

@@ -1,7 +1,7 @@
 <?php
 
 require "includes/connection.inc.php";
-$sql = "SELECT matches.matchTime, t1.teamName AS team1Name, t2.teamName AS team2Name
+$sql = "SELECT matches.matchTime, matches.matchLocation, t1.teamName AS team1Name, t2.teamName AS team2Name
 FROM teams t1 LEFT OUTER JOIN matches ON t1.id = matches.team1
 LEFT OUTER JOIN teams t2 ON matches.team2 = t2.id
 WHERE matches.matchTime >= DATE_SUB(NOW(), INTERVAL 2 HOUR) ORDER BY matches.matchTime ASC;";
@@ -63,6 +63,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
                   echo '<tr>';
                   echo '<td>'.$row['team1Name'].' vs '.$row['team2Name'].'</td>';
                   echo '<td>'.date('m/d/y h:i A', strtotime($row['matchTime'])).'</td>';
+                  echo '<td>'.$row['matchLocation'].'</td>';
                   echo '</tr>';
                   while ($row = mysqli_fetch_assoc($result)) {
                     if ($row['matchTime'] != $currTime) {
@@ -76,6 +77,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
                     echo '<tr>';
                     echo '<td>'.$row['team1Name'].' vs '.$row['team2Name'].'</td>';
                     echo '<td>'.date('m/d/y h:i A', strtotime($row['matchTime'])).'</td>';
+                    echo '<td>'.$row['matchLocation'].'</td>';
                     echo '</tr>';
                   }
                   echo '</tbody>';

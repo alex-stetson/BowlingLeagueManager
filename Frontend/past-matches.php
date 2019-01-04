@@ -63,6 +63,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
                   echo '<tr>';
                   echo '<td>'.$row['team1Name'].' vs '.$row['team2Name'].'</td>';
                   echo '<td>'.date('m/d/y h:i A', strtotime($row['matchTime'])).'</td>';
+                  echo '<td>'.$row['matchLocation'].'</td>';
                   echo '</tr>';
                   while ($row = mysqli_fetch_assoc($result)) {
                     if ($row['matchTime'] != $currTime) {
@@ -76,6 +77,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
                     echo '<tr>';
                     echo '<td>'.$row['team1Name'].' vs '.$row['team2Name'].'</td>';
                     echo '<td>'.date('m/d/y h:i A', strtotime($row['matchTime'])).'</td>';
+                    echo '<td>'.$row['matchLocation'].'</td>';
                     echo '</tr>';
                   }
                   echo '</tbody>';
