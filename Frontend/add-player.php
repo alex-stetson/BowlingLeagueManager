@@ -1,6 +1,6 @@
 <?php
 
-require "requireAuth.inc.php";
+require "includes/requireAuth.inc.php";
 
 ?>
 
