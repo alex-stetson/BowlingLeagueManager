@@ -62,10 +62,9 @@
                     <span class="nav-link-inner--text">Administration</span>
                   </a>
                   <div class="dropdown-menu">
-                    <a href="#" class="dropdown-item">Enter Scores</a>
-                    <a href="#" class="dropdown-item">Create Match</a>
-                    <a href="#" class="dropdown-item">Create Player</a>
-                    <a href="#" class="dropdown-item">Create Team</a>
+                    <a href="#" class="dropdown-item">Matches</a>
+                    <a href="#" class="dropdown-item">Teams</a>
+                    <a href="/players.php" class="dropdown-item">Players</a>
                     <a href="/includes/logout.inc.php" class="dropdown-item">Logout</a>
                   </div>
                 </li>
