@@ -52,7 +52,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="/past-matches.php">Past Matches</a>
               </li>
-              <li class="nav-item"><a class="nav-link" href="#">Teams</a></li>
+              <li class="nav-item">
+                <a class="nav-link" href="/teams.php">Teams</a>
+              </li>
               <?php
               session_start();
               if (isset($_SESSION['userEmail']) && $_SESSION['userEmail'] != '') { ?>
