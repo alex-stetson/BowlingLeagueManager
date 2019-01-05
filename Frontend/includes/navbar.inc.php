@@ -64,7 +64,7 @@
                   </a>
                   <div class="dropdown-menu">
                     <a href="/admin/matches.php" class="dropdown-item">Matches</a>
-                    <a href="#" class="dropdown-item">Teams</a>
+                    <a href="/admin/teams.php" class="dropdown-item">Teams</a>
                     <a href="/admin/players.php" class="dropdown-item">Players</a>
                     <a href="/admin/logout.php" class="dropdown-item">Logout</a>
                   </div>

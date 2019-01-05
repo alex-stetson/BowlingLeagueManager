@@ -5,7 +5,7 @@ require "includes/requireAuth.inc.php";
 require "../includes/connection.inc.php";
 
 $sql = "SELECT matches.id, matches.matchTime, matches.matchLocation, t1.teamName AS team1Name, t2.teamName AS team2Name
-FROM teams t1 LEFT OUTER JOIN matches ON t1.id = matches.team1
+FROM matches LEFT OUTER JOIN teams t1 ON t1.id = matches.team1
 LEFT OUTER JOIN teams t2 ON matches.team2 = t2.id
 ORDER BY matches.matchTime ASC;";
 if ($stmt = mysqli_prepare($link, $sql)) {
@@ -72,7 +72,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo '<tr>';
                     echo '<td>'.$row['team1Name'].' vs '.$row['team2Name'].'</td>';
-                    echo '<td>'.date('m/d/y h:i A', strtotime($row['matchTime'])).'</td>';
+                    echo '<td>'.(empty($row['matchTime']) ? '' : date('m/d/y h:i A', strtotime($row['matchTime']))).'</td>';
                     echo '<td>'.$row['matchLocation'].'</td>';
                     echo '<td><a class="btn btn-default" href="/admin/edit-match.php?matchId='.$row['id'].'" role="button">Edit Match</a></td>';
                     echo '<td><a class="btn btn-default" href="/admin/match-scoresheet.php?matchId='.$row['id'].'" role="button">Generate Scoresheet</a></td>';
