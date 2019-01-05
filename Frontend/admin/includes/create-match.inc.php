@@ -27,7 +27,7 @@ if (isset($_POST['create-match-submit'])) {
                     mysqli_stmt_bind_param($stmt, "ss", $team1, $team2);
                     mysqli_stmt_execute($stmt);
                     mysqli_stmt_close($stmt);
-                    header("Location: /matches.php");
+                    header("Location: /admin/matches.php");
                     exit();
                 } else {
                     header("Location: /admin/create-match.php?error=unknownerror");
@@ -39,7 +39,7 @@ if (isset($_POST['create-match-submit'])) {
                     mysqli_stmt_bind_param($stmt, "sss", $team1, $team2, $matchLocation);
                     mysqli_stmt_execute($stmt);
                     mysqli_stmt_close($stmt);
-                    header("Location: /matches.php");
+                    header("Location: /admin/matches.php");
                     exit();
                 } else {
                     header("Location: /admin/create-match.php?error=unknownerror");
@@ -54,7 +54,7 @@ if (isset($_POST['create-match-submit'])) {
                     mysqli_stmt_bind_param($stmt, "sss", $team1, $team2, $matchTime);
                     mysqli_stmt_execute($stmt);
                     mysqli_stmt_close($stmt);
-                    header("Location: /matches.php");
+                    header("Location: /admin/matches.php");
                     exit();
                 } else {
                     header("Location: /admin/create-match.php?error=unknownerror");
@@ -67,7 +67,7 @@ if (isset($_POST['create-match-submit'])) {
                     mysqli_stmt_bind_param($stmt, "ssss", $team1, $team2, $matchTime, $matchLocation);
                     mysqli_stmt_execute($stmt);
                     mysqli_stmt_close($stmt);
-                    header("Location: /matches.php");
+                    header("Location: /admin/matches.php");
                     exit();
                 } else {
                     header("Location: /admin/create-match.php?error=unknownerror");
