@@ -29,7 +29,6 @@ if (isset($_SESSION['userEmail']) && $_SESSION['userEmail'] != '') {
     />
 
     <!-- Icons -->
-    <link href="../assets/vendor/nucleo/css/nucleo.css" rel="stylesheet" />
     <link
       href="../assets/vendor/font-awesome/css/font-awesome.min.css"
       rel="stylesheet"
@@ -70,7 +69,7 @@ if (isset($_SESSION['userEmail']) && $_SESSION['userEmail'] != '') {
                       <div class="input-group input-group-alternative">
                         <div class="input-group-prepend">
                           <span class="input-group-text"
-                            ><i class="ni ni-email-83"></i
+                            ><i class="fa fa-envelope"></i
                           ></span>
                         </div>
                         <input
@@ -90,7 +89,7 @@ if (isset($_SESSION['userEmail']) && $_SESSION['userEmail'] != '') {
                       <div class="input-group input-group-alternative">
                         <div class="input-group-prepend">
                           <span class="input-group-text"
-                            ><i class="ni ni-lock-circle-open"></i
+                            ><i class="fa fa-lock"></i
                           ></span>
                         </div>
                         <input

@@ -72,7 +72,6 @@ if ($stmt = mysqli_prepare($link, $sql)) {
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
 
     <!-- Icons -->
-    <link href="../assets/vendor/nucleo/css/nucleo.css" rel="stylesheet" />
     <link href="../assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
 
     <!-- Argon CSS -->

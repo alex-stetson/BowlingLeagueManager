@@ -41,7 +41,6 @@ while ($row = mysqli_fetch_assoc($result)) {
     />
 
     <!-- Icons -->
-    <link href="../assets/vendor/nucleo/css/nucleo.css" rel="stylesheet" />
     <link
       href="../assets/vendor/font-awesome/css/font-awesome.min.css"
       rel="stylesheet"

@@ -60,7 +60,6 @@
               if (isset($_SESSION['userEmail']) && $_SESSION['userEmail'] != '') { ?>
                 <li class="nav-item dropdown">
                   <a href="#" class="nav-link" data-toggle="dropdown" href="#" role="button">
-                    <i class="ni ni-collection d-lg-none"></i>
                     <span class="nav-link-inner--text">Administration</span>
                   </a>
                   <div class="dropdown-menu">
@@ -72,7 +71,7 @@
                 </li>
               <?php } else { ?>
                 <li class="nav-item">
-                  <a class="nav-link" href="/admin/login.php"><i class="ni ni-key-25"></i></a>
+                  <a class="nav-link" href="/admin/login.php"><i class="fa fa-unlock-alt"></i></a>
                 </li>
               <?php } ?>
             </ul>

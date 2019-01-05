@@ -25,7 +25,6 @@ require "includes/requireAuth.inc.php";
     />
 
     <!-- Icons -->
-    <link href="../assets/vendor/nucleo/css/nucleo.css" rel="stylesheet" />
     <link
       href="../assets/vendor/font-awesome/css/font-awesome.min.css"
       rel="stylesheet"
@@ -67,7 +66,7 @@ require "includes/requireAuth.inc.php";
                       <div class="input-group input-group-alternative">
                         <div class="input-group-prepend">
                           <span class="input-group-text"
-                            ><i class="ni ni-email-83"></i
+                            ><i class="fa fa-envelope"></i
                           ></span>
                         </div>
                         <input
@@ -82,7 +81,7 @@ require "includes/requireAuth.inc.php";
                       <div class="input-group input-group-alternative">
                         <div class="input-group-prepend">
                           <span class="input-group-text"
-                            ><i class="ni ni-circle-08"></i
+                            ><i class="fa fa-user"></i
                           ></span>
                         </div>
                         <input
