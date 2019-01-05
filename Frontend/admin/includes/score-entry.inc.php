@@ -182,7 +182,7 @@ if (isset($_POST['submit-scores'])) {
             exit();
         }
         # Update player handicaps
-        $sql = "UPDATE players SET currentHandicap=(ROUND(0.9*(200-(SELECT (AVG(`game1Score`)+AVG(`game2Score`)+AVG(`game3Score`))/3 as Average FROM matchScores where playerEmail=?)), 0)) WHERE email=?;";
+        $sql = "UPDATE players SET currentHandicap=(GREATEST(ROUND(0.9*(200-(SELECT (AVG(`game1Score`)+AVG(`game2Score`)+AVG(`game3Score`))/3 as Average FROM matchScores where playerEmail=?)), 0), 0)) WHERE email=?;";
         if ($stmt = mysqli_prepare($link, $sql)) {
             mysqli_stmt_bind_param($stmt, "ss", $p1Email, $p1Email);
             mysqli_stmt_execute($stmt);
