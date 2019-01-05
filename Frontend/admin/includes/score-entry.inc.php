@@ -4,13 +4,13 @@ require "requireAuth.inc.php";
 
 if (isset($_POST['submit-scores'])) {
 
-    require "connection.inc.php";
+    require "../../includes/connection.inc.php";
 
     $matchId = $_POST['matchId'];
     $team1Id = $_POST['team1Id'];
     $team2Id = $_POST['team2Id'];
     if (empty($matchId)) {
-        header("Location: /score-entry-list.php");
+        header("Location: /admin/matches.php");
         exit();
     } else if (empty($team1Id) || empty($team2Id)) {
         header("Location: /score-entry.php?matchId=".$matchId);
@@ -242,7 +242,7 @@ if (isset($_POST['submit-scores'])) {
         header("Location: /");
     }
 } else {
-    header("Location: /score-entry-list.php");
+    header("Location: /admin/matches.php");
     exit();
 }
 

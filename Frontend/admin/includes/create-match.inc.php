@@ -4,20 +4,20 @@ require "requireAuth.inc.php";
 
 if (isset($_POST['create-match-submit'])) {
 
-    require "connection.inc.php";
+    require "../../includes/connection.inc.php";
 
     $team1 = $_POST['team1'];
     $team2 = $_POST['team2'];
     $matchTime = $_POST['matchTime'];
     $matchLocation = $_POST['matchLocation'];
     if (empty($team1) || empty($team2)) {
-        header("Location: /create-match.php?error=emptyfields");
+        header("Location: /admin/create-match.php?error=emptyfields");
         exit();
     } else if ($team1 == "NULL" || $team2 == "NULL") {
-        header("Location: /create-match.php?error=emptyfields");
+        header("Location: /admin/create-match.php?error=emptyfields");
         exit();
     } else if ($team1 == $team2) {
-        header("Location: /create-match.php?error=sameteam");
+        header("Location: /admin/create-match.php?error=sameteam");
         exit();
     } else {
         if (empty($matchTime)) {
@@ -30,7 +30,7 @@ if (isset($_POST['create-match-submit'])) {
                     header("Location: /matches.php");
                     exit();
                 } else {
-                    header("Location: /create-match.php?error=unknownerror");
+                    header("Location: /admin/create-match.php?error=unknownerror");
                     exit();
                 }
             } else {
@@ -42,7 +42,7 @@ if (isset($_POST['create-match-submit'])) {
                     header("Location: /matches.php");
                     exit();
                 } else {
-                    header("Location: /create-match.php?error=unknownerror");
+                    header("Location: /admin/create-match.php?error=unknownerror");
                     exit();
                 }
             }
@@ -57,7 +57,7 @@ if (isset($_POST['create-match-submit'])) {
                     header("Location: /matches.php");
                     exit();
                 } else {
-                    header("Location: /create-match.php?error=unknownerror");
+                    header("Location: /admin/create-match.php?error=unknownerror");
                     exit();
                 }
             } else {
@@ -70,7 +70,7 @@ if (isset($_POST['create-match-submit'])) {
                     header("Location: /matches.php");
                     exit();
                 } else {
-                    header("Location: /create-match.php?error=unknownerror");
+                    header("Location: /admin/create-match.php?error=unknownerror");
                     exit();
                 }
             }

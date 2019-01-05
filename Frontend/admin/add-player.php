@@ -1,10 +1,6 @@
 <?php
 
-session_start();
-if (isset($_SESSION['userEmail']) && $_SESSION['userEmail'] != '') {
-    header("Location: /");
-    exit();
-}
+require "includes/requireAuth.inc.php";
 
 ?>
 
@@ -17,10 +13,10 @@ if (isset($_SESSION['userEmail']) && $_SESSION['userEmail'] != '') {
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
 
-    <title>Login</title>
+    <title>Add Player</title>
 
     <!-- Favicon -->
-    <link href="assets/img/brand/favicon.png" rel="icon" type="image/png" />
+    <link href="../assets/img/brand/favicon.png" rel="icon" type="image/png" />
 
     <!-- Fonts -->
     <link
@@ -29,43 +25,44 @@ if (isset($_SESSION['userEmail']) && $_SESSION['userEmail'] != '') {
     />
 
     <!-- Icons -->
-    <link href="assets/vendor/nucleo/css/nucleo.css" rel="stylesheet" />
+    <link href="../assets/vendor/nucleo/css/nucleo.css" rel="stylesheet" />
     <link
-      href="assets/vendor/font-awesome/css/font-awesome.min.css"
+      href="../assets/vendor/font-awesome/css/font-awesome.min.css"
       rel="stylesheet"
     />
 
     <!-- Argon CSS -->
-    <link type="text/css" href="assets/css/argon.css" rel="stylesheet" />
+    <link type="text/css" href="../assets/css/argon.css" rel="stylesheet" />
   </head>
 
   <body>
+    <?php
+      include_once "../includes/navbar.inc.php";
+    ?>
     <main>
-      <section class="section section-shaped section-lg">
-        <div class="shape shape-style-1 bg-gradient-default" style="position: fixed">
-          <span></span> <span></span> <span></span> <span></span> <span></span>
-          <span></span> <span></span> <span></span>
-        </div>
-        <div class="container pt-lg-md">
+    <div class="container pt-lg-md">
           <div class="row justify-content-center">
             <div class="col-lg-5">
               <div class="card bg-secondary shadow border-0">
                 <div class="card-body px-lg-5 py-lg-5">
                   <div class="text-center text-muted mb-4">
-                    <h5>Sign In</h5>
-                  <?php
-                    if (isset($_GET['error'])) {
+                    <h3>Add Player</h3>
+                    <?php
+                    if (isset($_GET['success']) && $_GET['success'] == "true") {
+                        echo '<small class="text-success">Player Added!</small>';
+                    }
+                    else if (isset($_GET['error'])) {
                       if ($_GET['error'] == "emptyfields") {
                         echo '<small class="text-danger">Please fill out all the fields</small>';
-                      } else if ($_GET['error'] = "incorrectcreds") {
-                        echo '<small class="text-danger">Incorrect Email or Password</small>';
+                      } else if ($_GET['error'] = "playerExists") {
+                        echo '<small class="text-danger">Player already exists</small>';
                       } else {
                         echo '<small class="text-danger">Unknown error occured. Please try again</small>';
                       }
                     }
                   ?>
                   </div>
-                  <form role="form" action="includes/login.inc.php" method="post">
+                  <form role="form" action="includes/add-player.inc.php" method="post">
                     <div class="form-group mb-3">
                       <div class="input-group input-group-alternative">
                         <div class="input-group-prepend">
@@ -77,12 +74,7 @@ if (isset($_SESSION['userEmail']) && $_SESSION['userEmail'] != '') {
                           class="form-control"
                           placeholder="Email"
                           type="email"
-                          name="loginEmail"
-                          <?php
-                            if (isset($_GET['loginEmail'])) {
-                              echo 'value="'.$_GET['loginEmail'].'"';
-                            }
-                          ?>
+                          name="playerEmail"
                         />
                       </div>
                     </div>
@@ -90,20 +82,20 @@ if (isset($_SESSION['userEmail']) && $_SESSION['userEmail'] != '') {
                       <div class="input-group input-group-alternative">
                         <div class="input-group-prepend">
                           <span class="input-group-text"
-                            ><i class="ni ni-lock-circle-open"></i
+                            ><i class="ni ni-circle-08"></i
                           ></span>
                         </div>
                         <input
                           class="form-control"
-                          placeholder="Password"
-                          type="password"
-                          name="loginPassword"
+                          placeholder="Name"
+                          type="text"
+                          name="playerName"
                         />
                       </div>
                     </div>
                     <div class="text-center">
-                      <button type="submit" class="btn btn-default my-4" name="login-submit">
-                        Sign in
+                      <button type="submit" class="btn btn-default my-4" name="add-player-submit">
+                        Add Player
                       </button>
                     </div>
                   </form>
@@ -112,15 +104,14 @@ if (isset($_SESSION['userEmail']) && $_SESSION['userEmail'] != '') {
             </div>
           </div>
         </div>
-      </section>
     </main>
 
     <!-- Core -->
-    <script src="assets/vendor/jquery/jquery.min.js"></script>
-    <script src="assets/vendor/popper/popper.min.js"></script>
-    <script src="assets/vendor/bootstrap/bootstrap.min.js"></script>
+    <script src="../assets/vendor/jquery/jquery.min.js"></script>
+    <script src="../assets/vendor/popper/popper.min.js"></script>
+    <script src="../assets/vendor/bootstrap/bootstrap.min.js"></script>
 
     <!-- Theme JS -->
-    <script src="assets/js/argon.js"></script>
+    <script src="../assets/js/argon.js"></script>
   </body>
 </html>

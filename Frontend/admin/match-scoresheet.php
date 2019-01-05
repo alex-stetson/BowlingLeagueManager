@@ -3,11 +3,11 @@
 require "includes/requireAuth.inc.php";
 
 if (!isset($_GET['matchId'])) {
-    header("Location: /matches.php");
+    header("Location: /admin/matches.php");
     exit();
 }
 
-require "includes/connection.inc.php";
+require "../includes/connection.inc.php";
 
 $matchId = $_GET['matchId'];
 
@@ -48,15 +48,15 @@ if ($stmt = mysqli_prepare($link, $sql)) {
         $matchTime = $row['matchTime'];
     }
     if ($team1Id == 0 && $team2Id == 0) {
-        header("Location: /matches.php");
+        header("Location: /admin/matches.php");
         exit();
     }
 } else {
-    header("Location: /matches.php");
+    header("Location: /admin/matches.php");
     exit();
 }
 
-require('assets/fpdf/fpdf.php');
+require('../assets/fpdf/fpdf.php');
 
 class PDF extends FPDF
 {
@@ -76,7 +76,7 @@ class PDF extends FPDF
     function Header()
     {
         // Logo
-        $this->Image('assets/img/brand/bclogo.png',10,6,30);
+        $this->Image('../assets/img/brand/bclogo.png',10,6,30);
         // Arial bold 18
         $this->SetFont('Arial','B',18);
         // Title
@@ -91,7 +91,7 @@ class PDF extends FPDF
         $this->Ln();
         $this->Cell(0,7,$this->location,0,0,'C');
         // Logo
-        $this->Image('assets/img/brand/trlogo.png',170,6,30);
+        $this->Image('../assets/img/brand/trlogo.png',170,6,30);
         // Line break
         $this->Ln(15);
     }

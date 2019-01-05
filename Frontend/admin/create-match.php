@@ -2,7 +2,7 @@
 
 require "includes/requireAuth.inc.php";
 
-require "includes/connection.inc.php";
+require "../includes/connection.inc.php";
 
 $sql = "SELECT * FROM teams;";
 if ($stmt = mysqli_prepare($link, $sql)) {
@@ -32,7 +32,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     <title>Create Match</title>
 
     <!-- Favicon -->
-    <link href="assets/img/brand/favicon.png" rel="icon" type="image/png" />
+    <link href="../assets/img/brand/favicon.png" rel="icon" type="image/png" />
 
     <!-- Fonts -->
     <link
@@ -41,19 +41,19 @@ while ($row = mysqli_fetch_assoc($result)) {
     />
 
     <!-- Icons -->
-    <link href="assets/vendor/nucleo/css/nucleo.css" rel="stylesheet" />
+    <link href="../assets/vendor/nucleo/css/nucleo.css" rel="stylesheet" />
     <link
-      href="assets/vendor/font-awesome/css/font-awesome.min.css"
+      href="../assets/vendor/font-awesome/css/font-awesome.min.css"
       rel="stylesheet"
     />
 
     <!-- Argon CSS -->
-    <link type="text/css" href="assets/css/argon.css" rel="stylesheet" />
+    <link type="text/css" href="../assets/css/argon.css" rel="stylesheet" />
   </head>
 
   <body>
     <?php
-      include_once "includes/navbar.inc.php";
+      include_once "../includes/navbar.inc.php";
     ?>
     <main>
     <div class="container pt-lg-md">
@@ -78,10 +78,10 @@ while ($row = mysqli_fetch_assoc($result)) {
                         </select>
                     </div>
                     <div class="form-group">
-                        <input type="datetime-local" name="matchTime" />
+                        <input type="text" class="form-control" placeholder="Location" name="matchLocation" />
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Location" name="matchLocation" />
+                        <input type="datetime-local" class="form-control" name="matchTime" />
                     </div>
                     <div class="text-center">
                       <button type="submit" class="btn btn-default my-4" name="create-match-submit">
@@ -97,11 +97,11 @@ while ($row = mysqli_fetch_assoc($result)) {
     </main>
 
     <!-- Core -->
-    <script src="assets/vendor/jquery/jquery.min.js"></script>
-    <script src="assets/vendor/popper/popper.min.js"></script>
-    <script src="assets/vendor/bootstrap/bootstrap.min.js"></script>
+    <script src="../assets/vendor/jquery/jquery.min.js"></script>
+    <script src="../assets/vendor/popper/popper.min.js"></script>
+    <script src="../assets/vendor/bootstrap/bootstrap.min.js"></script>
 
     <!-- Theme JS -->
-    <script src="assets/js/argon.js"></script>
+    <script src="../assets/js/argon.js"></script>
   </body>
 </html>

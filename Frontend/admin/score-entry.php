@@ -3,11 +3,11 @@
 require "includes/requireAuth.inc.php";
 
 if (!isset($_GET['matchId'])) {
-    header("Location: /score-entry-list.php");
+    header("Location: /admin/matches.php");
     exit();
 }
 
-require "includes/connection.inc.php";
+require "../includes/connection.inc.php";
 
 $matchId = $_GET['matchId'];
 
@@ -46,11 +46,11 @@ if ($stmt = mysqli_prepare($link, $sql)) {
         }
     }
     if ($team1Id == 0 && $team2Id == 0) {
-        header("Location: /score-entry-list.php");
+        header("Location: /admin/matches.php");
         exit();
     }
 } else {
-    header("Location: /score-entry-list.php");
+    header("Location: /admin/matches.php");
     exit();
 }
 
@@ -66,22 +66,22 @@ if ($stmt = mysqli_prepare($link, $sql)) {
     <title>Score Entry</title>
 
     <!-- Favicon -->
-    <link href="assets/img/brand/favicon.png" rel="icon" type="image/png" />
+    <link href="../assets/img/brand/favicon.png" rel="icon" type="image/png" />
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
 
     <!-- Icons -->
-    <link href="assets/vendor/nucleo/css/nucleo.css" rel="stylesheet" />
-    <link href="assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../assets/vendor/nucleo/css/nucleo.css" rel="stylesheet" />
+    <link href="../assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
 
     <!-- Argon CSS -->
-    <link type="text/css" href="assets/css/argon.css" rel="stylesheet" />
+    <link type="text/css" href="../assets/css/argon.css" rel="stylesheet" />
 </head>
 
 <body>
     <?php
-      include_once "includes/navbar.inc.php";
+      include_once "../includes/navbar.inc.php";
     ?>
     <div class="row justify-content-center mt-md">
         <div class="col-lg-12">
@@ -234,12 +234,12 @@ if ($stmt = mysqli_prepare($link, $sql)) {
     </div>
 
     <!-- Core -->
-    <script src="assets/vendor/jquery/jquery.min.js"></script>
-    <script src="assets/vendor/popper/popper.min.js"></script>
-    <script src="assets/vendor/bootstrap/bootstrap.min.js"></script>
+    <script src="../assets/vendor/jquery/jquery.min.js"></script>
+    <script src="../assets/vendor/popper/popper.min.js"></script>
+    <script src="../assets/vendor/bootstrap/bootstrap.min.js"></script>
 
     <!-- Theme JS -->
-    <script src="assets/js/argon.js"></script>
+    <script src="../assets/js/argon.js"></script>
 </body>
 
 </html>

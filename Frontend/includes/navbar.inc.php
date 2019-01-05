@@ -64,15 +64,15 @@
                     <span class="nav-link-inner--text">Administration</span>
                   </a>
                   <div class="dropdown-menu">
-                    <a href="#" class="dropdown-item">Matches</a>
+                    <a href="/admin/matches.php" class="dropdown-item">Matches</a>
                     <a href="#" class="dropdown-item">Teams</a>
-                    <a href="/players.php" class="dropdown-item">Players</a>
-                    <a href="/includes/logout.inc.php" class="dropdown-item">Logout</a>
+                    <a href="/admin/players.php" class="dropdown-item">Players</a>
+                    <a href="/admin/logout.php" class="dropdown-item">Logout</a>
                   </div>
                 </li>
               <?php } else { ?>
                 <li class="nav-item">
-                  <a class="nav-link" href="/login.php"><i class="ni ni-key-25"></i></a>
+                  <a class="nav-link" href="/admin/login.php"><i class="ni ni-key-25"></i></a>
                 </li>
               <?php } ?>
             </ul>

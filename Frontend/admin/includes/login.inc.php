@@ -2,13 +2,13 @@
 
 if (isset($_POST['login-submit'])) {
 
-    require "connection.inc.php";
+    require "../../includes/connection.inc.php";
 
     $email = $_POST['loginEmail'];
     $password = $_POST['loginPassword'];
 
     if (empty($email) || empty($password)) {
-        header("Location: /login.php?error=emptyfields");
+        header("Location: /admin/login.php?error=emptyfields");
         exit();
     } else {
         $sql = "SELECT * FROM users WHERE email=?;";
@@ -24,15 +24,15 @@ if (isset($_POST['login-submit'])) {
                     header("Location: /");
                     exit();
                 } else {
-                    header("Location: /login.php?error=incorrectcreds&loginEmail=".$email);
+                    header("Location: /admin/login.php?error=incorrectcreds&loginEmail=".$email);
                     exit();
                 }
             } else {
-                header("Location: /login.php?error=incorrectcreds&loginEmail=".$email);
+                header("Location: /admin/login.php?error=incorrectcreds&loginEmail=".$email);
                 exit();
             }
         } else {
-            header("Location: /login.php?error=unknownerror&loginEmail=".$email);
+            header("Location: /admin/login.php?error=unknownerror&loginEmail=".$email);
         exit();
         }
     }
