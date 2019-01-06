@@ -4,6 +4,52 @@ require "includes/requireAuth.inc.php";
 
 require "../includes/connection.inc.php";
 
+$teamId = $_GET['teamId'];
+$teamName = NULL;
+
+if (empty($teamId)) {
+    header("Location: /admin/teams.php");
+    exit();
+}
+
+# Get current team information
+$sql = "SELECT * FROM teams WHERE id=?;";
+if ($stmt = mysqli_prepare($link, $sql)) {
+    mysqli_stmt_bind_param($stmt, "i", $teamId);
+    mysqli_stmt_execute($stmt);
+    $teamResult = mysqli_stmt_get_result($stmt);
+    mysqli_stmt_close($stmt);
+} else {
+    exit();
+}
+if ($row = mysqli_fetch_assoc($teamResult)) {
+    $teamName = $row['teamName'];
+} else {
+    header("Location: /admin/teams.php");
+    exit();
+}
+
+# Get current team members
+$sql = "SELECT teamMembers.playerEmail, players.playerName
+FROM players
+INNER JOIN teamMembers ON players.email = teamMembers.playerEmail
+WHERE teamMembers.teamId = ?;";
+if ($stmt = mysqli_prepare($link, $sql)) {
+    mysqli_stmt_bind_param($stmt, "i", $teamId);
+    mysqli_stmt_execute($stmt);
+    $teamMembersResult = mysqli_stmt_get_result($stmt);
+    mysqli_stmt_close($stmt);
+} else {
+    exit();
+}
+$teamMemberEmails = array();
+$teamMemberNames = array();
+while ($row = mysqli_fetch_assoc($teamMembersResult)) {
+    $teamMemberEmails[] = $row['playerEmail'];
+    $teamMemberNames[] = $row['playerName'];
+}
+
+# Get all players
 $sql = "SELECT * FROM players;";
 if ($stmt = mysqli_prepare($link, $sql)) {
     mysqli_stmt_execute($stmt);
@@ -12,10 +58,11 @@ if ($stmt = mysqli_prepare($link, $sql)) {
 } else {
     exit();
 }
-
 $playerDropdownContent = NULL;
 while ($row = mysqli_fetch_assoc($result)) {
-    $playerDropdownContent .= '<option value="'.$row['email'].'">'.$row['playerName'].'</option>';
+    if (!in_array($row['email'], $teamMemberEmails)) {
+        $playerDropdownContent .= '<option value="'.$row['email'].'">'.$row['playerName'].'</option>';
+    }
 }
 
 ?>
@@ -29,7 +76,7 @@ while ($row = mysqli_fetch_assoc($result)) {
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
 
-    <title>Create Team</title>
+    <title>Edit Team</title>
 
     <!-- Favicon -->
     <link href="../assets/img/brand/favicon.png" rel="icon" type="image/png" />
@@ -64,21 +111,25 @@ while ($row = mysqli_fetch_assoc($result)) {
               <div class="card bg-secondary shadow border-0">
                 <div class="card-body px-lg-5 py-lg-5">
                   <div class="text-center text-muted mb-4">
-                    <h3>Create Team</h3>
+                    <h3>Edit Team</h3>
                   </div>
-                  <form role="form" action="includes/create-team.inc.php" method="post">
+                  <form role="form" action="includes/edit-team.inc.php" method="post">
+                  <input type="hidden" name="teamId" value="<?php echo $teamId; ?>">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Team Name" name="teamName" />
+                        <input type="text" class="form-control" placeholder="Team Name" name="teamName" value="<?php echo $teamName; ?>"/>
                     </div>
-                    <div class="form-group mb-3">
-                        <label for="teamPlayers">Players</label>
+                    <div class="form-group">
+                        <small>Current Players: <?php echo (implode (", ", $teamMemberNames));?></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="teamPlayers">Additional Players</label>
                         <select id="teamPlayers" name="teamPlayers[]" class="form-control select2-multiple" multiple="multiple">
                             <?php echo $playerDropdownContent; ?>
                         </select>
                     </div>
                     <div class="text-center">
-                      <button type="submit" class="btn btn-default my-4" name="create-team-submit">
-                        Create Team
+                      <button type="submit" class="btn btn-default my-4" name="edit-team-submit">
+                        Edit Team
                       </button>
                     </div>
                   </form>
@@ -100,8 +151,12 @@ while ($row = mysqli_fetch_assoc($result)) {
     <!-- Select2 JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script type="text/javascript">
+    let selectLimit = <?php echo(4-count($teamMemberEmails)); ?>;
     $(document).ready(function() {
-        $('.select2-multiple').select2({maximumSelectionLength: 4});
+        $(".select2-multiple").select2({maximumSelectionLength: selectLimit});
+        if (selectLimit === 0) {
+            $(".select2-multiple").prop("disabled", true);
+        }
     });
     </script>
   </body>
