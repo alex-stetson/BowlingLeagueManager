@@ -66,7 +66,7 @@ if (isset($_POST['submit-scores'])) {
     $p8g3 = $_POST['p8g3'];
 
 
-    if (empty($p1Email) || empty($p1Handicap)) {
+    if (empty($p1Email) || empty($p2Email) || empty($p3Email) || empty($p4Email) || empty($p5Email) || empty($p6Email) || empty($p7Email) || empty($p8Email)) {
         header("Location: /score-entry.php?matchId=".$matchId);
         exit();
     } else {
