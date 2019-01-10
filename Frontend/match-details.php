@@ -66,6 +66,14 @@ if ($stmt = mysqli_prepare($link, $sql)) {
         }
         $team1TotalHandicap = array_sum($team1Handicaps);
         $team2TotalHandicap = array_sum($team2Handicaps);
+        $team1Game1Total = $team1Game1Scratch + $team1TotalHandicap;
+        $team1Game2Total = $team1Game2Scratch + $team1TotalHandicap;
+        $team1Game3Total = $team1Game3Scratch + $team1TotalHandicap;
+        $team2Game1Total = $team2Game1Scratch + $team2TotalHandicap;
+        $team2Game2Total = $team2Game2Scratch + $team2TotalHandicap;
+        $team2Game3Total = $team2Game3Scratch + $team2TotalHandicap;
+        $team1OverallTotal = $team1Game1Total + $team1Game2Total + $team1Game3Total;
+        $team2OverallTotal = $team2Game1Total + $team2Game2Total + $team2Game3Total;
     } else {
         $sql = "SELECT matches.matchTime, matches.matchLocation, t1.teamName AS team1Name, t2.teamName AS team2Name
         FROM matches LEFT OUTER JOIN teams t1 ON t1.id = matches.team1
@@ -193,14 +201,23 @@ if ($stmt = mysqli_prepare($link, $sql)) {
                     <td></td>
                     <td></td>
                     </tr>
+                    <tr>
                     <th>Team Total (Overall)</th>
                     <td></td>
-                    <td><?php echo ($team1Game1Scratch + $team1TotalHandicap) ;?></td>
-                    <td><?php echo ($team1Game2Scratch + $team1TotalHandicap) ;?></td>
-                    <td><?php echo ($team1Game3Scratch + $team1TotalHandicap) ;?></td>
+                    <?php echo (($team1Game1Total >= $team2Game1Total) ?
+                        '<td class="text-success">'.$team1Game1Total.'</td>' :
+                        '<td class="text-danger">'.$team1Game1Total.'</td>'); ?>
+                    <?php echo (($team1Game2Total >= $team2Game2Total) ?
+                        '<td class="text-success">'.$team1Game2Total.'</td>' :
+                        '<td class="text-danger">'.$team1Game2Total.'</td>'); ?>
+                    <?php echo (($team1Game3Total >= $team2Game3Total) ?
+                        '<td class="text-success">'.$team1Game3Total.'</td>' :
+                        '<td class="text-danger">'.$team1Game3Total.'</td>'); ?>
                     <td style="border-left: 2px solid"></td>
                     <td></td>
-                    <td><?php echo ($team1Game1Scratch + $team1Game2Scratch + $team1Game3Scratch + ($team1TotalHandicap * 3)) ;?></td>
+                    <?php echo (($team1OverallTotal >= $team2OverallTotal) ?
+                        '<td class="text-success">'.$team1OverallTotal.'</td>' :
+                        '<td class="text-danger">'.$team1OverallTotal.'</td>'); ?>
                     </tr>
                 </tbody>
             </table>
@@ -257,14 +274,23 @@ if ($stmt = mysqli_prepare($link, $sql)) {
                     <td></td>
                     <td></td>
                     </tr>
+                    <tr>
                     <th>Team Total (Overall)</th>
                     <td></td>
-                    <td><?php echo ($team2Game1Scratch + $team2TotalHandicap) ;?></td>
-                    <td><?php echo ($team2Game2Scratch + $team2TotalHandicap) ;?></td>
-                    <td><?php echo ($team2Game3Scratch + $team2TotalHandicap) ;?></td>
+                    <?php echo (($team2Game1Total >= $team1Game1Total) ?
+                        '<td class="text-success">'.$team2Game1Total.'</td>' :
+                        '<td class="text-danger">'.$team2Game1Total.'</td>'); ?>
+                    <?php echo (($team2Game2Total >= $team1Game2Total) ?
+                        '<td class="text-success">'.$team2Game2Total.'</td>' :
+                        '<td class="text-danger">'.$team2Game2Total.'</td>'); ?>
+                    <?php echo (($team2Game3Total >= $team1Game3Total) ?
+                        '<td class="text-success">'.$team2Game3Total.'</td>' :
+                        '<td class="text-danger">'.$team2Game3Total.'</td>'); ?>
                     <td style="border-left: 2px solid"></td>
                     <td></td>
-                    <td><?php echo ($team2Game1Scratch + $team2Game2Scratch + $team2Game3Scratch + ($team2TotalHandicap * 3)) ;?></td>
+                    <?php echo (($team2OverallTotal >= $team1OverallTotal) ?
+                        '<td class="text-success">'.$team2OverallTotal.'</td>' :
+                        '<td class="text-danger">'.$team2OverallTotal.'</td>'); ?>
                     </tr>
                 </tbody>
             </table>
