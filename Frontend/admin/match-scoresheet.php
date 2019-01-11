@@ -145,9 +145,9 @@ $pdf->Ln(10);
 $pdf->Cell(40,10,$team2Name);
 $pdf->Ln();
 $pdf->DataTable($team2Members, $team2Handicaps);
-$pdf->Ln(10);
+$pdf->Ln(15);
 $pdf->Cell(0,8,$team1Name." Signature: ______________________________",0,0,'C');
-$pdf->Ln(12);
+$pdf->Ln(22);
 $pdf->Cell(0,8,$team2Name." Signature: ______________________________",0,0,'C');
 $pdf->Output('I', 'Scoresheet.pdf');
 
