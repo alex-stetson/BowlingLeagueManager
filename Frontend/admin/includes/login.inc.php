@@ -1,5 +1,75 @@
 <?php
 
+function rateLimit($email, $link) {
+    $remoteIp = $_SERVER['REMOTE_ADDR'];
+    $timeFrame = 300;
+    $sql = "SELECT * FROM failedLogins WHERE ipAddr = INET6_ATON(?) AND attemptedAt > DATE_SUB(NOW(), INTERVAL ? MINUTE) ORDER BY attemptedAt DESC;";
+    if ($stmt = mysqli_prepare($link, $sql)) {
+        mysqli_stmt_bind_param($stmt, "si", $remoteIp, $timeFrame);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        mysqli_stmt_close($stmt);
+        $numAttempts = mysqli_num_rows($result);
+        if ($numAttempts >= 20) {
+            if ($row = mysqli_fetch_assoc($result)) {
+                $nextLoginTime = (int) date('U', strtotime($row['attemptedAt'])) + 1800;
+                if (time() < $nextLoginTime) {
+                    header("Location: /admin/login.php?error=lockout&lockoutTime=".($nextLoginTime - time())."&loginEmail=".$email);
+                    exit();
+                }
+            } else {
+                header("Location: /admin/login.php?error=unknownerror&loginEmail=".$email);
+                exit();
+            }
+        } else if ($numAttempts >= 10) {
+            if ($row = mysqli_fetch_assoc($result)) {
+                $nextLoginTime = (int) date('U', strtotime($row['attemptedAt'])) + 900;
+                if (time() < $nextLoginTime) {
+                    header("Location: /admin/login.php?error=lockout&lockoutTime=".($nextLoginTime - time())."&loginEmail=".$email);
+                    exit();
+                }
+            } else {
+                header("Location: /admin/login.php?error=unknownerror&loginEmail=".$email);
+                exit();
+            }
+        } else if ($numAttempts >= 5) {
+            if ($row = mysqli_fetch_assoc($result)) {
+                $nextLoginTime = (int) date('U', strtotime($row['attemptedAt'])) + 300;
+                if (time() < $nextLoginTime) {
+                    header("Location: /admin/login.php?error=lockout&lockoutTime=".($nextLoginTime - time())."&loginEmail=".$email);
+                    exit();
+                }
+            } else {
+                header("Location: /admin/login.php?error=unknownerror&loginEmail=".$email);
+                exit();
+            }
+        }
+    } else {
+        header("Location: /admin/login.php?error=unknownerror&loginEmail=".$email);
+        exit();
+    }
+}
+
+function clearEntries($link) {
+    $timeFrame = 300;
+    $sql = "DELETE FROM failedLogins WHERE attemptedAt < DATE_SUB(NOW(), INTERVAL ? MINUTE);";
+    if ($stmt = mysqli_prepare($link, $sql)) {
+        mysqli_stmt_bind_param($stmt, "i", $timeFrame);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+    }
+}
+
+function addFailedLogin($link) {
+    $remoteIp = $_SERVER['REMOTE_ADDR'];
+    $sql = "INSERT INTO failedLogins (`ipAddr`, `attemptedAt`) VALUES (INET6_ATON(?), NOW());";
+    if ($stmt = mysqli_prepare($link, $sql)) {
+        mysqli_stmt_bind_param($stmt, "s", $remoteIp);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+    }
+}
+
 if (isset($_POST['login-submit'])) {
 
     require "../../includes/connection.inc.php";
@@ -10,31 +80,36 @@ if (isset($_POST['login-submit'])) {
     if (empty($email) || empty($password)) {
         header("Location: /admin/login.php?error=emptyfields");
         exit();
-    } else {
-        $sql = "SELECT * FROM users WHERE email=?;";
-        if ($stmt = mysqli_prepare($link, $sql)) {
-            mysqli_stmt_bind_param($stmt, "s", $email);
-            mysqli_stmt_execute($stmt);
-            $result = mysqli_stmt_get_result($stmt);
-            mysqli_stmt_close($stmt);
-            if ($row = mysqli_fetch_assoc($result)) {
-                if (password_verify($password, $row['pass'])) {
-                    session_start();
-                    $_SESSION['userEmail'] = $row['email'];
-                    header("Location: /");
-                    exit();
-                } else {
-                    header("Location: /admin/login.php?error=incorrectcreds&loginEmail=".$email);
-                    exit();
-                }
+    }
+
+    clearEntries($link);
+    rateLimit($email, $link);
+
+    $sql = "SELECT * FROM users WHERE email=?;";
+    if ($stmt = mysqli_prepare($link, $sql)) {
+        mysqli_stmt_bind_param($stmt, "s", $email);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        mysqli_stmt_close($stmt);
+        if ($row = mysqli_fetch_assoc($result)) {
+            if (password_verify($password, $row['pass'])) {
+                session_start();
+                $_SESSION['userEmail'] = $row['email'];
+                header("Location: /");
+                exit();
             } else {
+                addFailedLogin($link);
                 header("Location: /admin/login.php?error=incorrectcreds&loginEmail=".$email);
                 exit();
             }
         } else {
-            header("Location: /admin/login.php?error=unknownerror&loginEmail=".$email);
-        exit();
+            addFailedLogin($link);
+            header("Location: /admin/login.php?error=incorrectcreds&loginEmail=".$email);
+            exit();
         }
+    } else {
+        header("Location: /admin/login.php?error=unknownerror&loginEmail=".$email);
+        exit();
     }
 } else {
     header("Location: /");

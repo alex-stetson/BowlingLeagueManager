@@ -7,6 +7,13 @@ CREATE TABLE users (
     PRIMARY KEY (email)
 );
 
+CREATE TABLE failedLogins (
+    id INT(11) NOT NULL UNIQUE AUTO_INCREMENT,
+    ipAddr VARBINARY(16) DEFAULT NULL,
+    attemptedAt DATETIME NOT NULL,
+    PRIMARY KEY (id)
+);
+
 CREATE TABLE teams (
     id INT(11) NOT NULL UNIQUE AUTO_INCREMENT,
     teamName VARCHAR(255) NOT NULL,

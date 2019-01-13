@@ -56,7 +56,11 @@ if (isset($_SESSION['userEmail']) && $_SESSION['userEmail'] != '') {
                     if (isset($_GET['error'])) {
                       if ($_GET['error'] == "emptyfields") {
                         echo '<small class="text-danger">Please fill out all the fields</small>';
-                      } else if ($_GET['error'] = "incorrectcreds") {
+                      } else if ($_GET['error'] == "lockout") {
+                        $lockoutTime = (is_numeric($_GET['lockoutTime']) ? ceil($_GET['lockoutTime']/60) : "a few");
+                        echo '<small class="text-danger">Too many login attempts.
+                        Please wait '.$lockoutTime.' minute(s) and try again.</small>';
+                      } else if ($_GET['error'] == "incorrectcreds") {
                         echo '<small class="text-danger">Incorrect Email or Password</small>';
                       } else {
                         echo '<small class="text-danger">Unknown error occured. Please try again</small>';
