@@ -48,7 +48,7 @@ if (isset($_POST['create-match-submit'])) {
             }
         } else {
             if (empty($matchLocation)) {
-                $matchTime = date ("Y-m-d H:i:s", strtotime($matchTime));
+                $matchTime = date("Y-m-d H:i:s", strtotime($matchTime));
                 $sql = "INSERT INTO matches (`team1`, `team2`, `matchTime`) VALUES (?, ?, ?);";
                 if ($stmt = mysqli_prepare($link, $sql)) {
                     mysqli_stmt_bind_param($stmt, "sss", $team1, $team2, $matchTime);
@@ -61,7 +61,7 @@ if (isset($_POST['create-match-submit'])) {
                     exit();
                 }
             } else {
-                $matchTime = date ("Y-m-d H:i:s", strtotime($matchTime));
+                $matchTime = date("Y-m-d H:i:s", strtotime($matchTime));
                 $sql = "INSERT INTO matches (`team1`, `team2`, `matchTime`, `matchLocation`) VALUES (?, ?, ?, ?);";
                 if ($stmt = mysqli_prepare($link, $sql)) {
                     mysqli_stmt_bind_param($stmt, "ssss", $team1, $team2, $matchTime, $matchLocation);

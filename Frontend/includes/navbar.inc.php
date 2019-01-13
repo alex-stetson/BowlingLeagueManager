@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<html>
-  <head>
-  </head>
-
+<html lang="en">
   <body>
     <header class="header-global">
       <nav class="navbar navbar-expand-lg navbar-dark bg-default">
@@ -59,7 +56,7 @@
               session_start();
               if (isset($_SESSION['userEmail']) && $_SESSION['userEmail'] != '') { ?>
                 <li class="nav-item dropdown">
-                  <a href="#" class="nav-link" data-toggle="dropdown" href="#" role="button">
+                  <a class="nav-link" data-toggle="dropdown" href="#" role="button">
                     <span class="nav-link-inner--text">Administration</span>
                   </a>
                   <div class="dropdown-menu">

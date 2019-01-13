@@ -1,6 +1,7 @@
 <?php
 
-function rateLimit($email, $link) {
+function rateLimit($email, $link)
+{
     $remoteIp = $_SERVER['REMOTE_ADDR'];
     $timeFrame = 300;
     $sql = "SELECT * FROM failedLogins WHERE ipAddr = INET6_ATON(?) AND attemptedAt > DATE_SUB(NOW(), INTERVAL ? MINUTE) ORDER BY attemptedAt DESC;";
@@ -12,45 +13,46 @@ function rateLimit($email, $link) {
         $numAttempts = mysqli_num_rows($result);
         if ($numAttempts >= 20) {
             if ($row = mysqli_fetch_assoc($result)) {
-                $nextLoginTime = (int) date('U', strtotime($row['attemptedAt'])) + 1800;
+                $nextLoginTime = (int)date('U', strtotime($row['attemptedAt'])) + 1800;
                 if (time() < $nextLoginTime) {
-                    header("Location: /admin/login.php?error=lockout&lockoutTime=".($nextLoginTime - time())."&loginEmail=".$email);
+                    header("Location: /admin/login.php?error=lockout&lockoutTime=" . ($nextLoginTime - time()) . "&loginEmail=" . $email);
                     exit();
                 }
             } else {
-                header("Location: /admin/login.php?error=unknownerror&loginEmail=".$email);
+                header("Location: /admin/login.php?error=unknownerror&loginEmail=" . $email);
                 exit();
             }
         } else if ($numAttempts >= 10) {
             if ($row = mysqli_fetch_assoc($result)) {
-                $nextLoginTime = (int) date('U', strtotime($row['attemptedAt'])) + 900;
+                $nextLoginTime = (int)date('U', strtotime($row['attemptedAt'])) + 900;
                 if (time() < $nextLoginTime) {
-                    header("Location: /admin/login.php?error=lockout&lockoutTime=".($nextLoginTime - time())."&loginEmail=".$email);
+                    header("Location: /admin/login.php?error=lockout&lockoutTime=" . ($nextLoginTime - time()) . "&loginEmail=" . $email);
                     exit();
                 }
             } else {
-                header("Location: /admin/login.php?error=unknownerror&loginEmail=".$email);
+                header("Location: /admin/login.php?error=unknownerror&loginEmail=" . $email);
                 exit();
             }
         } else if ($numAttempts >= 5) {
             if ($row = mysqli_fetch_assoc($result)) {
-                $nextLoginTime = (int) date('U', strtotime($row['attemptedAt'])) + 300;
+                $nextLoginTime = (int)date('U', strtotime($row['attemptedAt'])) + 300;
                 if (time() < $nextLoginTime) {
-                    header("Location: /admin/login.php?error=lockout&lockoutTime=".($nextLoginTime - time())."&loginEmail=".$email);
+                    header("Location: /admin/login.php?error=lockout&lockoutTime=" . ($nextLoginTime - time()) . "&loginEmail=" . $email);
                     exit();
                 }
             } else {
-                header("Location: /admin/login.php?error=unknownerror&loginEmail=".$email);
+                header("Location: /admin/login.php?error=unknownerror&loginEmail=" . $email);
                 exit();
             }
         }
     } else {
-        header("Location: /admin/login.php?error=unknownerror&loginEmail=".$email);
+        header("Location: /admin/login.php?error=unknownerror&loginEmail=" . $email);
         exit();
     }
 }
 
-function clearEntries($link) {
+function clearEntries($link)
+{
     $timeFrame = 300;
     $sql = "DELETE FROM failedLogins WHERE attemptedAt < DATE_SUB(NOW(), INTERVAL ? MINUTE);";
     if ($stmt = mysqli_prepare($link, $sql)) {
@@ -60,7 +62,8 @@ function clearEntries($link) {
     }
 }
 
-function addFailedLogin($link) {
+function addFailedLogin($link)
+{
     $remoteIp = $_SERVER['REMOTE_ADDR'];
     $sql = "INSERT INTO failedLogins (`ipAddr`, `attemptedAt`) VALUES (INET6_ATON(?), NOW());";
     if ($stmt = mysqli_prepare($link, $sql)) {
@@ -99,16 +102,16 @@ if (isset($_POST['login-submit'])) {
                 exit();
             } else {
                 addFailedLogin($link);
-                header("Location: /admin/login.php?error=incorrectcreds&loginEmail=".$email);
+                header("Location: /admin/login.php?error=incorrectcreds&loginEmail=" . $email);
                 exit();
             }
         } else {
             addFailedLogin($link);
-            header("Location: /admin/login.php?error=incorrectcreds&loginEmail=".$email);
+            header("Location: /admin/login.php?error=incorrectcreds&loginEmail=" . $email);
             exit();
         }
     } else {
-        header("Location: /admin/login.php?error=unknownerror&loginEmail=".$email);
+        header("Location: /admin/login.php?error=unknownerror&loginEmail=" . $email);
         exit();
     }
 } else {

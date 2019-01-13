@@ -60,72 +60,80 @@ require('../assets/fpdf/fpdf.php');
 
 class PDF extends FPDF
 {
-    function setTeam1Name($team1Name) {
+    function setTeam1Name($team1Name)
+    {
         $this->team1Name = $team1Name;
     }
-    function setTeam2Name($team2Name) {
+
+    function setTeam2Name($team2Name)
+    {
         $this->team2Name = $team2Name;
     }
-    function setDateTime($dateTime) {
+
+    function setDateTime($dateTime)
+    {
         $this->dateTime = date('m/d/y h:i A', strtotime($dateTime));
     }
-    function setLocation($location) {
+
+    function setLocation($location)
+    {
         $this->location = $location;
     }
+
     // Page header
     function Header()
     {
         // Logo
-        $this->Image('../assets/img/brand/bclogo.png',10,6,30);
+        $this->Image('../assets/img/brand/bclogo.png', 10, 6, 30);
         // Arial bold 18
-        $this->SetFont('Arial','B',18);
+        $this->SetFont('Arial', 'B', 18);
         // Title
-        $this->Cell(0,8,$this->team1Name,0,0,'C');
+        $this->Cell(0, 8, $this->team1Name, 0, 0, 'C');
         $this->Ln();
-        $this->Cell(0,8,"vs",0,0,'C');
+        $this->Cell(0, 8, "vs", 0, 0, 'C');
         $this->Ln();
-        $this->Cell(0,8,$this->team2Name,0,0,'C');
+        $this->Cell(0, 8, $this->team2Name, 0, 0, 'C');
         $this->Ln(10);
-        $this->SetFont('Times','',14);
-        $this->Cell(0,7,$this->dateTime,0,0,'C');
+        $this->SetFont('Times', '', 14);
+        $this->Cell(0, 7, $this->dateTime, 0, 0, 'C');
         $this->Ln();
-        $this->Cell(0,7,$this->location,0,0,'C');
+        $this->Cell(0, 7, $this->location, 0, 0, 'C');
         // Logo
-        $this->Image('../assets/img/brand/trlogo.png',170,6,30);
+        $this->Image('../assets/img/brand/trlogo.png', 170, 6, 30);
         // Line break
         $this->Ln(15);
     }
+
     function DataTable($names, $handicaps)
     {
         // Colors, line width and bold font
         $this->SetTextColor(0);
-        $this->SetDrawColor(0,0,0);
+        $this->SetDrawColor(0, 0, 0);
         $this->SetLineWidth(.3);
-        $this->SetFont('','B');
+        $this->SetFont('', 'B');
         // Header
         $header = array("Name", "Handicap", "Game 1", "Game 2", "Game3");
         $w = array(48, 28, 39, 39, 39);
-        for($i=0;$i<count($header);$i++)
-            $this->Cell($w[$i],7,$header[$i],1,0,'C',false);
+        for ($i = 0; $i < count($header); $i++)
+            $this->Cell($w[$i], 7, $header[$i], 1, 0, 'C', false);
         $this->Ln();
         // Color and font restoration
-        $this->SetFillColor(224,235,255);
+        $this->SetFillColor(224, 235, 255);
         $this->SetTextColor(0);
         $this->SetFont('');
         // Data
         $fill = false;
-        for($i=0;$i<count($names);$i++)
-        {
-            $this->Cell($w[0],8,$names[$i],'LR',0,'L',$fill);
-            $this->Cell($w[1],8,$handicaps[$i],'LR',0,'L',$fill);
-            $this->Cell($w[2],8,"",'LR',0,'L',$fill);
-            $this->Cell($w[3],8,"",'LR',0,'L',$fill);
-            $this->Cell($w[3],8,"",'LR',0,'L',$fill);
+        for ($i = 0; $i < count($names); $i++) {
+            $this->Cell($w[0], 8, $names[$i], 'LR', 0, 'L', $fill);
+            $this->Cell($w[1], 8, $handicaps[$i], 'LR', 0, 'L', $fill);
+            $this->Cell($w[2], 8, "", 'LR', 0, 'L', $fill);
+            $this->Cell($w[3], 8, "", 'LR', 0, 'L', $fill);
+            $this->Cell($w[3], 8, "", 'LR', 0, 'L', $fill);
             $this->Ln();
             $fill = !$fill;
         }
         // Closing line
-        $this->Cell(array_sum($w),0,'','T');
+        $this->Cell(array_sum($w), 0, '', 'T');
     }
 }
 
@@ -137,18 +145,18 @@ $pdf->setDateTime($matchTime);
 $pdf->setLocation($matchLocation);
 $pdf->AliasNbPages();
 $pdf->AddPage();
-$pdf->SetFont('Times','',18);
-$pdf->Cell(40,10,$team1Name);
+$pdf->SetFont('Times', '', 18);
+$pdf->Cell(40, 10, $team1Name);
 $pdf->Ln();
 $pdf->DataTable($team1Members, $team1Handicaps);
 $pdf->Ln(10);
-$pdf->Cell(40,10,$team2Name);
+$pdf->Cell(40, 10, $team2Name);
 $pdf->Ln();
 $pdf->DataTable($team2Members, $team2Handicaps);
 $pdf->Ln(15);
-$pdf->Cell(0,8,$team1Name." Signature: ______________________________",0,0,'C');
+$pdf->Cell(0, 8, $team1Name . " Signature: ______________________________", 0, 0, 'C');
 $pdf->Ln(22);
-$pdf->Cell(0,8,$team2Name." Signature: ______________________________",0,0,'C');
+$pdf->Cell(0, 8, $team2Name . " Signature: ______________________________", 0, 0, 'C');
 $pdf->Output('I', 'Scoresheet.pdf');
 
 ?>

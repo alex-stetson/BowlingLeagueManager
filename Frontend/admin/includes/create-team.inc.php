@@ -23,7 +23,7 @@ if (isset($_POST['create-team-submit'])) {
         }
         $teamId = mysqli_insert_id($link);
         $sql = "INSERT INTO teamMembers (`playerEmail`, `teamId`) VALUES (?, ?);";
-        foreach($teamPlayers as $player) {
+        foreach ($teamPlayers as $player) {
             if ($stmt = mysqli_prepare($link, $sql)) {
                 mysqli_stmt_bind_param($stmt, "si", $player, $teamId);
                 mysqli_stmt_execute($stmt);

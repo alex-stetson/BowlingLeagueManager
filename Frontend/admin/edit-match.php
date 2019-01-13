@@ -37,81 +37,83 @@ if ($row = mysqli_fetch_assoc($result)) {
 ?>
 
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
     <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
 
     <title>Edit Match</title>
 
     <!-- Favicon -->
-    <link href="../assets/img/brand/favicon.png" rel="icon" type="image/png" />
+    <link href="../assets/img/brand/favicon.png" rel="icon" type="image/png"/>
 
     <!-- Fonts -->
     <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
-      rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
+            rel="stylesheet"
     />
 
     <!-- Icons -->
     <link
-      href="../assets/vendor/font-awesome/css/font-awesome.min.css"
-      rel="stylesheet"
+            href="../assets/vendor/font-awesome/css/font-awesome.min.css"
+            rel="stylesheet"
     />
 
     <!-- Argon CSS -->
-    <link type="text/css" href="../assets/css/argon.css" rel="stylesheet" />
-  </head>
+    <link type="text/css" href="../assets/css/argon.css" rel="stylesheet"/>
+</head>
 
-  <body>
-    <?php
-      include_once "../includes/navbar.inc.php";
-    ?>
-    <main>
+<body>
+<?php
+include_once "../includes/navbar.inc.php";
+?>
+<main>
     <div class="container pt-lg-md">
-          <div class="row justify-content-center">
+        <div class="row justify-content-center">
             <div class="col-lg-5">
-              <div class="card bg-secondary shadow border-0">
-                <div class="card-body px-lg-5 py-lg-5">
-                  <div class="text-center text-muted mb-4">
-                    <h3>Edit Match</h3>
-                  </div>
-                  <form role="form" action="includes/edit-match.inc.php" method="post">
-                  <input type="hidden" name="matchId" value="<?php echo $matchId; ?>">
-                    <div class="form-group mb-3">
-                        <small>Team 1: <?php echo ($team1Name);?></small>
+                <div class="card bg-secondary shadow border-0">
+                    <div class="card-body px-lg-5 py-lg-5">
+                        <div class="text-center text-muted mb-4">
+                            <h3>Edit Match</h3>
+                        </div>
+                        <form role="form" action="includes/edit-match.inc.php" method="post">
+                            <input type="hidden" name="matchId" value="<?php echo $matchId; ?>">
+                            <div class="form-group mb-3">
+                                <small>Team 1: <?php echo($team1Name); ?></small>
+                            </div>
+                            <div class="form-group">
+                                <small>Team 2: <?php echo($team2Name); ?></small>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Location" name="matchLocation"
+                                       value="<?php echo $matchLocation; ?>"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="datetime-local" class="form-control" name="matchTime"
+                                       value="<?php echo((empty($row['matchTime']) ? '' : date("Y-m-d\TH:i:s", strtotime($matchTime)))) ?>"/>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-default my-4" name="edit-match-submit">
+                                    Edit Match
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <small>Team 2: <?php echo ($team2Name);?></small>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Location" name="matchLocation" value="<?php echo $matchLocation;?>"/>
-                    </div>
-                    <div class="form-group">
-                        <input type="datetime-local" class="form-control" name="matchTime" value="<?php echo((empty($row['matchTime']) ? '' : date("Y-m-d\TH:i:s", strtotime($matchTime)))) ?>"/>
-                    </div>
-                    <div class="text-center">
-                      <button type="submit" class="btn btn-default my-4" name="edit-match-submit">
-                        Edit Match
-                      </button>
-                    </div>
-                  </form>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-    </main>
+    </div>
+</main>
 
-    <!-- Core -->
-    <script src="../assets/vendor/jquery/jquery.min.js"></script>
-    <script src="../assets/vendor/popper/popper.min.js"></script>
-    <script src="../assets/vendor/bootstrap/bootstrap.min.js"></script>
+<!-- Core -->
+<script src="../assets/vendor/jquery/jquery.min.js"></script>
+<script src="../assets/vendor/popper/popper.min.js"></script>
+<script src="../assets/vendor/bootstrap/bootstrap.min.js"></script>
 
-    <!-- Theme JS -->
-    <script src="../assets/js/argon.js"></script>
-  </body>
+<!-- Theme JS -->
+<script src="../assets/js/argon.js"></script>
+</body>
 </html>

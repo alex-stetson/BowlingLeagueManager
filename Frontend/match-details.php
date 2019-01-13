@@ -106,207 +106,207 @@ if ($stmt = mysqli_prepare($link, $sql)) {
 ?>
 
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
     <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
 
     <title>Match Details</title>
 
     <!-- Favicon -->
-    <link href="assets/img/brand/favicon.png" rel="icon" type="image/png" />
+    <link href="assets/img/brand/favicon.png" rel="icon" type="image/png"/>
 
     <!-- Fonts -->
     <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
-      rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
+            rel="stylesheet"
     />
 
     <!-- Icons -->
     <link
-      href="assets/vendor/font-awesome/css/font-awesome.min.css"
-      rel="stylesheet"
+            href="assets/vendor/font-awesome/css/font-awesome.min.css"
+            rel="stylesheet"
     />
 
     <!-- Argon CSS -->
-    <link type="text/css" href="assets/css/argon.css" rel="stylesheet" />
-  </head>
+    <link type="text/css" href="assets/css/argon.css" rel="stylesheet"/>
+</head>
 
-  <body>
-    <?php
-      include_once "includes/navbar.inc.php";
-    ?>
-    <main>
-      <div class="row justify-content-center">
+<body>
+<?php
+include_once "includes/navbar.inc.php";
+?>
+<main>
+    <div class="row justify-content-center">
         <div class="col-lg-12">
-          <h1 class="h1 font-weight-bold mb-4">Match Details</h1>
-          <h3 class="h3"><?php echo($team1Name.' vs '.$team2Name);?></h3>
-          <small><?php echo $matchTime; ?></small>
-          <br>
-          <small><?php echo $matchLocation; ?></small>
-          <hr>
-          <?php if($scoresAvailable) { ?>
-            <h4 class="h4"><?php echo $team1Name; ?></h4>
-            <table class="table">
-                <thead>
-                    <tr>
-                    <th scope="col">Player</th>
-                    <th scope="col">Handicap</th>
-                    <th scope="col">Game 1 Score</th>
-                    <th scope="col">Game 2 Score</th>
-                    <th scope="col">Game 3 Score</th>
-                    <th scope="col" style="border-left: 2px solid">Total Scratch Score</th>
-                    <th scope="col">Total Handicap</th>
-                    <th scope="col">Total Score</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $scoreIndex = 0;
-                    for($i=0;$i<count($team1Members);$i++) {
-                        echo '<tr>';
-                        echo '<th>'.$team1Members[$i].'</th>';
-                        echo '<td>'.$team1Handicaps[$i].'</td>';
-                        echo '<td>'.$team1Scores[$scoreIndex].'</td>';
-                        echo '<td>'.$team1Scores[($scoreIndex+1)].'</td>';
-                        echo '<td>'.$team1Scores[($scoreIndex+2)].'</td>';
-                        $totalScratch = $team1Scores[$scoreIndex] + $team1Scores[($scoreIndex+1)] + $team1Scores[($scoreIndex+2)];
-                        echo '<td style="border-left: 2px solid">'.$totalScratch.'</td>';
-                        echo '<td>'.($team1Handicaps[$i] * 3).'</td>';
-                        echo '<td>'.($totalScratch + ($team1Handicaps[$i] * 3)).'</td>';
-                        echo '</tr>';
-                        $scoreIndex += 3;
-                    }
-                    ?>
-                    <tr style="border-top: 3px solid">
-                    <th>Team Total (Scratch)</th>
-                    <td></td>
-                    <td><?php echo $team1Game1Scratch ;?></td>
-                    <td><?php echo $team1Game2Scratch ;?></td>
-                    <td><?php echo $team1Game3Scratch ;?></td>
-                    <td style="border-left: 2px solid"></td>
-                    <td></td>
-                    <td></td>
-                    </tr>
-                    <tr>
-                    <th>Team Handicap</th>
-                    <td><?php echo $team1TotalHandicap; ?></td>
-                    <td><?php echo $team1TotalHandicap; ?></td>
-                    <td><?php echo $team1TotalHandicap; ?></td>
-                    <td><?php echo $team1TotalHandicap; ?></td>
-                    <td style="border-left: 2px solid"></td>
-                    <td></td>
-                    <td></td>
-                    </tr>
-                    <tr>
-                    <th>Team Total (Overall)</th>
-                    <td></td>
-                    <?php echo (($team1Game1Total >= $team2Game1Total) ?
-                        '<td class="text-success">'.$team1Game1Total.'</td>' :
-                        '<td class="text-danger">'.$team1Game1Total.'</td>'); ?>
-                    <?php echo (($team1Game2Total >= $team2Game2Total) ?
-                        '<td class="text-success">'.$team1Game2Total.'</td>' :
-                        '<td class="text-danger">'.$team1Game2Total.'</td>'); ?>
-                    <?php echo (($team1Game3Total >= $team2Game3Total) ?
-                        '<td class="text-success">'.$team1Game3Total.'</td>' :
-                        '<td class="text-danger">'.$team1Game3Total.'</td>'); ?>
-                    <td style="border-left: 2px solid"></td>
-                    <td></td>
-                    <?php echo (($team1OverallTotal >= $team2OverallTotal) ?
-                        '<td class="text-success">'.$team1OverallTotal.'</td>' :
-                        '<td class="text-danger">'.$team1OverallTotal.'</td>'); ?>
-                    </tr>
-                </tbody>
-            </table>
+            <h1 class="h1 font-weight-bold mb-4">Match Details</h1>
+            <h3 class="h3"><?php echo($team1Name . ' vs ' . $team2Name); ?></h3>
+            <small><?php echo $matchTime; ?></small>
+            <br>
+            <small><?php echo $matchLocation; ?></small>
             <hr>
-            <h4 class="h4"><?php echo $team2Name; ?></h4>
-            <table class="table">
-                <thead>
+            <?php if ($scoresAvailable) { ?>
+                <h4 class="h4"><?php echo $team1Name; ?></h4>
+                <table class="table">
+                    <thead>
                     <tr>
-                    <th scope="col">Player</th>
-                    <th scope="col">Handicap</th>
-                    <th scope="col">Game 1 Score</th>
-                    <th scope="col">Game 2 Score</th>
-                    <th scope="col">Game 3 Score</th>
-                    <th scope="col" style="border-left: 2px solid">Total Scratch Score</th>
-                    <th scope="col">Total Handicap</th>
-                    <th scope="col">Total Score</th>
+                        <th scope="col">Player</th>
+                        <th scope="col">Handicap</th>
+                        <th scope="col">Game 1 Score</th>
+                        <th scope="col">Game 2 Score</th>
+                        <th scope="col">Game 3 Score</th>
+                        <th scope="col" style="border-left: 2px solid">Total Scratch Score</th>
+                        <th scope="col">Total Handicap</th>
+                        <th scope="col">Total Score</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     <?php
                     $scoreIndex = 0;
-                    for($i=0;$i<count($team2Members);$i++) {
+                    for ($i = 0; $i < count($team1Members); $i++) {
                         echo '<tr>';
-                        echo '<th>'.$team2Members[$i].'</th>';
-                        echo '<td>'.$team2Handicaps[$i].'</td>';
-                        echo '<td>'.$team2Scores[$scoreIndex].'</td>';
-                        echo '<td>'.$team2Scores[($scoreIndex+1)].'</td>';
-                        echo '<td>'.$team2Scores[($scoreIndex+2)].'</td>';
-                        $totalScratch = $team2Scores[$scoreIndex] + $team2Scores[($scoreIndex+1)] + $team2Scores[($scoreIndex+2)];
-                        echo '<td style="border-left: 2px solid">'.$totalScratch.'</td>';
-                        echo '<td>'.($team2Handicaps[$i] * 3).'</td>';
-                        echo '<td>'.($totalScratch + ($team2Handicaps[$i] * 3)).'</td>';
+                        echo '<th>' . $team1Members[$i] . '</th>';
+                        echo '<td>' . $team1Handicaps[$i] . '</td>';
+                        echo '<td>' . $team1Scores[$scoreIndex] . '</td>';
+                        echo '<td>' . $team1Scores[($scoreIndex + 1)] . '</td>';
+                        echo '<td>' . $team1Scores[($scoreIndex + 2)] . '</td>';
+                        $totalScratch = $team1Scores[$scoreIndex] + $team1Scores[($scoreIndex + 1)] + $team1Scores[($scoreIndex + 2)];
+                        echo '<td style="border-left: 2px solid">' . $totalScratch . '</td>';
+                        echo '<td>' . ($team1Handicaps[$i] * 3) . '</td>';
+                        echo '<td>' . ($totalScratch + ($team1Handicaps[$i] * 3)) . '</td>';
                         echo '</tr>';
                         $scoreIndex += 3;
                     }
                     ?>
                     <tr style="border-top: 3px solid">
-                    <th>Team Total (Scratch)</th>
-                    <td></td>
-                    <td><?php echo $team2Game1Scratch ;?></td>
-                    <td><?php echo $team2Game2Scratch ;?></td>
-                    <td><?php echo $team2Game3Scratch ;?></td>
-                    <td style="border-left: 2px solid"></td>
-                    <td></td>
-                    <td></td>
+                        <th>Team Total (Scratch)</th>
+                        <td></td>
+                        <td><?php echo $team1Game1Scratch; ?></td>
+                        <td><?php echo $team1Game2Scratch; ?></td>
+                        <td><?php echo $team1Game3Scratch; ?></td>
+                        <td style="border-left: 2px solid"></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr>
-                    <th>Team Handicap</th>
-                    <td><?php echo $team2TotalHandicap; ?></td>
-                    <td><?php echo $team2TotalHandicap; ?></td>
-                    <td><?php echo $team2TotalHandicap; ?></td>
-                    <td><?php echo $team2TotalHandicap; ?></td>
-                    <td style="border-left: 2px solid"></td>
-                    <td></td>
-                    <td></td>
+                        <th>Team Handicap</th>
+                        <td><?php echo $team1TotalHandicap; ?></td>
+                        <td><?php echo $team1TotalHandicap; ?></td>
+                        <td><?php echo $team1TotalHandicap; ?></td>
+                        <td><?php echo $team1TotalHandicap; ?></td>
+                        <td style="border-left: 2px solid"></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr>
-                    <th>Team Total (Overall)</th>
-                    <td></td>
-                    <?php echo (($team2Game1Total >= $team1Game1Total) ?
-                        '<td class="text-success">'.$team2Game1Total.'</td>' :
-                        '<td class="text-danger">'.$team2Game1Total.'</td>'); ?>
-                    <?php echo (($team2Game2Total >= $team1Game2Total) ?
-                        '<td class="text-success">'.$team2Game2Total.'</td>' :
-                        '<td class="text-danger">'.$team2Game2Total.'</td>'); ?>
-                    <?php echo (($team2Game3Total >= $team1Game3Total) ?
-                        '<td class="text-success">'.$team2Game3Total.'</td>' :
-                        '<td class="text-danger">'.$team2Game3Total.'</td>'); ?>
-                    <td style="border-left: 2px solid"></td>
-                    <td></td>
-                    <?php echo (($team2OverallTotal >= $team1OverallTotal) ?
-                        '<td class="text-success">'.$team2OverallTotal.'</td>' :
-                        '<td class="text-danger">'.$team2OverallTotal.'</td>'); ?>
+                        <th>Team Total (Overall)</th>
+                        <td></td>
+                        <?php echo(($team1Game1Total >= $team2Game1Total) ?
+                            '<td class="text-success">' . $team1Game1Total . '</td>' :
+                            '<td class="text-danger">' . $team1Game1Total . '</td>'); ?>
+                        <?php echo(($team1Game2Total >= $team2Game2Total) ?
+                            '<td class="text-success">' . $team1Game2Total . '</td>' :
+                            '<td class="text-danger">' . $team1Game2Total . '</td>'); ?>
+                        <?php echo(($team1Game3Total >= $team2Game3Total) ?
+                            '<td class="text-success">' . $team1Game3Total . '</td>' :
+                            '<td class="text-danger">' . $team1Game3Total . '</td>'); ?>
+                        <td style="border-left: 2px solid"></td>
+                        <td></td>
+                        <?php echo(($team1OverallTotal >= $team2OverallTotal) ?
+                            '<td class="text-success">' . $team1OverallTotal . '</td>' :
+                            '<td class="text-danger">' . $team1OverallTotal . '</td>'); ?>
                     </tr>
-                </tbody>
-            </table>
-        <?php } else { ?>
-            <h4 class="h4">Scores Currently Unavailable</h4>
-        <?php } ?>
+                    </tbody>
+                </table>
+                <hr>
+                <h4 class="h4"><?php echo $team2Name; ?></h4>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Player</th>
+                        <th scope="col">Handicap</th>
+                        <th scope="col">Game 1 Score</th>
+                        <th scope="col">Game 2 Score</th>
+                        <th scope="col">Game 3 Score</th>
+                        <th scope="col" style="border-left: 2px solid">Total Scratch Score</th>
+                        <th scope="col">Total Handicap</th>
+                        <th scope="col">Total Score</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    $scoreIndex = 0;
+                    for ($i = 0; $i < count($team2Members); $i++) {
+                        echo '<tr>';
+                        echo '<th>' . $team2Members[$i] . '</th>';
+                        echo '<td>' . $team2Handicaps[$i] . '</td>';
+                        echo '<td>' . $team2Scores[$scoreIndex] . '</td>';
+                        echo '<td>' . $team2Scores[($scoreIndex + 1)] . '</td>';
+                        echo '<td>' . $team2Scores[($scoreIndex + 2)] . '</td>';
+                        $totalScratch = $team2Scores[$scoreIndex] + $team2Scores[($scoreIndex + 1)] + $team2Scores[($scoreIndex + 2)];
+                        echo '<td style="border-left: 2px solid">' . $totalScratch . '</td>';
+                        echo '<td>' . ($team2Handicaps[$i] * 3) . '</td>';
+                        echo '<td>' . ($totalScratch + ($team2Handicaps[$i] * 3)) . '</td>';
+                        echo '</tr>';
+                        $scoreIndex += 3;
+                    }
+                    ?>
+                    <tr style="border-top: 3px solid">
+                        <th>Team Total (Scratch)</th>
+                        <td></td>
+                        <td><?php echo $team2Game1Scratch; ?></td>
+                        <td><?php echo $team2Game2Scratch; ?></td>
+                        <td><?php echo $team2Game3Scratch; ?></td>
+                        <td style="border-left: 2px solid"></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>Team Handicap</th>
+                        <td><?php echo $team2TotalHandicap; ?></td>
+                        <td><?php echo $team2TotalHandicap; ?></td>
+                        <td><?php echo $team2TotalHandicap; ?></td>
+                        <td><?php echo $team2TotalHandicap; ?></td>
+                        <td style="border-left: 2px solid"></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>Team Total (Overall)</th>
+                        <td></td>
+                        <?php echo(($team2Game1Total >= $team1Game1Total) ?
+                            '<td class="text-success">' . $team2Game1Total . '</td>' :
+                            '<td class="text-danger">' . $team2Game1Total . '</td>'); ?>
+                        <?php echo(($team2Game2Total >= $team1Game2Total) ?
+                            '<td class="text-success">' . $team2Game2Total . '</td>' :
+                            '<td class="text-danger">' . $team2Game2Total . '</td>'); ?>
+                        <?php echo(($team2Game3Total >= $team1Game3Total) ?
+                            '<td class="text-success">' . $team2Game3Total . '</td>' :
+                            '<td class="text-danger">' . $team2Game3Total . '</td>'); ?>
+                        <td style="border-left: 2px solid"></td>
+                        <td></td>
+                        <?php echo(($team2OverallTotal >= $team1OverallTotal) ?
+                            '<td class="text-success">' . $team2OverallTotal . '</td>' :
+                            '<td class="text-danger">' . $team2OverallTotal . '</td>'); ?>
+                    </tr>
+                    </tbody>
+                </table>
+            <?php } else { ?>
+                <h4 class="h4">Scores Currently Unavailable</h4>
+            <?php } ?>
         </div>
-      </div>
-    </main>
+    </div>
+</main>
 
-    <!-- Core -->
-    <script src="assets/vendor/jquery/jquery.min.js"></script>
-    <script src="assets/vendor/popper/popper.min.js"></script>
-    <script src="assets/vendor/bootstrap/bootstrap.min.js"></script>
+<!-- Core -->
+<script src="assets/vendor/jquery/jquery.min.js"></script>
+<script src="assets/vendor/popper/popper.min.js"></script>
+<script src="assets/vendor/bootstrap/bootstrap.min.js"></script>
 
-    <!-- Theme JS -->
-    <script src="assets/js/argon.js"></script>
-  </body>
+<!-- Theme JS -->
+<script src="assets/js/argon.js"></script>
+</body>
 </html>

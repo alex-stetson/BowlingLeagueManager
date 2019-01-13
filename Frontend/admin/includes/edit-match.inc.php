@@ -14,7 +14,7 @@ if (isset($_POST['edit-match-submit'])) {
         exit();
     } else {
         if (!empty($matchTime)) {
-            $matchTime = date ("Y-m-d H:i:s", strtotime($matchTime));
+            $matchTime = date("Y-m-d H:i:s", strtotime($matchTime));
         } else {
             $matchTime = NULL;
         }

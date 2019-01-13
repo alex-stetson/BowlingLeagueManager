@@ -13,7 +13,7 @@ if (isset($_POST['submit-scores'])) {
         header("Location: /admin/matches.php");
         exit();
     } else if (empty($team1Id) || empty($team2Id)) {
-        header("Location: /score-entry.php?matchId=".$matchId);
+        header("Location: /score-entry.php?matchId=" . $matchId);
         exit();
     }
 
@@ -67,7 +67,7 @@ if (isset($_POST['submit-scores'])) {
 
 
     if (empty($p1Email) || empty($p2Email) || empty($p3Email) || empty($p4Email) || empty($p5Email) || empty($p6Email) || empty($p7Email) || empty($p8Email)) {
-        header("Location: /score-entry.php?matchId=".$matchId);
+        header("Location: /score-entry.php?matchId=" . $matchId);
         exit();
     } else {
         # Insert matchScore Data
@@ -87,14 +87,14 @@ if (isset($_POST['submit-scores'])) {
         game3Score = VALUES(game3Score);";
         if ($stmt = mysqli_prepare($link, $sql)) {
             mysqli_stmt_bind_param($stmt, "iisiiiiiisiiiiiisiiiiiisiiiiiisiiiiiisiiiiiisiiiiiisiiii",
-            $matchId, $team1Id, $p1Email, $p1Handicap, $p1g1, $p1g2, $p1g3,
-            $matchId, $team1Id, $p2Email, $p2Handicap, $p2g1, $p2g2, $p2g3,
-            $matchId, $team1Id, $p3Email, $p3Handicap, $p3g1, $p3g2, $p3g3,
-            $matchId, $team1Id, $p4Email, $p4Handicap, $p4g1, $p4g2, $p4g3,
-            $matchId, $team2Id, $p5Email, $p5Handicap, $p5g1, $p5g2, $p5g3,
-            $matchId, $team2Id, $p6Email, $p6Handicap, $p6g1, $p6g2, $p6g3,
-            $matchId, $team2Id, $p7Email, $p7Handicap, $p7g1, $p7g2, $p7g3,
-            $matchId, $team2Id, $p8Email, $p8Handicap, $p8g1, $p8g2, $p8g3);
+                $matchId, $team1Id, $p1Email, $p1Handicap, $p1g1, $p1g2, $p1g3,
+                $matchId, $team1Id, $p2Email, $p2Handicap, $p2g1, $p2g2, $p2g3,
+                $matchId, $team1Id, $p3Email, $p3Handicap, $p3g1, $p3g2, $p3g3,
+                $matchId, $team1Id, $p4Email, $p4Handicap, $p4g1, $p4g2, $p4g3,
+                $matchId, $team2Id, $p5Email, $p5Handicap, $p5g1, $p5g2, $p5g3,
+                $matchId, $team2Id, $p6Email, $p6Handicap, $p6g1, $p6g2, $p6g3,
+                $matchId, $team2Id, $p7Email, $p7Handicap, $p7g1, $p7g2, $p7g3,
+                $matchId, $team2Id, $p8Email, $p8Handicap, $p8g1, $p8g2, $p8g3);
             mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
         } else {
