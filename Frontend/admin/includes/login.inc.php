@@ -51,12 +51,22 @@ function rateLimit($email, $link)
     }
 }
 
-function clearEntries($link)
+function cleanEntries($link)
 {
     $timeFrame = 300;
     $sql = "DELETE FROM failedLogins WHERE attemptedAt < DATE_SUB(NOW(), INTERVAL ? MINUTE);";
     if ($stmt = mysqli_prepare($link, $sql)) {
         mysqli_stmt_bind_param($stmt, "i", $timeFrame);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+    }
+}
+
+function clearCurrIP($link) {
+    $remoteIp = $_SERVER['REMOTE_ADDR'];
+    $sql = "DELETE FROM failedLogins WHERE ipAddr = INET6_ATON(?);";
+    if ($stmt = mysqli_prepare($link, $sql)) {
+        mysqli_stmt_bind_param($stmt, "s", $remoteIp);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
     }
@@ -85,7 +95,7 @@ if (isset($_POST['login-submit'])) {
         exit();
     }
 
-    clearEntries($link);
+    cleanEntries($link);
     rateLimit($email, $link);
 
     $sql = "SELECT * FROM users WHERE email=?;";
@@ -96,6 +106,7 @@ if (isset($_POST['login-submit'])) {
         mysqli_stmt_close($stmt);
         if ($row = mysqli_fetch_assoc($result)) {
             if (password_verify($password, $row['pass'])) {
+                clearCurrIP($link);
                 session_start();
                 $_SESSION['userEmail'] = $row['email'];
                 header("Location: /");

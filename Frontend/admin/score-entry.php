@@ -97,6 +97,12 @@ include_once "../includes/navbar.inc.php";
                     <div class="row">
                         <div class="col-lg-4">
                             <?php echo $team1Members[1] . "<br> (" . $team1Members[0] . ")"; ?>
+                            <div class="custom-control custom-control-alternative custom-checkbox">
+                                <input class="custom-control-input" id="p1Blind" name="p1Blind" type="checkbox">
+                                <label class="custom-control-label" for="p1Blind">
+                                    <span>Blind</span>
+                                </label>
+                            </div>
                         </div>
                         <div class="col-lg-8">
                             <div class="form-group">
@@ -113,6 +119,12 @@ include_once "../includes/navbar.inc.php";
                     <div class="row">
                         <div class="col-lg-4">
                             <?php echo $team1Members[3] . "<br> (" . $team1Members[2] . ")"; ?>
+                            <div class="custom-control custom-control-alternative custom-checkbox">
+                                <input class="custom-control-input" id="p2Blind" name="p2Blind" type="checkbox">
+                                <label class="custom-control-label" for="p2Blind">
+                                    <span>Blind</span>
+                                </label>
+                            </div>
                         </div>
                         <div class="col-lg-8">
                             <div class="form-group">
@@ -129,6 +141,12 @@ include_once "../includes/navbar.inc.php";
                     <div class="row">
                         <div class="col-lg-4">
                             <?php echo $team1Members[5] . "<br> (" . $team1Members[4] . ")"; ?>
+                            <div class="custom-control custom-control-alternative custom-checkbox">
+                                <input class="custom-control-input" id="p3Blind" name="p3Blind" type="checkbox">
+                                <label class="custom-control-label" for="p3Blind">
+                                    <span>Blind</span>
+                                </label>
+                            </div>
                         </div>
                         <div class="col-lg-8">
                             <div class="form-group">
@@ -145,6 +163,12 @@ include_once "../includes/navbar.inc.php";
                     <div class="row">
                         <div class="col-lg-4">
                             <?php echo $team1Members[7] . "<br> (" . $team1Members[6] . ")"; ?>
+                            <div class="custom-control custom-control-alternative custom-checkbox">
+                                <input class="custom-control-input" id="p4Blind" name="p4Blind" type="checkbox">
+                                <label class="custom-control-label" for="p4Blind">
+                                    <span>Blind</span>
+                                </label>
+                            </div>
                         </div>
                         <div class="col-lg-8">
                             <div class="form-group">
@@ -165,6 +189,12 @@ include_once "../includes/navbar.inc.php";
                     <div class="row">
                         <div class="col-lg-4">
                             <?php echo $team2Members[1] . "<br> (" . $team2Members[0] . ")"; ?>
+                            <div class="custom-control custom-control-alternative custom-checkbox">
+                                <input class="custom-control-input" id="p5Blind" name="p5Blind" type="checkbox">
+                                <label class="custom-control-label" for="p5Blind">
+                                    <span>Blind</span>
+                                </label>
+                            </div>
                         </div>
                         <div class="col-lg-8">
                             <div class="form-group">
@@ -181,6 +211,12 @@ include_once "../includes/navbar.inc.php";
                     <div class="row">
                         <div class="col-lg-4">
                             <?php echo $team2Members[3] . "<br> (" . $team2Members[2] . ")"; ?>
+                            <div class="custom-control custom-control-alternative custom-checkbox">
+                                <input class="custom-control-input" id="p6Blind" name="p6Blind" type="checkbox">
+                                <label class="custom-control-label" for="p6Blind">
+                                    <span>Blind</span>
+                                </label>
+                            </div>
                         </div>
                         <div class="col-lg-8">
                             <div class="form-group">
@@ -197,6 +233,12 @@ include_once "../includes/navbar.inc.php";
                     <div class="row">
                         <div class="col-lg-4">
                             <?php echo $team2Members[5] . "<br> (" . $team2Members[4] . ")"; ?>
+                            <div class="custom-control custom-control-alternative custom-checkbox">
+                                <input class="custom-control-input" id="p7Blind" name="p7Blind" type="checkbox">
+                                <label class="custom-control-label" for="p7Blind">
+                                    <span>Blind</span>
+                                </label>
+                            </div>
                         </div>
                         <div class="col-lg-8">
                             <div class="form-group">
@@ -213,6 +255,12 @@ include_once "../includes/navbar.inc.php";
                     <div class="row">
                         <div class="col-lg-4">
                             <?php echo $team2Members[7] . "<br> (" . $team2Members[6] . ")"; ?>
+                            <div class="custom-control custom-control-alternative custom-checkbox">
+                                <input class="custom-control-input" id="p8Blind" name="p8Blind" type="checkbox">
+                                <label class="custom-control-label" for="p8Blind">
+                                    <span>Blind</span>
+                                </label>
+                            </div>
                         </div>
                         <div class="col-lg-8">
                             <div class="form-group">

@@ -72,7 +72,7 @@ class PDF extends FPDF
 
     function setDateTime($dateTime)
     {
-        $this->dateTime = date('m/d/y h:i A', strtotime($dateTime));
+        $this->dateTime = (empty($dateTime) ? '' : date('m/d/y h:i A', strtotime($dateTime)));
     }
 
     function setLocation($location)
@@ -154,9 +154,9 @@ $pdf->Cell(40, 10, $team2Name);
 $pdf->Ln();
 $pdf->DataTable($team2Members, $team2Handicaps);
 $pdf->Ln(15);
-$pdf->Cell(0, 8, $team1Name . " Signature: ______________________________", 0, 0, 'C');
+$pdf->Cell(0, 8, $team1Name . " Signature: _________________________________", 0, 0, 'C');
 $pdf->Ln(22);
-$pdf->Cell(0, 8, $team2Name . " Signature: ______________________________", 0, 0, 'C');
+$pdf->Cell(0, 8, $team2Name . " Signature: _________________________________", 0, 0, 'C');
 $pdf->Output('I', 'Scoresheet.pdf');
 
 ?>
