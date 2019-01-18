@@ -1,6 +1,7 @@
 <?php
 
 require "requireAuth.inc.php";
+require "../../includes/config.inc.php";
 
 if (isset($_POST['create-match-submit'])) {
 
@@ -11,13 +12,13 @@ if (isset($_POST['create-match-submit'])) {
     $matchTime = $_POST['matchTime'];
     $matchLocation = $_POST['matchLocation'];
     if (empty($team1) || empty($team2)) {
-        header("Location: /admin/create-match.php?error=emptyfields");
+        header("Location: " . $baseURL . "admin/create-match.php?error=emptyfields");
         exit();
     } else if ($team1 == "NULL" || $team2 == "NULL") {
-        header("Location: /admin/create-match.php?error=emptyfields");
+        header("Location: " . $baseURL . "admin/create-match.php?error=emptyfields");
         exit();
     } else if ($team1 == $team2) {
-        header("Location: /admin/create-match.php?error=sameteam");
+        header("Location: " . $baseURL . "admin/create-match.php?error=sameteam");
         exit();
     } else {
         if (empty($matchTime)) {
@@ -27,10 +28,10 @@ if (isset($_POST['create-match-submit'])) {
                     mysqli_stmt_bind_param($stmt, "ss", $team1, $team2);
                     mysqli_stmt_execute($stmt);
                     mysqli_stmt_close($stmt);
-                    header("Location: /admin/matches.php");
+                    header("Location: " . $baseURL . "admin/matches.php");
                     exit();
                 } else {
-                    header("Location: /admin/create-match.php?error=unknownerror");
+                    header("Location: " . $baseURL . "admin/create-match.php?error=unknownerror");
                     exit();
                 }
             } else {
@@ -39,10 +40,10 @@ if (isset($_POST['create-match-submit'])) {
                     mysqli_stmt_bind_param($stmt, "sss", $team1, $team2, $matchLocation);
                     mysqli_stmt_execute($stmt);
                     mysqli_stmt_close($stmt);
-                    header("Location: /admin/matches.php");
+                    header("Location: " . $baseURL . "admin/matches.php");
                     exit();
                 } else {
-                    header("Location: /admin/create-match.php?error=unknownerror");
+                    header("Location: " . $baseURL . "admin/create-match.php?error=unknownerror");
                     exit();
                 }
             }
@@ -54,10 +55,10 @@ if (isset($_POST['create-match-submit'])) {
                     mysqli_stmt_bind_param($stmt, "sss", $team1, $team2, $matchTime);
                     mysqli_stmt_execute($stmt);
                     mysqli_stmt_close($stmt);
-                    header("Location: /admin/matches.php");
+                    header("Location: " . $baseURL . "admin/matches.php");
                     exit();
                 } else {
-                    header("Location: /admin/create-match.php?error=unknownerror");
+                    header("Location: " . $baseURL . "admin/create-match.php?error=unknownerror");
                     exit();
                 }
             } else {
@@ -67,17 +68,17 @@ if (isset($_POST['create-match-submit'])) {
                     mysqli_stmt_bind_param($stmt, "ssss", $team1, $team2, $matchTime, $matchLocation);
                     mysqli_stmt_execute($stmt);
                     mysqli_stmt_close($stmt);
-                    header("Location: /admin/matches.php");
+                    header("Location: " . $baseURL . "admin/matches.php");
                     exit();
                 } else {
-                    header("Location: /admin/create-match.php?error=unknownerror");
+                    header("Location: " . $baseURL . "admin/create-match.php?error=unknownerror");
                     exit();
                 }
             }
         }
     }
 } else {
-    header("Location: /");
+    header("Location: " . $baseURL);
     exit();
 }
 

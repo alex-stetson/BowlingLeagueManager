@@ -1,6 +1,8 @@
 <?php
 
+require "includes/config.inc.php";
 require "includes/connection.inc.php";
+
 $sql = "SELECT t1.id, t1.teamName, t1.totalPoints, COUNT(t2.totalPoints) AS Rank
 FROM teams t1
 JOIN teams t2 ON t1.totalPoints < t2.totalPoints OR (t1.totalPoints=t2.totalPoints and t1.id = t2.id)
@@ -25,6 +27,8 @@ if ($stmt = mysqli_prepare($link, $sql)) {
     />
 
     <title>Standings</title>
+
+    <base href="<?php echo $baseURL; ?>">
 
     <!-- Favicon -->
     <link href="assets/img/brand/favicon.png" rel="icon" type="image/png"/>

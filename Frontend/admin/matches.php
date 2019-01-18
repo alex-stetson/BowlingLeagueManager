@@ -3,6 +3,7 @@
 require "includes/requireAuth.inc.php";
 
 require "../includes/connection.inc.php";
+require "../includes/config.inc.php";
 
 $sql = "SELECT matches.id, matches.matchTime, matches.matchLocation, t1.teamName AS team1Name, t2.teamName AS team2Name
 FROM matches LEFT OUTER JOIN teams t1 ON t1.id = matches.team1
@@ -29,8 +30,10 @@ if ($stmt = mysqli_prepare($link, $sql)) {
 
     <title>Matches</title>
 
+    <base href="<?php echo $baseURL; ?>">
+
     <!-- Favicon -->
-    <link href="../assets/img/brand/favicon.png" rel="icon" type="image/png"/>
+    <link href="assets/img/brand/favicon.png" rel="icon" type="image/png"/>
 
     <!-- Fonts -->
     <link
@@ -40,12 +43,12 @@ if ($stmt = mysqli_prepare($link, $sql)) {
 
     <!-- Icons -->
     <link
-            href="../assets/vendor/font-awesome/css/font-awesome.min.css"
+            href="assets/vendor/font-awesome/css/font-awesome.min.css"
             rel="stylesheet"
     />
 
     <!-- Argon CSS -->
-    <link type="text/css" href="../assets/css/argon.css" rel="stylesheet"/>
+    <link type="text/css" href="assets/css/argon.css" rel="stylesheet"/>
 </head>
 
 <body>
@@ -55,7 +58,7 @@ include_once "../includes/navbar.inc.php";
 <main>
     <br>
     <h2 style="float: left">Matches</h2>
-    <a style="float: right" class="btn btn-default" href="/admin/create-match.php" role="button">Create Match</a>
+    <a style="float: right" class="btn btn-default" href="admin/create-match.php" role="button">Create Match</a>
     <table class="table">
         <thead>
         <tr>
@@ -74,9 +77,9 @@ include_once "../includes/navbar.inc.php";
             echo '<td>' . $row['team1Name'] . ' vs ' . $row['team2Name'] . '</td>';
             echo '<td>' . (empty($row['matchTime']) ? '' : date('m/d/y h:i A', strtotime($row['matchTime']))) . '</td>';
             echo '<td>' . $row['matchLocation'] . '</td>';
-            echo '<td><a class="btn btn-default" href="/admin/edit-match.php?matchId=' . $row['id'] . '" role="button">Edit Match</a></td>';
-            echo '<td><a class="btn btn-default" href="/admin/match-scoresheet.php?matchId=' . $row['id'] . '" role="button">Generate Scoresheet</a></td>';
-            echo '<td><a class="btn btn-default" href="/admin/score-entry.php?matchId=' . $row['id'] . '" role="button">Enter Scores</a></td>';
+            echo '<td><a class="btn btn-default" href="admin/edit-match.php?matchId=' . $row['id'] . '" role="button">Edit Match</a></td>';
+            echo '<td><a class="btn btn-default" href="admin/match-scoresheet.php?matchId=' . $row['id'] . '" role="button">Generate Scoresheet</a></td>';
+            echo '<td><a class="btn btn-default" href="admin/score-entry.php?matchId=' . $row['id'] . '" role="button">Enter Scores</a></td>';
             echo '</tr>';
         }
         ?>
@@ -85,11 +88,11 @@ include_once "../includes/navbar.inc.php";
 </main>
 
 <!-- Core -->
-<script src="../assets/vendor/jquery/jquery.min.js"></script>
-<script src="../assets/vendor/popper/popper.min.js"></script>
-<script src="../assets/vendor/bootstrap/bootstrap.min.js"></script>
+<script src="assets/vendor/jquery/jquery.min.js"></script>
+<script src="assets/vendor/popper/popper.min.js"></script>
+<script src="assets/vendor/bootstrap/bootstrap.min.js"></script>
 
 <!-- Theme JS -->
-<script src="../assets/js/argon.js"></script>
+<script src="assets/js/argon.js"></script>
 </body>
 </html>

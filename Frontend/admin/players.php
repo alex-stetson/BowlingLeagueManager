@@ -3,6 +3,7 @@
 require "includes/requireAuth.inc.php";
 
 require "../includes/connection.inc.php";
+require "../includes/config.inc.php";
 
 $sql = "SELECT * FROM players;";
 if ($stmt = mysqli_prepare($link, $sql)) {
@@ -26,8 +27,10 @@ if ($stmt = mysqli_prepare($link, $sql)) {
 
     <title>Players</title>
 
+    <base href="<?php echo $baseURL; ?>">
+
     <!-- Favicon -->
-    <link href="../assets/img/brand/favicon.png" rel="icon" type="image/png"/>
+    <link href="assets/img/brand/favicon.png" rel="icon" type="image/png"/>
 
     <!-- Fonts -->
     <link
@@ -37,12 +40,12 @@ if ($stmt = mysqli_prepare($link, $sql)) {
 
     <!-- Icons -->
     <link
-            href="../assets/vendor/font-awesome/css/font-awesome.min.css"
+            href="assets/vendor/font-awesome/css/font-awesome.min.css"
             rel="stylesheet"
     />
 
     <!-- Argon CSS -->
-    <link type="text/css" href="../assets/css/argon.css" rel="stylesheet"/>
+    <link type="text/css" href="assets/css/argon.css" rel="stylesheet"/>
 </head>
 
 <body>
@@ -52,7 +55,7 @@ include_once "../includes/navbar.inc.php";
 <main>
     <br>
     <h2 style="float: left">Players</h2>
-    <a style="float: right" class="btn btn-default" href="/admin/add-player.php" role="button">Add Player</a>
+    <a style="float: right" class="btn btn-default" href="admin/add-player.php" role="button">Add Player</a>
     <table class="table">
         <thead>
         <tr>
@@ -69,7 +72,7 @@ include_once "../includes/navbar.inc.php";
             echo '<td>' . $row['email'] . '</td>';
             echo '<td>' . $row['playerName'] . '</td>';
             echo '<td>' . $row['currentHandicap'] . '</td>';
-            echo '<td><a class="btn btn-default" href="/admin/edit-player.php?playerEmail=' . $row['email'] . '" role="button">Edit Player</a></td>';
+            echo '<td><a class="btn btn-default" href="admin/edit-player.php?playerEmail=' . $row['email'] . '" role="button">Edit Player</a></td>';
             echo '</tr>';
         }
         ?>
@@ -78,11 +81,11 @@ include_once "../includes/navbar.inc.php";
 </main>
 
 <!-- Core -->
-<script src="../assets/vendor/jquery/jquery.min.js"></script>
-<script src="../assets/vendor/popper/popper.min.js"></script>
-<script src="../assets/vendor/bootstrap/bootstrap.min.js"></script>
+<script src="assets/vendor/jquery/jquery.min.js"></script>
+<script src="assets/vendor/popper/popper.min.js"></script>
+<script src="assets/vendor/bootstrap/bootstrap.min.js"></script>
 
 <!-- Theme JS -->
-<script src="../assets/js/argon.js"></script>
+<script src="assets/js/argon.js"></script>
 </body>
 </html>

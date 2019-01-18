@@ -3,6 +3,7 @@
 require "includes/requireAuth.inc.php";
 
 require "../includes/connection.inc.php";
+require "../includes/config.inc.php";
 
 $sql = "SELECT * FROM teams;";
 if ($stmt = mysqli_prepare($link, $sql)) {
@@ -31,8 +32,10 @@ while ($row = mysqli_fetch_assoc($result)) {
 
     <title>Create Match</title>
 
+    <base href="<?php echo $baseURL; ?>">
+
     <!-- Favicon -->
-    <link href="../assets/img/brand/favicon.png" rel="icon" type="image/png"/>
+    <link href="assets/img/brand/favicon.png" rel="icon" type="image/png"/>
 
     <!-- Fonts -->
     <link
@@ -42,12 +45,12 @@ while ($row = mysqli_fetch_assoc($result)) {
 
     <!-- Icons -->
     <link
-            href="../assets/vendor/font-awesome/css/font-awesome.min.css"
+            href="assets/vendor/font-awesome/css/font-awesome.min.css"
             rel="stylesheet"
     />
 
     <!-- Argon CSS -->
-    <link type="text/css" href="../assets/css/argon.css" rel="stylesheet"/>
+    <link type="text/css" href="assets/css/argon.css" rel="stylesheet"/>
 </head>
 
 <body>
@@ -63,7 +66,7 @@ include_once "../includes/navbar.inc.php";
                         <div class="text-center text-muted mb-4">
                             <h3>Create Match</h3>
                         </div>
-                        <form role="form" action="includes/create-match.inc.php" method="post">
+                        <form role="form" action="admin/includes/create-match.inc.php" method="post">
                             <div class="form-group mb-3">
                                 <label for="team1">Team 1</label>
                                 <select id="team1" name="team1" class="form-control">
@@ -96,11 +99,11 @@ include_once "../includes/navbar.inc.php";
 </main>
 
 <!-- Core -->
-<script src="../assets/vendor/jquery/jquery.min.js"></script>
-<script src="../assets/vendor/popper/popper.min.js"></script>
-<script src="../assets/vendor/bootstrap/bootstrap.min.js"></script>
+<script src="assets/vendor/jquery/jquery.min.js"></script>
+<script src="assets/vendor/popper/popper.min.js"></script>
+<script src="assets/vendor/bootstrap/bootstrap.min.js"></script>
 
 <!-- Theme JS -->
-<script src="../assets/js/argon.js"></script>
+<script src="assets/js/argon.js"></script>
 </body>
 </html>

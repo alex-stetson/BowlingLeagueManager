@@ -1,6 +1,7 @@
 <?php
 
 require "requireAuth.inc.php";
+require "../../includes/config.inc.php";
 
 if (isset($_POST['submit-scores'])) {
 
@@ -10,10 +11,10 @@ if (isset($_POST['submit-scores'])) {
     $team1Id = $_POST['team1Id'];
     $team2Id = $_POST['team2Id'];
     if (empty($matchId)) {
-        header("Location: /admin/matches.php");
+        header("Location: " . $baseURL . "admin/matches.php");
         exit();
     } else if (empty($team1Id) || empty($team2Id)) {
-        header("Location: /score-entry.php?matchId=" . $matchId);
+        header("Location: " . $baseURL . "score-entry.php?matchId=" . $matchId);
         exit();
     }
 
@@ -75,7 +76,7 @@ if (isset($_POST['submit-scores'])) {
 
 
     if (empty($p1Email) || empty($p2Email) || empty($p3Email) || empty($p4Email) || empty($p5Email) || empty($p6Email) || empty($p7Email) || empty($p8Email)) {
-        header("Location: /score-entry.php?matchId=" . $matchId);
+        header("Location: " . $baseURL . "score-entry.php?matchId=" . $matchId);
         exit();
     } else {
         # Insert matchScore Data
@@ -248,10 +249,10 @@ if (isset($_POST['submit-scores'])) {
         } else {
             exit();
         }
-        header("Location: /");
+        header("Location: " . $baseURL . "admin/matches.php");
     }
 } else {
-    header("Location: /admin/matches.php");
+    header("Location: " . $baseURL . "admin/matches.php");
     exit();
 }
 

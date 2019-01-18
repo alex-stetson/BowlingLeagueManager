@@ -8,6 +8,7 @@ if (!isset($_GET['matchId'])) {
 }
 
 require "../includes/connection.inc.php";
+require "../includes/config.inc.php";
 
 $matchId = $_GET['matchId'];
 
@@ -65,17 +66,19 @@ if ($stmt = mysqli_prepare($link, $sql)) {
 
     <title>Score Entry</title>
 
+    <base href="<?php echo $baseURL; ?>">
+
     <!-- Favicon -->
-    <link href="../assets/img/brand/favicon.png" rel="icon" type="image/png"/>
+    <link href="assets/img/brand/favicon.png" rel="icon" type="image/png"/>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet"/>
 
     <!-- Icons -->
-    <link href="../assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
 
     <!-- Argon CSS -->
-    <link type="text/css" href="../assets/css/argon.css" rel="stylesheet"/>
+    <link type="text/css" href="assets/css/argon.css" rel="stylesheet"/>
 </head>
 
 <body>
@@ -84,7 +87,7 @@ include_once "../includes/navbar.inc.php";
 ?>
 <div class="row justify-content-center mt-md">
     <div class="col-lg-12">
-        <form role="form" action="includes/score-entry.inc.php" method="post">
+        <form role="form" action="admin/includes/score-entry.inc.php" method="post">
             <h1 class="h1 font-weight-bold mb-4">Score Entry</h1>
             <input type="hidden" name="matchId" value="<?php echo $matchId; ?>">
             <input type="hidden" name="team1Id" value="<?php echo $team1Id; ?>">
@@ -291,12 +294,12 @@ include_once "../includes/navbar.inc.php";
 </div>
 
 <!-- Core -->
-<script src="../assets/vendor/jquery/jquery.min.js"></script>
-<script src="../assets/vendor/popper/popper.min.js"></script>
-<script src="../assets/vendor/bootstrap/bootstrap.min.js"></script>
+<script src="assets/vendor/jquery/jquery.min.js"></script>
+<script src="assets/vendor/popper/popper.min.js"></script>
+<script src="assets/vendor/bootstrap/bootstrap.min.js"></script>
 
 <!-- Theme JS -->
-<script src="../assets/js/argon.js"></script>
+<script src="assets/js/argon.js"></script>
 </body>
 
 </html>

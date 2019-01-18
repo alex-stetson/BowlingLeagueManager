@@ -20,8 +20,8 @@
             <div class="navbar-collapse-header">
               <div class="row">
                 <div class="col-6 collapse-brand">
-                  <a href="/">
-                    <img src="../assets/img/brand/blue.png" />
+                    <a href>
+                        <img src="assets/img/brand/blue.png"/>
                   </a>
                 </div>
                 <div class="col-6 collapse-close">
@@ -41,16 +41,16 @@
             </div>
             <ul class="navbar-nav ml-lg-auto">
               <li class="nav-item">
-                <a class="nav-link" href="/">Upcoming Matches</a>
+                  <a class="nav-link" href="">Upcoming Matches</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/standings.php">Standings</a>
+                  <a class="nav-link" href="standings.php">Standings</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/past-matches.php">Past Matches</a>
+                  <a class="nav-link" href="past-matches.php">Past Matches</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/teams.php">Teams</a>
+                  <a class="nav-link" href="teams.php">Teams</a>
               </li>
               <?php
               session_start();
@@ -60,15 +60,15 @@
                     <span class="nav-link-inner--text">Administration</span>
                   </a>
                   <div class="dropdown-menu">
-                    <a href="/admin/matches.php" class="dropdown-item">Matches</a>
-                    <a href="/admin/teams.php" class="dropdown-item">Teams</a>
-                    <a href="/admin/players.php" class="dropdown-item">Players</a>
-                    <a href="/admin/logout.php" class="dropdown-item">Logout</a>
+                      <a href="admin/matches.php" class="dropdown-item">Matches</a>
+                      <a href="admin/teams.php" class="dropdown-item">Teams</a>
+                      <a href="admin/players.php" class="dropdown-item">Players</a>
+                      <a href="admin/logout.php" class="dropdown-item">Logout</a>
                   </div>
                 </li>
               <?php } else { ?>
                 <li class="nav-item">
-                  <a class="nav-link" href="/admin/login.php"><i class="fa fa-unlock-alt"></i></a>
+                    <a class="nav-link" href="admin/login.php"><i class="fa fa-unlock-alt"></i></a>
                 </li>
               <?php } ?>
             </ul>

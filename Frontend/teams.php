@@ -1,6 +1,8 @@
 <?php
 
+require "includes/config.inc.php";
 require "includes/connection.inc.php";
+
 $sql = "SELECT teams.teamName, GROUP_CONCAT(players.playerName) as teamMembers, teamMembers.teamId
 FROM teams INNER JOIN teamMembers ON teams.id = teamMembers.teamId
 INNER JOIN players ON teamMembers.playerEmail = players.email
@@ -24,6 +26,8 @@ if ($stmt = mysqli_prepare($link, $sql)) {
     />
 
     <title>Teams</title>
+
+    <base href="<?php echo $baseURL; ?>">
 
     <!-- Favicon -->
     <link href="assets/img/brand/favicon.png" rel="icon" type="image/png"/>

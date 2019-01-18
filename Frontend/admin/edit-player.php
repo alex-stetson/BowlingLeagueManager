@@ -8,6 +8,7 @@ if (!isset($_GET['playerEmail'])) {
 }
 
 require "../includes/connection.inc.php";
+require "../includes/config.inc.php";
 
 $playerEmail = $_GET['playerEmail'];
 
@@ -47,8 +48,10 @@ if (empty($playerEmail)) {
 
     <title>Edit Player</title>
 
+    <base href="<?php echo $baseURL; ?>">
+
     <!-- Favicon -->
-    <link href="../assets/img/brand/favicon.png" rel="icon" type="image/png"/>
+    <link href="assets/img/brand/favicon.png" rel="icon" type="image/png"/>
 
     <!-- Fonts -->
     <link
@@ -58,12 +61,12 @@ if (empty($playerEmail)) {
 
     <!-- Icons -->
     <link
-            href="../assets/vendor/font-awesome/css/font-awesome.min.css"
+            href="assets/vendor/font-awesome/css/font-awesome.min.css"
             rel="stylesheet"
     />
 
     <!-- Argon CSS -->
-    <link type="text/css" href="../assets/css/argon.css" rel="stylesheet"/>
+    <link type="text/css" href="assets/css/argon.css" rel="stylesheet"/>
 </head>
 
 <body>
@@ -90,7 +93,7 @@ include_once "../includes/navbar.inc.php";
                             }
                             ?>
                         </div>
-                        <form role="form" action="includes/edit-player.inc.php" method="post">
+                        <form role="form" action="admin/includes/edit-player.inc.php" method="post">
                             <input type="hidden" name="playerEmail" value="<?php echo $playerEmail; ?>">
                             <div class="form-group">
                                 <div class="input-group input-group-alternative">
@@ -122,11 +125,11 @@ include_once "../includes/navbar.inc.php";
 </main>
 
 <!-- Core -->
-<script src="../assets/vendor/jquery/jquery.min.js"></script>
-<script src="../assets/vendor/popper/popper.min.js"></script>
+<script src="assets/vendor/jquery/jquery.min.js"></script>
+<script src="assets/vendor/popper/popper.min.js"></script>
 <script src="../assets/vendor/bootstrap/bootstrap.min.js"></script>
 
 <!-- Theme JS -->
-<script src="../assets/js/argon.js"></script>
+<script src="assets/js/argon.js"></script>
 </body>
 </html>

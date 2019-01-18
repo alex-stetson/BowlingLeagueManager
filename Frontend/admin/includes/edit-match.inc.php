@@ -1,6 +1,7 @@
 <?php
 
 require "requireAuth.inc.php";
+require "../../includes/config.inc.php";
 
 if (isset($_POST['edit-match-submit'])) {
 
@@ -10,7 +11,7 @@ if (isset($_POST['edit-match-submit'])) {
     $matchTime = $_POST['matchTime'];
     $matchLocation = $_POST['matchLocation'];
     if (empty($matchId)) {
-        header("Location: /admin/edit-match.php?error=emptyfields");
+        header("Location: " . $baseURL . "admin/edit-match.php?error=emptyfields");
         exit();
     } else {
         if (!empty($matchTime)) {
@@ -24,14 +25,14 @@ if (isset($_POST['edit-match-submit'])) {
             mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
         } else {
-            header("Location: /admin/edit-match.php?error=unknownerror");
+            header("Location: " . $baseURL . "admin/edit-match.php?error=unknownerror");
             exit();
         }
     }
-    header("Location: /admin/matches.php");
+    header("Location: " . $baseURL . "admin/matches.php");
     exit();
 } else {
-    header("Location: /");
+    header("Location: " . $baseURL);
     exit();
 }
 

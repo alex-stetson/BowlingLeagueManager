@@ -1,6 +1,6 @@
 <?php
 
-
+require "includes/config.inc.php";
 require "includes/connection.inc.php";
 
 $matchId = $_GET['matchId'];
@@ -115,6 +115,8 @@ if ($stmt = mysqli_prepare($link, $sql)) {
     />
 
     <title>Match Details</title>
+
+    <base href="<?php echo $baseURL; ?>">
 
     <!-- Favicon -->
     <link href="assets/img/brand/favicon.png" rel="icon" type="image/png"/>

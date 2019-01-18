@@ -1,6 +1,8 @@
 <?php
 
+require "includes/config.inc.php";
 require "includes/connection.inc.php";
+
 $sql = "SELECT matches.id, matches.matchTime, t1.teamName AS team1Name, t2.teamName AS team2Name
 FROM matches LEFT OUTER JOIN teams t1 ON t1.id = matches.team1
 LEFT OUTER JOIN teams t2 ON matches.team2 = t2.id
@@ -24,6 +26,8 @@ if ($stmt = mysqli_prepare($link, $sql)) {
     />
 
     <title>Past Matches</title>
+
+    <base href="<?php echo $baseURL; ?>">
 
     <!-- Favicon -->
     <link href="assets/img/brand/favicon.png" rel="icon" type="image/png"/>

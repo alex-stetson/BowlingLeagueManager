@@ -1,6 +1,7 @@
 <?php
 
 require "includes/requireAuth.inc.php";
+require "../includes/config.inc.php";
 
 ?>
 
@@ -15,8 +16,10 @@ require "includes/requireAuth.inc.php";
 
     <title>Add Player</title>
 
+    <base href="<?php echo $baseURL; ?>">
+
     <!-- Favicon -->
-    <link href="../assets/img/brand/favicon.png" rel="icon" type="image/png"/>
+    <link href="assets/img/brand/favicon.png" rel="icon" type="image/png"/>
 
     <!-- Fonts -->
     <link
@@ -26,12 +29,12 @@ require "includes/requireAuth.inc.php";
 
     <!-- Icons -->
     <link
-            href="../assets/vendor/font-awesome/css/font-awesome.min.css"
+            href="assets/vendor/font-awesome/css/font-awesome.min.css"
             rel="stylesheet"
     />
 
     <!-- Argon CSS -->
-    <link type="text/css" href="../assets/css/argon.css" rel="stylesheet"/>
+    <link type="text/css" href="assets/css/argon.css" rel="stylesheet"/>
 </head>
 
 <body>
@@ -60,7 +63,7 @@ include_once "../includes/navbar.inc.php";
                             }
                             ?>
                         </div>
-                        <form role="form" action="includes/add-player.inc.php" method="post">
+                        <form role="form" action="admin/includes/add-player.inc.php" method="post">
                             <div class="form-group mb-3">
                                 <div class="input-group input-group-alternative">
                                     <div class="input-group-prepend">
@@ -105,11 +108,11 @@ include_once "../includes/navbar.inc.php";
 </main>
 
 <!-- Core -->
-<script src="../assets/vendor/jquery/jquery.min.js"></script>
-<script src="../assets/vendor/popper/popper.min.js"></script>
-<script src="../assets/vendor/bootstrap/bootstrap.min.js"></script>
+<script src="assets/vendor/jquery/jquery.min.js"></script>
+<script src="assets/vendor/popper/popper.min.js"></script>
+<script src="assets/vendor/bootstrap/bootstrap.min.js"></script>
 
 <!-- Theme JS -->
-<script src="../assets/js/argon.js"></script>
+<script src="assets/js/argon.js"></script>
 </body>
 </html>

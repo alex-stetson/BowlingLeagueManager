@@ -1,6 +1,7 @@
 <?php
 
 require "requireAuth.inc.php";
+require "../../includes/config.inc.php";
 
 if (isset($_POST['create-team-submit'])) {
 
@@ -9,7 +10,7 @@ if (isset($_POST['create-team-submit'])) {
     $teamName = $_POST['teamName'];
     $teamPlayers = $_POST['teamPlayers'];
     if (empty($teamName)) {
-        header("Location: /admin/create-team.php?error=emptyfields");
+        header("Location: " . $baseURL . "admin/create-team.php?error=emptyfields");
         exit();
     } else {
         $sql = "INSERT INTO teams (`teamName`) VALUES (?);";
@@ -18,7 +19,7 @@ if (isset($_POST['create-team-submit'])) {
             mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
         } else {
-            header("Location: /admin/create-team.php?error=unknownerror");
+            header("Location: " . $baseURL . "admin/create-team.php?error=unknownerror");
             exit();
         }
         $teamId = mysqli_insert_id($link);
@@ -30,11 +31,11 @@ if (isset($_POST['create-team-submit'])) {
                 mysqli_stmt_close($stmt);
             }
         }
-        header("Location: /admin/teams.php");
+        header("Location: " . $baseURL . "admin/teams.php");
         exit();
     }
 } else {
-    header("Location: /");
+    header("Location: " . $baseURL);
     exit();
 }
 

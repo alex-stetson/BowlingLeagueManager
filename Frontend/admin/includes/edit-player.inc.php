@@ -1,6 +1,7 @@
 <?php
 
 require "requireAuth.inc.php";
+require "../../includes/config.inc.php";
 
 if (isset($_POST['edit-player-submit'])) {
 
@@ -10,7 +11,7 @@ if (isset($_POST['edit-player-submit'])) {
     $playerName = $_POST['playerName'];
 
     if (empty($email) || empty($playerName)) {
-        header("Location: /edit-player.php?error=emptyfields");
+        header("Location: " . $baseURL . "edit-player.php?error=emptyfields");
         exit();
     } else {
         $sql = "UPDATE players SET playerName=? WHERE email=?;";
@@ -18,16 +19,16 @@ if (isset($_POST['edit-player-submit'])) {
             mysqli_stmt_bind_param($stmt, "ss", $playerName, $email);
             mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
-            header("Location: /admin/players.php");
+            header("Location: " . $baseURL . "admin/players.php");
             exit();
 
         } else {
-            header("Location: /admin/edit-player.php?error=unknownerror");
+            header("Location: " . $baseURL . "admin/edit-player.php?error=unknownerror");
             exit();
         }
     }
 } else {
-    header("Location: /");
+    header("Location: " . $baseURL);
     exit();
 }
 
