@@ -32,8 +32,8 @@ CREATE TABLE matches (
     id INT(10) UNSIGNED NOT NULL UNIQUE AUTO_INCREMENT,
     matchTime DATETIME DEFAULT NULL,
     matchLocation VARCHAR(255) DEFAULT NULL,
-    team1 INT(11) DEFAULT NULL,
-    team2 INT(11) DEFAULT NULL,
+    team1 INT(10) UNSIGNED DEFAULT NULL,
+    team2 INT(10) UNSIGNED DEFAULT NULL,
     team1Points INT(11) DEFAULT 0,
     team2Points INT(11) DEFAULT 0,
     PRIMARY KEY (id),
@@ -45,7 +45,7 @@ CREATE TABLE matches (
 
 CREATE TABLE teamMembers (
     playerEmail VARCHAR(255) NOT NULL,
-    teamId INT(10) NOT NULL,
+    teamId INT(10) UNSIGNED NOT NULL,
     PRIMARY KEY (playerEmail, teamId),
     FOREIGN KEY (playerEmail)
     REFERENCES players(email),
@@ -54,8 +54,8 @@ CREATE TABLE teamMembers (
 );
 
 CREATE TABLE matchScores (
-    matchId INT(10) NOT NULL,
-    teamId INT(10) NOT NULL,
+    matchId INT(10) UNSIGNED NOT NULL,
+    teamId INT(10) UNSIGNED NOT NULL,
     playerEmail VARCHAR(255) NOT NULL,
     handicap INT(11) DEFAULT NULL,
     game1Score INT(11) DEFAULT NULL,
