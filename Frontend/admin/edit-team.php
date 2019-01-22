@@ -9,7 +9,7 @@ $teamId = $_GET['teamId'];
 $teamName = NULL;
 
 if (empty($teamId)) {
-    header("Location: /admin/teams.php");
+    header("Location: " . $baseURL . "admin/teams.php");
     exit();
 }
 
@@ -26,7 +26,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
 if ($row = mysqli_fetch_assoc($teamResult)) {
     $teamName = $row['teamName'];
 } else {
-    header("Location: /admin/teams.php");
+    header("Location: " . $baseURL . "admin/teams.php");
     exit();
 }
 

@@ -4,7 +4,7 @@
     <header class="header-global">
       <nav class="navbar navbar-expand-lg navbar-dark bg-default">
         <div class="container">
-          <a class="navbar-brand" href="/">Bowling League</a>
+            <a class="navbar-brand" href="">Bowling League</a>
           <button
             class="navbar-toggler"
             type="button"
@@ -20,7 +20,7 @@
             <div class="navbar-collapse-header">
               <div class="row">
                 <div class="col-6 collapse-brand">
-                    <a href>
+                    <a href="">
                         <img src="assets/img/brand/blue.png"/>
                   </a>
                 </div>

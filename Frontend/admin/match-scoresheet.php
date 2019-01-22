@@ -1,9 +1,10 @@
 <?php
 
 require "includes/requireAuth.inc.php";
+require "../includes/config.inc.php";
 
 if (!isset($_GET['matchId'])) {
-    header("Location: /admin/matches.php");
+    header("Location: " . $baseURL . "admin/matches.php");
     exit();
 }
 
@@ -48,11 +49,11 @@ if ($stmt = mysqli_prepare($link, $sql)) {
         $matchTime = $row['matchTime'];
     }
     if ($team1Id == 0 && $team2Id == 0) {
-        header("Location: /admin/matches.php");
+        header("Location: " . $baseURL . "admin/matches.php");
         exit();
     }
 } else {
-    header("Location: /admin/matches.php");
+    header("Location: " . $baseURL . "admin/matches.php");
     exit();
 }
 

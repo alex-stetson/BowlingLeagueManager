@@ -3,7 +3,7 @@
 require "includes/requireAuth.inc.php";
 
 if (!isset($_GET['playerEmail'])) {
-    header("Location: /admin/players.php");
+    header("Location: " . $baseURL . "admin/players.php");
     exit();
 }
 
@@ -13,7 +13,7 @@ require "../includes/config.inc.php";
 $playerEmail = $_GET['playerEmail'];
 
 if (empty($playerEmail)) {
-    header("Location: /admin/players.php");
+    header("Location: " . $baseURL . "admin/players.php");
     exit();
 } else {
     $sql = "SELECT * FROM players WHERE email=?;";
@@ -23,7 +23,7 @@ if (empty($playerEmail)) {
         $result = mysqli_stmt_get_result($stmt);
         mysqli_stmt_close($stmt);
         if (mysqli_num_rows($result) == 0) {
-            header("Location: /admin/players.php");
+            header("Location: " . $baseURL . "admin/players.php");
             exit();
         } else {
             $row = mysqli_fetch_assoc($result);
@@ -31,7 +31,7 @@ if (empty($playerEmail)) {
             $playerName = $row['playerName'];
         }
     } else {
-        header("Location: /admin/players.php");
+        header("Location: " . $baseURL . "admin/players.php");
         exit();
     }
 }

@@ -1,12 +1,13 @@
 <?php
 
+require "../includes/config.inc.php";
+
 session_start();
 if (isset($_SESSION['userEmail']) && $_SESSION['userEmail'] != '') {
-    header("Location: /");
+    header("Location: " . $baseURL);
     exit();
 }
 
-require "../includes/config.inc.php";
 
 ?>
 

@@ -8,7 +8,7 @@ require "../includes/config.inc.php";
 $matchId = $_GET['matchId'];
 
 if (empty($matchId)) {
-    header("Location: /admin/matches.php");
+    header("Location: " . $baseURL . "admin/matches.php");
     exit();
 }
 
@@ -31,7 +31,7 @@ if ($row = mysqli_fetch_assoc($result)) {
     $matchLocation = $row['matchLocation'];
     $matchTime = $row['matchTime'];
 } else {
-    header("Location: /admin/matches.php");
+    header("Location: " . $baseURL . "admin/matches.php");
     exit();
 }
 
