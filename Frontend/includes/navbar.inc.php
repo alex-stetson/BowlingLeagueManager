@@ -68,7 +68,7 @@
                 </li>
               <?php } else { ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="admin/login.php"><i class="fa fa-unlock-alt"></i></a>
+                    <a class="nav-link" href="admin/login.php"><i class="icon-unlock-alt"></i></a>
                 </li>
               <?php } ?>
             </ul>

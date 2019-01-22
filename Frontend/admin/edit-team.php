@@ -91,13 +91,10 @@ while ($row = mysqli_fetch_assoc($result)) {
     />
 
     <!-- Icons -->
-    <link
-            href="assets/vendor/font-awesome/css/font-awesome.min.css"
-            rel="stylesheet"
-    />
+    <link href="assets/vendor/icomoon/icomoon.min.css" rel="stylesheet"/>
 
     <!-- Argon CSS -->
-    <link type="text/css" href="assets/css/argon.css" rel="stylesheet"/>
+    <link type="text/css" href="assets/css/argon.min.css" rel="stylesheet"/>
 
     <!-- Select2 CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
@@ -147,11 +144,11 @@ include_once "../includes/navbar.inc.php";
 
 <!-- Core -->
 <script src="assets/vendor/jquery/jquery.min.js"></script>
-<script src="assets/vendor/popper/popper.min.js"></script>
+
 <script src="assets/vendor/bootstrap/bootstrap.min.js"></script>
 
 <!-- Theme JS -->
-<script src="assets/js/argon.js"></script>
+<script src="assets/js/argon.min.js"></script>
 
 <!-- Select2 JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>

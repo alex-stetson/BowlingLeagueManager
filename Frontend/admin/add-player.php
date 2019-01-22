@@ -28,13 +28,10 @@ require "../includes/config.inc.php";
     />
 
     <!-- Icons -->
-    <link
-            href="assets/vendor/font-awesome/css/font-awesome.min.css"
-            rel="stylesheet"
-    />
+    <link href="assets/vendor/icomoon/icomoon.min.css" rel="stylesheet"/>
 
     <!-- Argon CSS -->
-    <link type="text/css" href="assets/css/argon.css" rel="stylesheet"/>
+    <link type="text/css" href="assets/css/argon.min.css" rel="stylesheet"/>
 </head>
 
 <body>
@@ -68,7 +65,7 @@ include_once "../includes/navbar.inc.php";
                                 <div class="input-group input-group-alternative">
                                     <div class="input-group-prepend">
                           <span class="input-group-text"
-                          ><i class="fa fa-envelope"></i
+                          ><i class="icon-envelope"></i
                               ></span>
                                     </div>
                                     <input
@@ -83,7 +80,7 @@ include_once "../includes/navbar.inc.php";
                                 <div class="input-group input-group-alternative">
                                     <div class="input-group-prepend">
                           <span class="input-group-text"
-                          ><i class="fa fa-user"></i
+                          ><i class="icon-user"></i
                               ></span>
                                     </div>
                                     <input
@@ -109,10 +106,10 @@ include_once "../includes/navbar.inc.php";
 
 <!-- Core -->
 <script src="assets/vendor/jquery/jquery.min.js"></script>
-<script src="assets/vendor/popper/popper.min.js"></script>
+
 <script src="assets/vendor/bootstrap/bootstrap.min.js"></script>
 
 <!-- Theme JS -->
-<script src="assets/js/argon.js"></script>
+<script src="assets/js/argon.min.js"></script>
 </body>
 </html>
