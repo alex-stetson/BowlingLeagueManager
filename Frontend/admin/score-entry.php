@@ -12,7 +12,13 @@ require "../includes/connection.inc.php";
 
 $matchId = $_GET['matchId'];
 
-$sql = "SELECT players.playerName, players.currentHandicap, teams.teamName, teamMembers.playerEmail, teamMembers.teamId, matches.team1, matches.team2
+if (empty($matchId)) {
+    header("Location: " . $baseURL . "admin/matches.php");
+    exit();
+}
+
+
+$sql = "SELECT players.playerName, players.currentHandicap, teams.teamName, teamMembers.playerEmail, teamMembers.teamId, matches.team1, matches.team2, matches.matchLocation, matches.matchTime
 FROM players
 INNER JOIN teamMembers ON players.email = teamMembers.playerEmail
 INNER JOIN teams ON teamMembers.teamId = teams.id
@@ -45,10 +51,28 @@ if ($stmt = mysqli_prepare($link, $sql)) {
             $team2Name = $row['teamName'];
             $team2Id = $row['team2'];
         }
+        $matchLocation = $row['matchLocation'];
+        $matchTime = $row['matchTime'];
     }
     if ($team1Id == 0 && $team2Id == 0) {
         header("Location: " . $baseURL . "admin/matches.php");
         exit();
+    }
+} else {
+    header("Location: " . $baseURL . "admin/matches.php");
+    exit();
+}
+
+$sql = "SELECT * FROM matchScores WHERE matchId = ?;";
+if ($stmt = mysqli_prepare($link, $sql)) {
+    mysqli_stmt_bind_param($stmt, "i", $matchId);
+    mysqli_stmt_execute($stmt);
+    $matchScoresResult = mysqli_stmt_get_result($stmt);
+    mysqli_stmt_close($stmt);
+    $rowCount = mysqli_num_rows($matchScoresResult);
+    $wasScored = false;
+    if ($rowCount > 0) {
+        $wasScored = true;
     }
 } else {
     header("Location: " . $baseURL . "admin/matches.php");
@@ -86,9 +110,15 @@ if ($stmt = mysqli_prepare($link, $sql)) {
 include_once "../includes/navbar.inc.php";
 ?>
 <div class="row justify-content-center mt-md">
+    <h1 class="h1 font-weight-bold mb-4">Score Entry</h1>
+    <h4><?php echo $team1Name . " vs " . $team2Name; ?></h4>
+    <h5><?php echo(empty($matchTime) ? '' : date('m/d/y h:i A', strtotime($matchTime))); ?></h5>
+    <h5><?php echo $matchLocation ?></h5>
+    <?php echo(($wasScored) ?
+        '<small class="text-success">Scored</small>' :
+        '<small class="text-danger">Unscored</small>'); ?>
     <div class="col-lg-12">
         <form role="form" action="admin/includes/score-entry.inc.php" method="post">
-            <h1 class="h1 font-weight-bold mb-4">Score Entry</h1>
             <input type="hidden" name="matchId" value="<?php echo $matchId; ?>">
             <input type="hidden" name="team1Id" value="<?php echo $team1Id; ?>">
             <input type="hidden" name="team2Id" value="<?php echo $team2Id; ?>">

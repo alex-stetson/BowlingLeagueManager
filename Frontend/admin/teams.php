@@ -4,10 +4,11 @@ require "includes/requireAuth.inc.php";
 require "../includes/connection.inc.php";
 require "../includes/config.inc.php";
 
-$sql = "SELECT teams.teamName, GROUP_CONCAT(players.playerName) as teamMembers, teamMembers.teamId
-FROM teams INNER JOIN teamMembers ON teams.id = teamMembers.teamId
-INNER JOIN players ON teamMembers.playerEmail = players.email
-GROUP BY teamMembers.teamId;";
+$sql = "SELECT teams.id, teams.teamName, GROUP_CONCAT( players.playerName ) AS teamMembers
+FROM teams
+LEFT OUTER JOIN teamMembers ON teams.id = teamMembers.teamId
+LEFT OUTER JOIN players ON teamMembers.playerEmail = players.email
+GROUP BY teams.id;";
 if ($stmt = mysqli_prepare($link, $sql)) {
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
@@ -69,7 +70,7 @@ include_once "../includes/navbar.inc.php";
             echo '<tr>';
             echo '<td>' . $row['teamName'] . '</td>';
             echo '<td>' . $teamMembers . '</td>';
-            echo '<td><a class="btn btn-default" href="admin/edit-team.php?teamId=' . $row['teamId'] . '" role="button">Edit Team</a></td>';
+            echo '<td><a class="btn btn-default" href="admin/edit-team.php?teamId=' . $row['id'] . '" role="button">Edit Team</a></td>';
             echo '</tr>';
         }
         ?>
