@@ -1,5 +1,5 @@
 <?php
 
-$baseURL = "";
+$baseURL = "/";
 
 ?>

@@ -1,7 +1,7 @@
 <?php
 
 # Cannot include in an include
-$baseURL = "";
+$baseURL = "/";
 
 session_start();
 if (!isset($_SESSION['userEmail']) || $_SESSION['userEmail'] == '') {

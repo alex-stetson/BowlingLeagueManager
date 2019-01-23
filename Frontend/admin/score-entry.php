@@ -110,14 +110,14 @@ if ($stmt = mysqli_prepare($link, $sql)) {
 include_once "../includes/navbar.inc.php";
 ?>
 <div class="row justify-content-center mt-md">
-    <h1 class="h1 font-weight-bold mb-4">Score Entry</h1>
-    <h4><?php echo $team1Name . " vs " . $team2Name; ?></h4>
-    <h5><?php echo(empty($matchTime) ? '' : date('m/d/y h:i A', strtotime($matchTime))); ?></h5>
-    <h5><?php echo $matchLocation ?></h5>
-    <?php echo(($wasScored) ?
-        '<small class="text-success">Scored</small>' :
-        '<small class="text-danger">Unscored</small>'); ?>
     <div class="col-lg-12">
+        <h1 class="h1 font-weight-bold">Score Entry</h1>
+        <h4><?php echo $team1Name . " vs " . $team2Name; ?></h4>
+        <h5><?php echo(empty($matchTime) ? '' : date('m/d/y h:i A', strtotime($matchTime))); ?></h5>
+        <h5><?php echo $matchLocation ?></h5>
+        <?php echo(($wasScored) ?
+            '<small class="text-success">Scored</small>' :
+            '<small class="text-danger">Unscored</small>'); ?>
         <form role="form" action="admin/includes/score-entry.inc.php" method="post">
             <input type="hidden" name="matchId" value="<?php echo $matchId; ?>">
             <input type="hidden" name="team1Id" value="<?php echo $team1Id; ?>">
