@@ -114,7 +114,7 @@ class PDF extends FPDF
         $this->SetFont('', 'B');
         // Header
         $header = array("Name", "Handicap", "Game 1", "Game 2", "Game3");
-        $w = array(48, 28, 39, 39, 39);
+        $w = array(63, 28, 34, 34, 34);
         for ($i = 0; $i < count($header); $i++)
             $this->Cell($w[$i], 7, $header[$i], 1, 0, 'C', false);
         $this->Ln();

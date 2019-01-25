@@ -61,7 +61,7 @@ include_once "includes/navbar.inc.php";
                 $currTime = $row['matchTime'];
                 echo '<h3 style="font-weight:bold">' . date('m/d/y h:i A', strtotime($currTime)) . '</h3>';
                 echo '<tr>';
-                echo '<td>' . $row['team1Name'] . ' vs ' . $row['team2Name'] . '</td>';
+                echo '<td style="width: 50%;">' . $row['team1Name'] . ' vs ' . $row['team2Name'] . '</td>';
                 echo '<td>' . date('m/d/y h:i A', strtotime($row['matchTime'])) . '</td>';
                 echo '<td>' . $row['matchLocation'] . '</td>';
                 echo '</tr>';
@@ -75,7 +75,7 @@ include_once "includes/navbar.inc.php";
                         echo '<tbody>';
                     }
                     echo '<tr>';
-                    echo '<td>' . $row['team1Name'] . ' vs ' . $row['team2Name'] . '</td>';
+                    echo '<td style="width: 50%;">' . $row['team1Name'] . ' vs ' . $row['team2Name'] . '</td>';
                     echo '<td>' . date('m/d/y h:i A', strtotime($row['matchTime'])) . '</td>';
                     echo '<td>' . $row['matchLocation'] . '</td>';
                     echo '</tr>';
