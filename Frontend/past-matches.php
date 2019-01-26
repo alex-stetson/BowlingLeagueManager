@@ -64,7 +64,7 @@ include_once "includes/navbar.inc.php";
                 echo '<td style="width: 50%;">' . $row['team1Name'] . ' vs ' . $row['team2Name'] . '</td>';
                 echo '<td>' . date('m/d/y h:i A', strtotime($row['matchTime'])) . '</td>';
                 echo '<td>' . $row['matchLocation'] . '</td>';
-                echo '<td><a class="btn btn-default" href="/match-details.php?matchId=' . $row['id'] . '" role="button">View Scores</a></td>';
+                echo '<td><a class="btn btn-default" href="match-details.php?matchId=' . $row['id'] . '" role="button">View Scores</a></td>';
                 echo '</tr>';
                 while ($row = mysqli_fetch_assoc($result)) {
                     if ($row['matchTime'] != $currTime) {
@@ -79,7 +79,7 @@ include_once "includes/navbar.inc.php";
                     echo '<td style="width: 50%;">' . $row['team1Name'] . ' vs ' . $row['team2Name'] . '</td>';
                     echo '<td>' . date('m/d/y h:i A', strtotime($row['matchTime'])) . '</td>';
                     echo '<td>' . $row['matchLocation'] . '</td>';
-                    echo '<td><a class="btn btn-default" href="/match-details.php?matchId=' . $row['id'] . '" role="button">View Scores</a></td>';
+                    echo '<td><a class="btn btn-default" href="match-details.php?matchId=' . $row['id'] . '" role="button">View Scores</a></td>';
                     echo '</tr>';
                 }
                 echo '</tbody>';
