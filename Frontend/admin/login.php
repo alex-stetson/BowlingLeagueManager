@@ -3,7 +3,7 @@
 require "../includes/config.inc.php";
 
 session_start();
-if (isset($_SESSION['userEmail']) && $_SESSION['userEmail'] != '') {
+if (isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
     header("Location: " . $baseURL);
     exit();
 }
@@ -54,6 +54,15 @@ if (isset($_SESSION['userEmail']) && $_SESSION['userEmail'] != '') {
                         <div class="card-body px-lg-5 py-lg-5">
                             <div class="text-center text-muted mb-4">
                                 <h5>Sign In</h5>
+                                <?php if ($casEnabled) { ?>
+                                    <form action="<?php echo $baseURL . 'admin/cas-login.php' ?>">
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-default my-4">
+                                                Sign in with CAS
+                                            </button>
+                                        </div>
+                                    </form>
+                                <?php } ?>
                                 <?php
                                 if (isset($_GET['error'])) {
                                     if ($_GET['error'] == "emptyfields") {

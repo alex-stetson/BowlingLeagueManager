@@ -54,7 +54,7 @@
               </li>
               <?php
               session_start();
-              if (isset($_SESSION['userEmail']) && $_SESSION['userEmail'] != '') { ?>
+              if (isset($_SESSION['userID']) && $_SESSION['userID'] != '') { ?>
                 <li class="nav-item dropdown">
                   <a class="nav-link" data-toggle="dropdown" href="#" role="button">
                     <span class="nav-link-inner--text">Administration</span>
