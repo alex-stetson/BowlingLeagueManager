@@ -3,7 +3,7 @@
 require "includes/config.inc.php";
 require "includes/connection.inc.php";
 
-$sql = "SELECT matches.id, matches.matchTime, t1.teamName AS team1Name, t2.teamName AS team2Name
+$sql = "SELECT matches.id, matches.matchTime, matches.matchLocation, t1.teamName AS team1Name, t2.teamName AS team2Name
 FROM matches LEFT OUTER JOIN teams t1 ON t1.id = matches.team1
 LEFT OUTER JOIN teams t2 ON matches.team2 = t2.id
 WHERE matches.matchTime < DATE_SUB(NOW(), INTERVAL 2 HOUR) ORDER BY matches.matchTime DESC;";
