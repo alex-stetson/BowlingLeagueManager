@@ -22,6 +22,8 @@ phpCAS::forceAuthentication();
 //Assign the GTAccount returned by GTLogin to a variable.
 $casUser = phpCAS::getUser();
 
+require "../includes/connection.inc.php";
+
 $sql = "SELECT * FROM casUsers WHERE userID=?;";
 if ($stmt = mysqli_prepare($link, $sql)) {
     mysqli_stmt_bind_param($stmt, "s", $casUser);
