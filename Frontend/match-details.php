@@ -10,9 +10,9 @@ if (empty($matchId)) {
     exit();
 }
 
-$sql = "SELECT players.playerName, players.currentHandicap, teams.teamName, teamMembers.playerEmail, teamMembers.teamId,
+$sql = "SELECT players.playerName, teams.teamName, teamMembers.playerEmail, teamMembers.teamId,
 matches.team1, matches.team2, matchScores.game1Score, matchScores.game2Score, matchScores.game3Score,
-matches.matchTime, matches.matchLocation FROM
+matchScores.handicap, matches.matchTime, matches.matchLocation FROM
 players INNER JOIN teamMembers ON players.email = teamMembers.playerEmail
 INNER JOIN teams ON teamMembers.teamId = teams.id
 INNER JOIN matches ON teams.id = matches.team1 OR teams.id = matches.team2
@@ -48,7 +48,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
         while ($row = mysqli_fetch_assoc($result)) {
             if ($row['teamId'] == $team1Id) {
                 $team1Members[] = $row['playerName'];
-                $team1Handicaps[] = $row['currentHandicap'];
+                $team1Handicaps[] = $row['handicap'];
                 array_push($team1Scores, $row['game1Score'], $row['game2Score'], $row['game3Score']);
                 $team1Game1Scratch += $row['game1Score'];
                 $team1Game2Scratch += $row['game2Score'];
@@ -56,7 +56,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
                 $team1Name = $row['teamName'];
             } else {
                 $team2Members[] = $row['playerName'];
-                $team2Handicaps[] = $row['currentHandicap'];
+                $team2Handicaps[] = $row['handicap'];
                 array_push($team2Scores, $row['game1Score'], $row['game2Score'], $row['game3Score']);
                 $team2Game1Scratch += $row['game1Score'];
                 $team2Game2Scratch += $row['game2Score'];
