@@ -24,6 +24,9 @@ if (isset($_POST['submit-scores'])) {
     $p1g2 = $_POST['p1g2'];
     $p1g3 = $_POST['p1g3'];
     $p1Blind = (int)!empty($_POST['p1Blind']);
+    if ($p1Blind) {
+        $p1Handicap = 0;
+    }
 
     $p2Email = $_POST['p2Email'];
     $p2Handicap = $_POST['p2Handicap'];
@@ -31,6 +34,9 @@ if (isset($_POST['submit-scores'])) {
     $p2g2 = $_POST['p2g2'];
     $p2g3 = $_POST['p2g3'];
     $p2Blind = (int)!empty($_POST['p2Blind']);
+    if ($p2Blind) {
+        $p2Handicap = 0;
+    }
 
     $p3Email = $_POST['p3Email'];
     $p3Handicap = $_POST['p3Handicap'];
@@ -38,6 +44,9 @@ if (isset($_POST['submit-scores'])) {
     $p3g2 = $_POST['p3g2'];
     $p3g3 = $_POST['p3g3'];
     $p3Blind = (int)!empty($_POST['p3Blind']);
+    if ($p3Blind) {
+        $p3Handicap = 0;
+    }
 
     $p4Email = $_POST['p4Email'];
     $p4Handicap = $_POST['p4Handicap'];
@@ -45,6 +54,9 @@ if (isset($_POST['submit-scores'])) {
     $p4g2 = $_POST['p4g2'];
     $p4g3 = $_POST['p4g3'];
     $p4Blind = (int)!empty($_POST['p4Blind']);
+    if ($p4Blind) {
+        $p4Handicap = 0;
+    }
 
     $p5Email = $_POST['p5Email'];
     $p5Handicap = $_POST['p5Handicap'];
@@ -52,6 +64,9 @@ if (isset($_POST['submit-scores'])) {
     $p5g2 = $_POST['p5g2'];
     $p5g3 = $_POST['p5g3'];
     $p5Blind = (int)!empty($_POST['p5Blind']);
+    if ($p5Blind) {
+        $p5Handicap = 0;
+    }
 
     $p6Email = $_POST['p6Email'];
     $p6Handicap = $_POST['p6Handicap'];
@@ -59,6 +74,9 @@ if (isset($_POST['submit-scores'])) {
     $p6g2 = $_POST['p6g2'];
     $p6g3 = $_POST['p6g3'];
     $p6Blind = (int)!empty($_POST['p6Blind']);
+    if ($p6Blind) {
+        $p6Handicap = 0;
+    }
 
     $p7Email = $_POST['p7Email'];
     $p7Handicap = $_POST['p7Handicap'];
@@ -66,6 +84,9 @@ if (isset($_POST['submit-scores'])) {
     $p7g2 = $_POST['p7g2'];
     $p7g3 = $_POST['p7g3'];
     $p7Blind = (int)!empty($_POST['p7Blind']);
+    if ($p7Blind) {
+        $p7Handicap = 0;
+    }
 
     $p8Email = $_POST['p8Email'];
     $p8Handicap = $_POST['p8Handicap'];
@@ -73,6 +94,9 @@ if (isset($_POST['submit-scores'])) {
     $p8g2 = $_POST['p8g2'];
     $p8g3 = $_POST['p8g3'];
     $p8Blind = (int)!empty($_POST['p8Blind']);
+    if ($p8Blind) {
+        $p8Handicap = 0;
+    }
 
 
     if (empty($p1Email) || empty($p2Email) || empty($p3Email) || empty($p4Email) || empty($p5Email) || empty($p6Email) || empty($p7Email) || empty($p8Email)) {
