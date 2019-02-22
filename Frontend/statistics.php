@@ -40,7 +40,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
 }
 
 $sql = "SELECT DISTINCT(ms.playerEmail), players.playerName, groupedms.maxScore FROM matchScores ms 
-INNER JOIN (SELECT playerEmail, MAX(handicap + game1Score + game2Score + game3Score) AS maxScore, MAX(matchId) AS maxID FROM matchScores AS msMax WHERE msMax.isBlind = 0 GROUP BY playerEmail) groupedms ON ms.playerEmail = groupedms.playerEmail 
+INNER JOIN (SELECT playerEmail, MAX((3 * handicap) + game1Score + game2Score + game3Score) AS maxScore, MAX(matchId) AS maxID FROM matchScores AS msMax WHERE msMax.isBlind = 0 GROUP BY playerEmail) groupedms ON ms.playerEmail = groupedms.playerEmail 
 LEFT OUTER JOIN players ON ms.playerEmail = players.email
 ORDER BY maxScore DESC;";
 if ($stmt = mysqli_prepare($link, $sql)) {
