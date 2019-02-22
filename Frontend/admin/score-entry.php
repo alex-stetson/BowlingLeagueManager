@@ -29,8 +29,10 @@ if ($stmt = mysqli_prepare($link, $sql)) {
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     mysqli_stmt_close($stmt);
-    $team1Members = array();
-    $team2Members = array();
+    $team1Emails = array();
+    $team2Emails = array();
+    $team1Names = array();
+    $team2Names = array();
     $team1Handicaps = array();
     $team2Handicaps = array();
     $team1Id = 0;
@@ -39,14 +41,14 @@ if ($stmt = mysqli_prepare($link, $sql)) {
     $team2Name = "";
     while ($row = mysqli_fetch_assoc($result)) {
         if ($row['teamId'] == $row['team1']) {
-            $team1Members[] = $row['playerEmail'];
-            $team1Members[] = $row['playerName'];
+            $team1Emails[] = $row['playerEmail'];
+            $team1Names[] = $row['playerName'];
             $team1Handicaps[] = $row['currentHandicap'];
             $team1Name = $row['teamName'];
             $team1Id = $row['team1'];
         } else {
-            $team2Members[] = $row['playerEmail'];
-            $team2Members[] = $row['playerName'];
+            $team2Emails[] = $row['playerEmail'];
+            $team2Names[] = $row['playerName'];
             $team2Handicaps[] = $row['currentHandicap'];
             $team2Name = $row['teamName'];
             $team2Id = $row['team2'];
@@ -127,209 +129,75 @@ include_once "../includes/navbar.inc.php";
                     <?php echo '<h2 class="h3 font-weight-bold mb-4">' . $team1Name . '</h2>'; ?>
                     <hr>
                     <hr>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <?php echo $team1Members[1] . "<br> (" . $team1Members[0] . ")"; ?>
-                            <div class="custom-control custom-control-alternative custom-checkbox">
-                                <input class="custom-control-input" id="p1Blind" name="p1Blind" type="checkbox">
-                                <label class="custom-control-label" for="p1Blind">
-                                    <span>Blind</span>
-                                </label>
+                    <?php for ($i = 0; $i < count($team1Emails); $i++) { ?>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <?php echo $team1Names[$i] . "<br> (" . $team1Emails[$i] . ")"; ?>
+                                <div class="custom-control custom-control-alternative custom-checkbox">
+                                    <input class="custom-control-input" id="<?php echo "t1Blinds_" . $i; ?>"
+                                           name="t1Blinds[]" type="checkbox" value="<?php $i; ?>">
+                                    <label class="custom-control-label" for="<?php echo "t1Blinds_" . $i; ?>">
+                                        <span>Blind</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <input type="hidden" name="t1Emails[]" value="<?php echo $team1Emails[$i]; ?>">
+                                    <input type="number" placeholder="Handicap" name="t1Handicaps[]"
+                                           class="form-control"
+                                           value="<?php echo $team1Handicaps[$i]; ?>"/>
+                                    <input type="number" placeholder="Game 1 Score" name="t1g1[]" class="form-control"
+                                           min="0"
+                                           max="300"/>
+                                    <input type="number" placeholder="Game 2 Score" name="t1g2[]" class="form-control"
+                                           min="0"
+                                           max="300"/>
+                                    <input type="number" placeholder="Game 3 Score" name="t1g3[]" class="form-control"
+                                           min="0"
+                                           max="300"/>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-lg-8">
-                            <div class="form-group">
-                                <input type="hidden" name="p1Email" value="<?php echo $team1Members[0]; ?>">
-                                <input type="number" placeholder="Handicap" name="p1Handicap" class="form-control"
-                                       value="<?php echo $team1Handicaps[0]; ?>"/>
-                                <input type="number" placeholder="Game 1 Score" name="p1g1" class="form-control" min="0"
-                                       max="300"/>
-                                <input type="number" placeholder="Game 2 Score" name="p1g2" class="form-control" min="0"
-                                       max="300"/>
-                                <input type="number" placeholder="Game 3 Score" name="p1g3" class="form-control" min="0"
-                                       max="300"/>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <?php echo $team1Members[3] . "<br> (" . $team1Members[2] . ")"; ?>
-                            <div class="custom-control custom-control-alternative custom-checkbox">
-                                <input class="custom-control-input" id="p2Blind" name="p2Blind" type="checkbox">
-                                <label class="custom-control-label" for="p2Blind">
-                                    <span>Blind</span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="form-group">
-                                <input type="hidden" name="p2Email" value="<?php echo $team1Members[2]; ?>">
-                                <input type="number" placeholder="Handicap" name="p2Handicap" class="form-control"
-                                       value="<?php echo $team1Handicaps[1]; ?>"/>
-                                <input type="number" placeholder="Game 1 Score" name="p2g1" class="form-control" min="0"
-                                       max="300"/>
-                                <input type="number" placeholder="Game 2 Score" name="p2g2" class="form-control" min="0"
-                                       max="300"/>
-                                <input type="number" placeholder="Game 3 Score" name="p2g3" class="form-control" min="0"
-                                       max="300"/>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <?php echo $team1Members[5] . "<br> (" . $team1Members[4] . ")"; ?>
-                            <div class="custom-control custom-control-alternative custom-checkbox">
-                                <input class="custom-control-input" id="p3Blind" name="p3Blind" type="checkbox">
-                                <label class="custom-control-label" for="p3Blind">
-                                    <span>Blind</span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="form-group">
-                                <input type="hidden" name="p3Email" value="<?php echo $team1Members[4]; ?>">
-                                <input type="number" placeholder="Handicap" name="p3Handicap" class="form-control"
-                                       value="<?php echo $team1Handicaps[2]; ?>"/>
-                                <input type="number" placeholder="Game 1 Score" name="p3g1" class="form-control" min="0"
-                                       max="300"/>
-                                <input type="number" placeholder="Game 2 Score" name="p3g2" class="form-control" min="0"
-                                       max="300"/>
-                                <input type="number" placeholder="Game 3 Score" name="p3g3" class="form-control" min="0"
-                                       max="300"/>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <?php echo $team1Members[7] . "<br> (" . $team1Members[6] . ")"; ?>
-                            <div class="custom-control custom-control-alternative custom-checkbox">
-                                <input class="custom-control-input" id="p4Blind" name="p4Blind" type="checkbox">
-                                <label class="custom-control-label" for="p4Blind">
-                                    <span>Blind</span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="form-group">
-                                <input type="hidden" name="p4Email" value="<?php echo $team1Members[6]; ?>">
-                                <input type="number" placeholder="Handicap" name="p4Handicap" class="form-control"
-                                       value="<?php echo $team1Handicaps[3]; ?>"/>
-                                <input type="number" placeholder="Game 1 Score" name="p4g1" class="form-control" min="0"
-                                       max="300"/>
-                                <input type="number" placeholder="Game 2 Score" name="p4g2" class="form-control" min="0"
-                                       max="300"/>
-                                <input type="number" placeholder="Game 3 Score" name="p4g3" class="form-control" min="0"
-                                       max="300"/>
-                            </div>
-                        </div>
-                    </div>
+                        <hr>
+                    <?php } ?>
                 </div>
                 <div class="col-lg-6 mt-4 mt-lg-0">
                     <?php echo '<h2 class="h3 font-weight-bold mb-4">' . $team2Name . '</h2>'; ?>
                     <hr>
                     <hr>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <?php echo $team2Members[1] . "<br> (" . $team2Members[0] . ")"; ?>
-                            <div class="custom-control custom-control-alternative custom-checkbox">
-                                <input class="custom-control-input" id="p5Blind" name="p5Blind" type="checkbox">
-                                <label class="custom-control-label" for="p5Blind">
-                                    <span>Blind</span>
-                                </label>
+                    <?php for ($i = 0; $i < count($team2Emails); $i++) { ?>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <?php echo $team2Names[$i] . "<br> (" . $team2Emails[$i] . ")"; ?>
+                                <div class="custom-control custom-control-alternative custom-checkbox">
+                                    <input class="custom-control-input" id="<?php echo "t2Blinds_" . $i; ?>"
+                                           name="t2Blinds[]" type="checkbox" value="<?php $i; ?>">
+                                    <label class="custom-control-label" for="<?php echo "t2Blinds_" . $i; ?>">
+                                        <span>Blind</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <input type="hidden" name="t2Emails[]" value="<?php echo $team2Emails[$i]; ?>">
+                                    <input type="number" placeholder="Handicap" name="t2Handicaps[]"
+                                           class="form-control"
+                                           value="<?php echo $team2Handicaps[$i]; ?>"/>
+                                    <input type="number" placeholder="Game 1 Score" name="t2g1[]" class="form-control"
+                                           min="0"
+                                           max="300"/>
+                                    <input type="number" placeholder="Game 2 Score" name="t2g2[]" class="form-control"
+                                           min="0"
+                                           max="300"/>
+                                    <input type="number" placeholder="Game 3 Score" name="t2g3[]" class="form-control"
+                                           min="0"
+                                           max="300"/>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-lg-8">
-                            <div class="form-group">
-                                <input type="hidden" name="p5Email" value="<?php echo $team2Members[0]; ?>">
-                                <input type="number" placeholder="Handicap" name="p5Handicap" class="form-control"
-                                       value="<?php echo $team2Handicaps[0]; ?>"/>
-                                <input type="number" placeholder="Game 1 Score" name="p5g1" class="form-control" min="0"
-                                       max="300"/>
-                                <input type="number" placeholder="Game 2 Score" name="p5g2" class="form-control" min="0"
-                                       max="300"/>
-                                <input type="number" placeholder="Game 3 Score" name="p5g3" class="form-control" min="0"
-                                       max="300"/>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <?php echo $team2Members[3] . "<br> (" . $team2Members[2] . ")"; ?>
-                            <div class="custom-control custom-control-alternative custom-checkbox">
-                                <input class="custom-control-input" id="p6Blind" name="p6Blind" type="checkbox">
-                                <label class="custom-control-label" for="p6Blind">
-                                    <span>Blind</span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="form-group">
-                                <input type="hidden" name="p6Email" value="<?php echo $team2Members[2]; ?>">
-                                <input type="number" placeholder="Handicap" name="p6Handicap" class="form-control"
-                                       value="<?php echo $team2Handicaps[1]; ?>"/>
-                                <input type="number" placeholder="Game 1 Score" name="p6g1" class="form-control" min="0"
-                                       max="300"/>
-                                <input type="number" placeholder="Game 2 Score" name="p6g2" class="form-control" min="0"
-                                       max="300"/>
-                                <input type="number" placeholder="Game 3 Score" name="p6g3" class="form-control" min="0"
-                                       max="300"/>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <?php echo $team2Members[5] . "<br> (" . $team2Members[4] . ")"; ?>
-                            <div class="custom-control custom-control-alternative custom-checkbox">
-                                <input class="custom-control-input" id="p7Blind" name="p7Blind" type="checkbox">
-                                <label class="custom-control-label" for="p7Blind">
-                                    <span>Blind</span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="form-group">
-                                <input type="hidden" name="p7Email" value="<?php echo $team2Members[4]; ?>">
-                                <input type="number" placeholder="Handicap" name="p7Handicap" class="form-control"
-                                       value="<?php echo $team2Handicaps[2]; ?>"/>
-                                <input type="number" placeholder="Game 1 Score" name="p7g1" class="form-control" min="0"
-                                       max="300"/>
-                                <input type="number" placeholder="Game 2 Score" name="p7g2" class="form-control" min="0"
-                                       max="300"/>
-                                <input type="number" placeholder="Game 3 Score" name="p7g3" class="form-control" min="0"
-                                       max="300"/>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <?php echo $team2Members[7] . "<br> (" . $team2Members[6] . ")"; ?>
-                            <div class="custom-control custom-control-alternative custom-checkbox">
-                                <input class="custom-control-input" id="p8Blind" name="p8Blind" type="checkbox">
-                                <label class="custom-control-label" for="p8Blind">
-                                    <span>Blind</span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="form-group">
-                                <input type="hidden" name="p8Email" value="<?php echo $team2Members[6]; ?>">
-                                <input type="number" placeholder="Handicap" name="p8Handicap" class="form-control"
-                                       value="<?php echo $team2Handicaps[3]; ?>"/>
-                                <input type="number" placeholder="Game 1 Score" name="p8g1" class="form-control" min="0"
-                                       max="300"/>
-                                <input type="number" placeholder="Game 2 Score" name="p8g2" class="form-control" min="0"
-                                       max="300"/>
-                                <input type="number" placeholder="Game 3 Score" name="p8g3" class="form-control" min="0"
-                                       max="300"/>
-                            </div>
-                        </div>
-                    </div>
+                        <hr>
+                    <?php } ?>
                 </div>
             </div>
             <div class="text-center">
