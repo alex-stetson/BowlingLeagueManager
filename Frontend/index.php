@@ -89,7 +89,7 @@ include_once "includes/navbar.inc.php";
                 echo '</tbody>';
                 echo '</table>';
             } else {
-                echo '<h2>No Upcoming Matches</h2>';
+                echo '<h2 style="clear:both">No Upcoming Matches</h2>';
             }
             ?>
         </div>

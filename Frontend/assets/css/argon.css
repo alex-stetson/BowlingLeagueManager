@@ -5213,7 +5213,7 @@ input[type='button'].btn-block
 .nav-pills .show > .nav-link
 {
     color: #fff;
-    background-color: #5e72e4;
+    background-color: #172b4d;
 }
 
 .nav-fill .nav-item
@@ -16095,7 +16095,7 @@ textarea[resize='horizontal']
 .nav-pills .show > .nav-link
 {
     color: #fff;
-    background-color: #5e72e4;
+    background-color: #172b4d;
 }
 
 @media (max-width: 575.98px)

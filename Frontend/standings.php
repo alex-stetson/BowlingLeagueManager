@@ -51,27 +51,31 @@ if ($stmt = mysqli_prepare($link, $sql)) {
 include_once "includes/navbar.inc.php";
 ?>
 <main>
-    <h1 class="h1 font-weight-bold mb-4">Standings</h1>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Team Name</th>
-            <th scope="col">Points</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php
-        while ($row = mysqli_fetch_assoc($result)) {
-            echo '<tr>';
-            echo '<th scope="row">' . $row['Rank'] . '</th>';
-            echo '<td>' . $row['teamName'] . '</td>';
-            echo '<td>' . $row['totalPoints'] . '</td>';
-            echo '</tr>';
-        }
-        ?>
-        </tbody>
-    </table>
+    <div class="row justify-content-center">
+        <div class="col-lg-12">
+            <h1 class="h1 font-weight-bold mb-4">Standings</h1>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Team Name</th>
+                    <th scope="col">Points</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo '<tr>';
+                    echo '<th scope="row">' . $row['Rank'] . '</th>';
+                    echo '<td>' . $row['teamName'] . '</td>';
+                    echo '<td>' . $row['totalPoints'] . '</td>';
+                    echo '</tr>';
+                }
+                ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </main>
 
 <!-- Core -->
