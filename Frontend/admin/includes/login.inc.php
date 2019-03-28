@@ -110,7 +110,7 @@ if (isset($_POST['login-submit'])) {
             if (password_verify($password, $row['pass'])) {
                 clearCurrIP($link);
                 session_start();
-                $_SESSION['userEmail'] = $row['email'];
+                $_SESSION['userID'] = $row['email'];
                 header("Location: " . $baseURL);
                 exit();
             } else {
