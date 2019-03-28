@@ -1,5 +1,6 @@
 <?php
 
 $baseURL = "/";
+$casEnabled = false;
 
 ?>
