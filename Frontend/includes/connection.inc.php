@@ -1,9 +1,9 @@
 <?php
 
-$servername = "localhost";
-$dbUsername = "";
-$dbPassword = "";
-$dbName = "bowling_league_database";
+$servername = "localhost"; // MySQL server address
+$dbUsername = ""; // Database username
+$dbPassword = ""; // Database user's password
+$dbName = ""; // Database name
 
 $link = mysqli_connect($servername, $dbUsername, $dbPassword, $dbName);
 

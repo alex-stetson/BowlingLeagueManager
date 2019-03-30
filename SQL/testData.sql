@@ -1,5 +1,3 @@
-USE bowling_league_database;
-
 # Login user - password is 123456
 INSERT INTO `users` (`email`, `pass`) VALUES ('test@test.com', '$2y$10$cfzj5BtqO.BqL1i1Uwc1dupvLWuPyT1W5Qt0h/Jx6roBojwdKn9Qi');
 

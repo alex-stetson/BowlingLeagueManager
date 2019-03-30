@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<body>
 <header class="header-global">
     <nav class="navbar navbar-expand-lg navbar-dark bg-default">
         <div class="container">
@@ -79,5 +76,4 @@
         </div>
     </nav>
 </header>
-</body>
-</html>
+

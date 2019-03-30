@@ -1,6 +1,3 @@
-CREATE SCHEMA bowling_league_database;
-USE bowling_league_database;
-
 CREATE TABLE users (
     email VARCHAR(255) NOT NULL UNIQUE,
     pass VARCHAR(255) NOT NULL,
