@@ -75,6 +75,16 @@ if ($stmt = mysqli_prepare($link, $sql)) {
     $wasScored = false;
     if ($rowCount > 0) {
         $wasScored = true;
+        $oldHandicapsArr = [];
+        $oldGame1ScoreArr = [];
+        $oldGame2ScoreArr = [];
+        $oldGame3ScoreArr = [];
+        while ($row = mysqli_fetch_assoc($matchScoresResult)) {
+            $oldHandicapsArr[$row['playerEmail']] = $row['handicap'];
+            $oldGame1ScoreArr[$row['playerEmail']] = $row['game1Score'];
+            $oldGame2ScoreArr[$row['playerEmail']] = $row['game2Score'];
+            $oldGame3ScoreArr[$row['playerEmail']] = $row['game3Score'];
+        }
     }
 } else {
     header("Location: " . $baseURL . "admin/matches.php");
@@ -146,16 +156,19 @@ include_once "../includes/navbar.inc.php";
                                     <input type="hidden" name="t1Emails[]" value="<?php echo $team1Emails[$i]; ?>">
                                     <input type="number" placeholder="Handicap" name="t1Handicaps[]"
                                            class="form-control"
-                                           value="<?php echo $team1Handicaps[$i]; ?>"/>
+                                           value="<?php echo($wasScored ? $oldHandicapsArr[$team1Emails[$i]] : $team1Handicaps[$i]); ?>"/>
                                     <input type="number" placeholder="Game 1 Score" name="t1g1[]" class="form-control"
                                            min="0"
-                                           max="300"/>
+                                           max="300"
+                                           value="<?php echo($wasScored ? $oldGame1ScoreArr[$team1Emails[$i]] : ""); ?>"/>
                                     <input type="number" placeholder="Game 2 Score" name="t1g2[]" class="form-control"
                                            min="0"
-                                           max="300"/>
+                                           max="300"
+                                           value="<?php echo($wasScored ? $oldGame2ScoreArr[$team1Emails[$i]] : ""); ?>"/>
                                     <input type="number" placeholder="Game 3 Score" name="t1g3[]" class="form-control"
                                            min="0"
-                                           max="300"/>
+                                           max="300"
+                                           value="<?php echo($wasScored ? $oldGame3ScoreArr[$team1Emails[$i]] : ""); ?>"/>
                                 </div>
                             </div>
                         </div>
@@ -183,16 +196,19 @@ include_once "../includes/navbar.inc.php";
                                     <input type="hidden" name="t2Emails[]" value="<?php echo $team2Emails[$i]; ?>">
                                     <input type="number" placeholder="Handicap" name="t2Handicaps[]"
                                            class="form-control"
-                                           value="<?php echo $team2Handicaps[$i]; ?>"/>
+                                           value="<?php echo($wasScored ? $oldHandicapsArr[$team2Emails[$i]] : $team2Handicaps[$i]); ?>"/>
                                     <input type="number" placeholder="Game 1 Score" name="t2g1[]" class="form-control"
                                            min="0"
-                                           max="300"/>
+                                           max="300"
+                                           value="<?php echo($wasScored ? $oldGame1ScoreArr[$team2Emails[$i]] : ""); ?>"/>
                                     <input type="number" placeholder="Game 2 Score" name="t2g2[]" class="form-control"
                                            min="0"
-                                           max="300"/>
+                                           max="300"
+                                           value="<?php echo($wasScored ? $oldGame2ScoreArr[$team2Emails[$i]] : ""); ?>"/>
                                     <input type="number" placeholder="Game 3 Score" name="t2g3[]" class="form-control"
                                            min="0"
-                                           max="300"/>
+                                           max="300"
+                                           value="<?php echo($wasScored ? $oldGame3ScoreArr[$team2Emails[$i]] : ""); ?>"/>
                                 </div>
                             </div>
                         </div>
