@@ -19,7 +19,7 @@ phpCAS::setCasServerCACert($casCACertPath);
 //force CAS authentication.
 phpCAS::forceAuthentication();
 
-//Assign the GTAccount returned by GTLogin to a variable.
+//Assign the account returned by the CAS login to a variable.
 $casUser = phpCAS::getUser();
 
 require "../includes/connection.inc.php";
@@ -36,7 +36,8 @@ if ($stmt = mysqli_prepare($link, $sql)) {
         header("Location: " . $baseURL);
         exit();
     } else {
-        exit("You are not authorized to login to this site");
+        header("Location: " . $baseURL . "admin/login.php?error=unauthorizedCASUser");
+        exit();
     }
 } else {
     header("Location: " . $baseURL . "admin/login.php?error=unknownerror");

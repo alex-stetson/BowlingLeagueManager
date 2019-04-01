@@ -73,6 +73,8 @@ if (isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
                         Please wait ' . $lockoutTime . ' minute(s) and try again.</small>';
                                     } else if ($_GET['error'] == "incorrectcreds") {
                                         echo '<small class="text-danger">Incorrect Email or Password</small>';
+                                    } else if ($_GET['error'] == "unauthorizedCASUser") {
+                                        echo '<small class="text-danger">You are unauthorized to sign in to this site via CAS</small>';
                                     } else {
                                         echo '<small class="text-danger">Unknown error occured. Please try again</small>';
                                     }
