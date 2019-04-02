@@ -1,6 +1,7 @@
 <?php
 
 require "includes/requireAuth.inc.php";
+requireAuth(["admin", "manager"]);
 
 require "../includes/connection.inc.php";
 require "../includes/config.inc.php";

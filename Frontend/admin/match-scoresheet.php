@@ -1,6 +1,7 @@
 <?php
 
 require "includes/requireAuth.inc.php";
+requireAuth(["admin", "manager", "scorer"]);
 require "../includes/config.inc.php";
 
 if (!isset($_GET['matchId'])) {

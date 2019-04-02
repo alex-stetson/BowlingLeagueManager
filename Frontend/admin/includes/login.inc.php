@@ -111,6 +111,7 @@ if (isset($_POST['login-submit'])) {
                 clearCurrIP($link);
                 session_start();
                 $_SESSION['userID'] = $row['email'];
+                $_SESSION['userRole'] = $row['role'];
                 header("Location: " . $baseURL);
                 exit();
             } else {

@@ -1,6 +1,7 @@
 <?php
 
 require "requireAuth.inc.php";
+requireAuth(["admin", "manager", "scorer"]);
 require "../../includes/config.inc.php";
 
 if (isset($_POST['submit-scores'])) {

@@ -1,12 +1,14 @@
 CREATE TABLE users (
-    email VARCHAR(255) NOT NULL UNIQUE,
-    pass VARCHAR(255) NOT NULL,
-    PRIMARY KEY (email)
+                       email VARCHAR(255)                        NOT NULL UNIQUE,
+                       pass  VARCHAR(255)                        NOT NULL,
+                       role  enum ("admin", "manager", "scorer") NOT NULL,
+                       PRIMARY KEY (email)
 );
 
 CREATE TABLE casUsers (
-    userID VARCHAR(255) NOT NULL UNIQUE,
-    PRIMARY KEY (userID)
+                          userID VARCHAR(255)                        NOT NULL UNIQUE,
+                          role   enum ("admin", "manager", "scorer") NOT NULL,
+                          PRIMARY KEY (userID)
 );
 
 CREATE TABLE failedLogins (

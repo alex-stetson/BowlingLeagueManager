@@ -1,6 +1,7 @@
 <?php
 
 require "includes/requireAuth.inc.php";
+requireAuth(["admin", "manager"]);
 
 if (!isset($_GET['playerEmail'])) {
     header("Location: " . $baseURL . "admin/players.php");
