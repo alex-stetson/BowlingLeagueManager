@@ -2,12 +2,20 @@
 
 require "../includes/config.inc.php";
 
-session_start();
-if (isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
-    header("Location: " . $baseURL);
-    exit();
-}
+$selector = $_GET['selector'];
+$validator = $_GET['validator'];
 
+if (!(isset($_GET['success']) || (isset($_GET['error']) && $_GET['error'] == "resubmit"))) {
+    if (empty($selector) || empty($validator)) {
+        header("Location: " . $baseURL . "admin/forgot-password.php?error=resubmit");
+        exit();
+    }
+
+    if (!ctype_xdigit($selector) || !ctype_xdigit($validator)) {
+        header("Location: " . $baseURL . "admin/forgot-password.php?error=resubmit");
+        exit();
+    }
+}
 
 ?>
 
@@ -20,7 +28,7 @@ if (isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
 
-    <title>Login</title>
+    <title>Reset Password</title>
 
     <base href="<?php echo $baseURL; ?>">
 
@@ -53,52 +61,39 @@ if (isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
                     <div class="card bg-secondary shadow border-0">
                         <div class="card-body px-lg-5 py-lg-5">
                             <div class="text-center text-muted mb-4">
-                                <h5>Sign In</h5>
-                                <?php if ($casEnabled) { ?>
-                                    <form action="<?php echo $baseURL . 'admin/cas-login.php' ?>">
-                                        <div class="text-center">
-                                            <button type="submit" class="btn btn-default my-4">
-                                                Sign in with CAS
-                                            </button>
-                                        </div>
-                                    </form>
-                                <?php } ?>
+                                <h5>Reset Password</h5>
                                 <?php
                                 if (isset($_GET['error'])) {
                                     if ($_GET['error'] == "emptyfields") {
                                         echo '<small class="text-danger">Please fill out all the fields</small>';
-                                    } else if ($_GET['error'] == "lockout") {
-                                        $lockoutTime = (is_numeric($_GET['lockoutTime']) ? ceil($_GET['lockoutTime'] / 60) : "a few");
-                                        echo '<small class="text-danger">Too many login attempts.
-                        Please wait ' . $lockoutTime . ' minute(s) and try again.</small>';
-                                    } else if ($_GET['error'] == "incorrectcreds") {
-                                        echo '<small class="text-danger">Incorrect Email or Password</small>';
-                                    } else if ($_GET['error'] == "unauthorizedCASUser") {
-                                        echo '<small class="text-danger">You are unauthorized to sign in to this site via CAS</small>';
+                                    } else if ($_GET['error'] == "password-mismatch") {
+                                        echo '<small class="text-danger">Entered passwords did not match</small>';
+                                    } else if ($_GET['error'] == "resubmit") {
+                                        echo '<small class="text-danger">Invalid reset token. Please re-submit your password reset request.</small>';
                                     } else {
                                         echo '<small class="text-danger">Unknown error occurred. Please try again</small>';
                                     }
+                                } else if (isset($_GET['success'])) {
+                                    echo '<small class="text-success">Password reset successfully!</small>';
                                 }
                                 ?>
                             </div>
-                            <form role="form" action="admin/includes/login.inc.php" method="post">
-                                <div class="form-group mb-3">
+                            <form role="form" action="admin/includes/reset-password.inc.php" method="post">
+                                <div class="form-group">
                                     <div class="input-group input-group-alternative">
                                         <div class="input-group-prepend">
-                          <span class="input-group-text"
-                          ><i class="icon-envelope"></i
-                              ></span>
+                                            <input type="hidden" name="resetSelector" value="<?php echo $selector; ?>"/>
+                                            <input type="hidden" name="resetValidator"
+                                                   value="<?php echo $validator; ?>"/>
+                                            <span class="input-group-text"
+                                            ><i class="icon-lock"></i
+                                                ></span>
                                         </div>
                                         <input
                                                 class="form-control"
-                                                placeholder="Email"
-                                                type="email"
-                                                name="loginEmail"
-                                            <?php
-                                            if (isset($_GET['loginEmail'])) {
-                                                echo 'value="' . $_GET['loginEmail'] . '"';
-                                            }
-                                            ?>
+                                                placeholder="Password"
+                                                type="password"
+                                                name="resetPassword"
                                         />
                                     </div>
                                 </div>
@@ -111,21 +106,21 @@ if (isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
                                         </div>
                                         <input
                                                 class="form-control"
-                                                placeholder="Password"
+                                                placeholder="Confirm Password"
                                                 type="password"
-                                                name="loginPassword"
+                                                name="resetPasswordConfirm"
                                         />
                                     </div>
                                 </div>
                                 <div class="text-center">
-                                    <a href="admin/forgot-password.php">
-                                        <small>Forgot Password</small>
-                                    </a>
+                                    <button type="submit" class="btn btn-default my-4" name="reset-password-submit">
+                                        Submit
+                                    </button>
                                 </div>
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-default my-4" name="login-submit">
-                                        Sign in
-                                    </button>
+                                    <a href="admin/login.php">
+                                        <small>Back to Login</small>
+                                    </a>
                                 </div>
                             </form>
                         </div>

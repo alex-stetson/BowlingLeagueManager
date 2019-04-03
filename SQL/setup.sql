@@ -1,14 +1,16 @@
-CREATE TABLE users (
-                       email VARCHAR(255)                        NOT NULL UNIQUE,
-                       pass  VARCHAR(255)                        NOT NULL,
-                       role  enum ("admin", "manager", "scorer") NOT NULL,
-                       PRIMARY KEY (email)
+CREATE TABLE users
+(
+    email VARCHAR(255)                        NOT NULL UNIQUE,
+    pass  VARCHAR(255)                        NOT NULL,
+    role  enum ("admin", "manager", "scorer") NOT NULL,
+    PRIMARY KEY (email)
 );
 
-CREATE TABLE casUsers (
-                          userID VARCHAR(255)                        NOT NULL UNIQUE,
-                          role   enum ("admin", "manager", "scorer") NOT NULL,
-                          PRIMARY KEY (userID)
+CREATE TABLE casUsers
+(
+    userID VARCHAR(255)                        NOT NULL UNIQUE,
+    role   enum ("admin", "manager", "scorer") NOT NULL,
+    PRIMARY KEY (userID)
 );
 
 CREATE TABLE failedLogins (
@@ -16,6 +18,16 @@ CREATE TABLE failedLogins (
     ipAddr VARBINARY(16) DEFAULT NULL,
     attemptedAt DATETIME NOT NULL,
     PRIMARY KEY (id)
+);
+
+CREATE TABLE pwdReset
+(
+    pwdResetId       int(11) AUTO_INCREMENT NOT NULL,
+    pwdResetEmail    VARCHAR(255)           NOT NULL,
+    pwdResetSelector VARCHAR(255)           NOT NULL,
+    pwdResetToken    VARCHAR(255)           NOT NULL,
+    pwdResetExpiry   DATETIME               NOT NULL,
+    PRIMARY KEY (pwdResetId)
 );
 
 CREATE TABLE teams (
