@@ -15,7 +15,7 @@ require "../includes/config.inc.php";
 
     <title>Forgot Password</title>
 
-    <base href="<?php echo $baseURL; ?>">
+    <base href="<?php echo htmlspecialchars($baseURL, ENT_QUOTES, 'UTF-8'); ?>">
 
     <!-- Favicon -->
     <link href="assets/img/brand/favicon.png" rel="icon" type="image/png"/>

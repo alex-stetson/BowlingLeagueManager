@@ -24,7 +24,7 @@ $casUser = phpCAS::getUser();
 
 require "../includes/connection.inc.php";
 
-$sql = "SELECT * FROM casUsers WHERE userID=?;";
+$sql = "SELECT * FROM users WHERE username=? AND casUser=1;";
 if ($stmt = mysqli_prepare($link, $sql)) {
     mysqli_stmt_bind_param($stmt, "s", $casUser);
     mysqli_stmt_execute($stmt);

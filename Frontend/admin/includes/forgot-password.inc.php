@@ -13,7 +13,7 @@ if (isset($_POST['forgot-password-submit'])) {
         exit();
     }
 
-    $sql = "SELECT * FROM users WHERE email=?;";
+    $sql = "SELECT * FROM users WHERE username=? AND casUser=0;";
     if ($stmt = mysqli_prepare($link, $sql)) {
         mysqli_stmt_bind_param($stmt, "s", $email);
         mysqli_stmt_execute($stmt);

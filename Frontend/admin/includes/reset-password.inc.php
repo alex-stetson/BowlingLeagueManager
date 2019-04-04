@@ -36,14 +36,14 @@ if (isset($_POST['reset-password-submit'])) {
             $tokenBin = hex2bin($validator);
             if (password_verify($tokenBin, $row['pwdResetToken'])) {
                 $email = $row['pwdResetEmail'];
-                $sql = "SELECT * from users WHERE email=?;";
+                $sql = "SELECT * from users WHERE username=?;";
                 if ($stmt = mysqli_prepare($link, $sql)) {
                     mysqli_stmt_bind_param($stmt, "s", $email);
                     mysqli_stmt_execute($stmt);
                     $result = mysqli_stmt_get_result($stmt);
                     mysqli_stmt_close($stmt);
                     if ($row = mysqli_fetch_assoc($result)) {
-                        $sql = "UPDATE users SET pass=? WHERE email=?;";
+                        $sql = "UPDATE users SET password=? WHERE username=?;";
                         if ($stmt = mysqli_prepare($link, $sql)) {
                             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                             mysqli_stmt_bind_param($stmt, "ss", $hashedPassword, $email);

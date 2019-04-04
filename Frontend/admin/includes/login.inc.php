@@ -100,17 +100,17 @@ if (isset($_POST['login-submit'])) {
     cleanEntries($link);
     rateLimit($email, $link);
 
-    $sql = "SELECT * FROM users WHERE email=?;";
+    $sql = "SELECT * FROM users WHERE username=?;";
     if ($stmt = mysqli_prepare($link, $sql)) {
         mysqli_stmt_bind_param($stmt, "s", $email);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
         mysqli_stmt_close($stmt);
         if ($row = mysqli_fetch_assoc($result)) {
-            if (password_verify($password, $row['pass'])) {
+            if (password_verify($password, $row['password'])) {
                 clearCurrIP($link);
                 session_start();
-                $_SESSION['userID'] = $row['email'];
+                $_SESSION['userID'] = $row['userId'];
                 $_SESSION['userRole'] = $row['role'];
                 header("Location: " . $baseURL);
                 exit();
