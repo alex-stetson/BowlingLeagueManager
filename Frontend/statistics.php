@@ -63,7 +63,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
 
     <title>Statistics</title>
 
-    <base href="<?php echo $baseURL; ?>">
+    <base href="<?php echo htmlspecialchars($baseURL, ENT_QUOTES, 'UTF-8'); ?>">
 
     <!-- Favicon -->
     <link href="assets/img/brand/favicon.png" rel="icon" type="image/png"/>
@@ -142,8 +142,8 @@ include_once "includes/navbar.inc.php";
                             }
                             echo '<tr>';
                             echo '<th scope="row">' . $rank . '</th>';
-                            echo '<td>' . $row['playerName'] . '</td>';
-                            echo '<td>' . $row['maxScore'] . '</td>';
+                            echo '<td>' . htmlspecialchars($row['playerName'], ENT_QUOTES, 'UTF-8') . '</td>';
+                            echo '<td>' . htmlspecialchars($row['maxScore'], ENT_QUOTES, 'UTF-8') . '</td>';
                             echo '</tr>';
                         }
                         ?>
@@ -176,8 +176,8 @@ include_once "includes/navbar.inc.php";
                             }
                             echo '<tr>';
                             echo '<th scope="row">' . $rank . '</th>';
-                            echo '<td>' . $row['playerName'] . '</td>';
-                            echo '<td>' . $row['maxScore'] . '</td>';
+                            echo '<td>' . htmlspecialchars($row['playerName'], ENT_QUOTES, 'UTF-8') . '</td>';
+                            echo '<td>' . htmlspecialchars($row['maxScore'], ENT_QUOTES, 'UTF-8') . '</td>';
                             echo '</tr>';
                         }
                         ?>
@@ -210,8 +210,8 @@ include_once "includes/navbar.inc.php";
                             }
                             echo '<tr>';
                             echo '<th scope="row">' . $rank . '</th>';
-                            echo '<td>' . $row['playerName'] . '</td>';
-                            echo '<td>' . $row['maxScore'] . '</td>';
+                            echo '<td>' . htmlspecialchars($row['playerName'], ENT_QUOTES, 'UTF-8') . '</td>';
+                            echo '<td>' . htmlspecialchars($row['maxScore'], ENT_QUOTES, 'UTF-8') . '</td>';
                             echo '</tr>';
                         }
                         ?>
@@ -244,8 +244,8 @@ include_once "includes/navbar.inc.php";
                             }
                             echo '<tr>';
                             echo '<th scope="row">' . $rank . '</th>';
-                            echo '<td>' . $row['playerName'] . '</td>';
-                            echo '<td>' . $row['maxScore'] . '</td>';
+                            echo '<td>' . htmlspecialchars($row['playerName'], ENT_QUOTES, 'UTF-8') . '</td>';
+                            echo '<td>' . htmlspecialchars($row['maxScore'], ENT_QUOTES, 'UTF-8') . '</td>';
                             echo '</tr>';
                         }
                         ?>

@@ -49,7 +49,7 @@ if ($row = mysqli_fetch_assoc($result)) {
 
     <title>Edit Match</title>
 
-    <base href="<?php echo $baseURL; ?>">
+    <base href="<?php echo htmlspecialchars($baseURL, ENT_QUOTES, 'UTF-8'); ?>">
 
     <!-- Favicon -->
     <link href="assets/img/brand/favicon.png" rel="icon" type="image/png"/>
@@ -83,18 +83,18 @@ include_once "../includes/navbar.inc.php";
                         <form role="form" action="admin/includes/edit-match.inc.php" method="post">
                             <input type="hidden" name="matchId" value="<?php echo $matchId; ?>">
                             <div class="form-group mb-3">
-                                <small>Team 1: <?php echo($team1Name); ?></small>
+                                <small>Team 1: <?php echo(htmlspecialchars($team1Name, ENT_QUOTES, 'UTF-8')); ?></small>
                             </div>
                             <div class="form-group">
-                                <small>Team 2: <?php echo($team2Name); ?></small>
+                                <small>Team 2: <?php echo(htmlspecialchars($team2Name, ENT_QUOTES, 'UTF-8')); ?></small>
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Location" name="matchLocation"
-                                       value="<?php echo $matchLocation; ?>"/>
+                                       value="<?php echo htmlspecialchars($matchLocation, ENT_QUOTES, 'UTF-8'); ?>"/>
                             </div>
                             <div class="form-group">
                                 <input type="datetime-local" class="form-control" name="matchTime"
-                                       value="<?php echo((empty($row['matchTime']) ? '' : date("Y-m-d\TH:i:s", strtotime($matchTime)))) ?>"/>
+                                       value="<?php echo((empty($row['matchTime']) ? '' : htmlspecialchars(date("Y-m-d\TH:i:s", strtotime($matchTime)), ENT_QUOTES, 'UTF-8'))) ?>"/>
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-default my-4" name="edit-match-submit">

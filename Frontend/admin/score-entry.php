@@ -103,7 +103,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
 
     <title>Score Entry</title>
 
-    <base href="<?php echo $baseURL; ?>">
+    <base href="<?php echo htmlspecialchars($baseURL, ENT_QUOTES, 'UTF-8'); ?>">
 
     <!-- Favicon -->
     <link href="assets/img/brand/favicon.png" rel="icon" type="image/png"/>
@@ -125,9 +125,9 @@ include_once "../includes/navbar.inc.php";
 <div class="row justify-content-center mt-md">
     <div class="col-lg-12">
         <h1 class="h1 font-weight-bold">Score Entry</h1>
-        <h4><?php echo $team1Name . " vs " . $team2Name; ?></h4>
-        <h5><?php echo(empty($matchTime) ? '' : date('m/d/y h:i A', strtotime($matchTime))); ?></h5>
-        <h5><?php echo $matchLocation ?></h5>
+        <h4><?php echo htmlspecialchars($team1Name, ENT_QUOTES, 'UTF-8') . " vs " . htmlspecialchars($team2Name, ENT_QUOTES, 'UTF-8'); ?></h4>
+        <h5><?php echo(empty($matchTime) ? '' : htmlspecialchars(date('m/d/y h:i A', strtotime($matchTime)), ENT_QUOTES, 'UTF-8')); ?></h5>
+        <h5><?php echo htmlspecialchars($matchLocation, ENT_QUOTES, 'UTF-8') ?></h5>
         <?php echo(($wasScored) ?
             '<small class="text-success">Scored</small>' :
             '<small class="text-danger">Unscored</small>'); ?>
@@ -137,13 +137,13 @@ include_once "../includes/navbar.inc.php";
             <input type="hidden" name="team2Id" value="<?php echo $team2Id; ?>">
             <div class="row">
                 <div class="col-lg-6">
-                    <?php echo '<h2 class="h3 font-weight-bold mb-4">' . $team1Name . '</h2>'; ?>
+                    <?php echo '<h2 class="h3 font-weight-bold mb-4">' . htmlspecialchars($team1Name, ENT_QUOTES, 'UTF-8') . '</h2>'; ?>
                     <hr>
                     <hr>
                     <?php for ($i = 0; $i < count($team1Emails); $i++) { ?>
                         <div class="row">
                             <div class="col-lg-4">
-                                <?php echo $team1Names[$i] . "<br> (" . $team1Emails[$i] . ")"; ?>
+                                <?php echo htmlspecialchars($team1Names[$i], ENT_QUOTES, 'UTF-8') . "<br> (" . htmlspecialchars($team1Emails[$i], ENT_QUOTES, 'UTF-8') . ")"; ?>
                                 <div class="custom-control custom-control-alternative custom-checkbox">
                                     <input class="custom-control-input" id="<?php echo "t1Blinds_" . $i; ?>"
                                            name="t1Blinds[]" type="checkbox" value="<?php $i; ?>">
@@ -154,22 +154,23 @@ include_once "../includes/navbar.inc.php";
                             </div>
                             <div class="col-lg-8">
                                 <div class="form-group">
-                                    <input type="hidden" name="t1Emails[]" value="<?php echo $team1Emails[$i]; ?>">
+                                    <input type="hidden" name="t1Emails[]"
+                                           value="<?php echo htmlspecialchars($team1Emails[$i], ENT_QUOTES, 'UTF-8'); ?>">
                                     <input type="number" placeholder="Handicap" name="t1Handicaps[]"
                                            class="form-control"
-                                           value="<?php echo($wasScored ? $oldHandicapsArr[$team1Emails[$i]] : $team1Handicaps[$i]); ?>"/>
+                                           value="<?php echo(htmlspecialchars(($wasScored ? $oldHandicapsArr[$team1Emails[$i]] : $team1Handicaps[$i]), ENT_QUOTES, 'UTF-8')); ?>"/>
                                     <input type="number" placeholder="Game 1 Score" name="t1g1[]" class="form-control"
                                            min="0"
                                            max="300"
-                                           value="<?php echo($wasScored ? $oldGame1ScoreArr[$team1Emails[$i]] : ""); ?>"/>
+                                           value="<?php echo($wasScored ? htmlspecialchars($oldGame1ScoreArr[$team1Emails[$i]], ENT_QUOTES, 'UTF-8') : ""); ?>"/>
                                     <input type="number" placeholder="Game 2 Score" name="t1g2[]" class="form-control"
                                            min="0"
                                            max="300"
-                                           value="<?php echo($wasScored ? $oldGame2ScoreArr[$team1Emails[$i]] : ""); ?>"/>
+                                           value="<?php echo($wasScored ? htmlspecialchars($oldGame2ScoreArr[$team1Emails[$i]], ENT_QUOTES, 'UTF-8') : ""); ?>"/>
                                     <input type="number" placeholder="Game 3 Score" name="t1g3[]" class="form-control"
                                            min="0"
                                            max="300"
-                                           value="<?php echo($wasScored ? $oldGame3ScoreArr[$team1Emails[$i]] : ""); ?>"/>
+                                           value="<?php echo($wasScored ? htmlspecialchars($oldGame3ScoreArr[$team1Emails[$i]], ENT_QUOTES, 'UTF-8') : ""); ?>"/>
                                 </div>
                             </div>
                         </div>
@@ -177,13 +178,13 @@ include_once "../includes/navbar.inc.php";
                     <?php } ?>
                 </div>
                 <div class="col-lg-6 mt-4 mt-lg-0">
-                    <?php echo '<h2 class="h3 font-weight-bold mb-4">' . $team2Name . '</h2>'; ?>
+                    <?php echo '<h2 class="h3 font-weight-bold mb-4">' . htmlspecialchars($team2Name, ENT_QUOTES, 'UTF-8') . '</h2>'; ?>
                     <hr>
                     <hr>
                     <?php for ($i = 0; $i < count($team2Emails); $i++) { ?>
                         <div class="row">
                             <div class="col-lg-4">
-                                <?php echo $team2Names[$i] . "<br> (" . $team2Emails[$i] . ")"; ?>
+                                <?php echo htmlspecialchars($team2Names[$i], ENT_QUOTES, 'UTF-8') . "<br> (" . htmlspecialchars($team2Emails[$i], ENT_QUOTES, 'UTF-8') . ")"; ?>
                                 <div class="custom-control custom-control-alternative custom-checkbox">
                                     <input class="custom-control-input" id="<?php echo "t2Blinds_" . $i; ?>"
                                            name="t2Blinds[]" type="checkbox" value="<?php $i; ?>">
@@ -194,22 +195,23 @@ include_once "../includes/navbar.inc.php";
                             </div>
                             <div class="col-lg-8">
                                 <div class="form-group">
-                                    <input type="hidden" name="t2Emails[]" value="<?php echo $team2Emails[$i]; ?>">
+                                    <input type="hidden" name="t2Emails[]"
+                                           value="<?php echo htmlspecialchars($team2Emails[$i], ENT_QUOTES, 'UTF-8'); ?>">
                                     <input type="number" placeholder="Handicap" name="t2Handicaps[]"
                                            class="form-control"
-                                           value="<?php echo($wasScored ? $oldHandicapsArr[$team2Emails[$i]] : $team2Handicaps[$i]); ?>"/>
+                                           value="<?php echo(htmlspecialchars(($wasScored ? $oldHandicapsArr[$team2Emails[$i]] : $team2Handicaps[$i]), ENT_QUOTES, 'UTF-8')); ?>"/>
                                     <input type="number" placeholder="Game 1 Score" name="t2g1[]" class="form-control"
                                            min="0"
                                            max="300"
-                                           value="<?php echo($wasScored ? $oldGame1ScoreArr[$team2Emails[$i]] : ""); ?>"/>
+                                           value="<?php echo($wasScored ? htmlspecialchars($oldGame1ScoreArr[$team2Emails[$i]], ENT_QUOTES, 'UTF-8') : ""); ?>"/>
                                     <input type="number" placeholder="Game 2 Score" name="t2g2[]" class="form-control"
                                            min="0"
                                            max="300"
-                                           value="<?php echo($wasScored ? $oldGame2ScoreArr[$team2Emails[$i]] : ""); ?>"/>
+                                           value="<?php echo($wasScored ? htmlspecialchars($oldGame2ScoreArr[$team2Emails[$i]], ENT_QUOTES, 'UTF-8') : ""); ?>"/>
                                     <input type="number" placeholder="Game 3 Score" name="t2g3[]" class="form-control"
                                            min="0"
                                            max="300"
-                                           value="<?php echo($wasScored ? $oldGame3ScoreArr[$team2Emails[$i]] : ""); ?>"/>
+                                           value="<?php echo($wasScored ? htmlspecialchars($oldGame3ScoreArr[$team2Emails[$i]], ENT_QUOTES, 'UTF-8') : ""); ?>"/>
                                 </div>
                             </div>
                         </div>

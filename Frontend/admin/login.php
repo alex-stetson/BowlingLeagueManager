@@ -22,7 +22,7 @@ if (isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
 
     <title>Login</title>
 
-    <base href="<?php echo $baseURL; ?>">
+    <base href="<?php echo htmlspecialchars($baseURL, ENT_QUOTES, 'UTF-8'); ?>">
 
     <!-- Favicon -->
     <link href="assets/img/brand/favicon.png" rel="icon" type="image/png"/>
@@ -55,7 +55,7 @@ if (isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
                             <div class="text-center text-muted mb-4">
                                 <h5>Sign In</h5>
                                 <?php if ($casEnabled) { ?>
-                                    <form action="<?php echo $baseURL . 'admin/cas-login.php' ?>">
+                                    <form action="<?php echo htmlspecialchars($baseURL, ENT_QUOTES, 'UTF-8') . 'admin/cas-login.php' ?>">
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-default my-4">
                                                 Sign in with CAS

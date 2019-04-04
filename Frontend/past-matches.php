@@ -27,7 +27,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
 
     <title>Past Matches</title>
 
-    <base href="<?php echo $baseURL; ?>">
+    <base href="<?php echo htmlspecialchars($baseURL, ENT_QUOTES, 'UTF-8'); ?>">
 
     <!-- Favicon -->
     <link href="assets/img/brand/favicon.png" rel="icon" type="image/png"/>
@@ -52,40 +52,44 @@ include_once "includes/navbar.inc.php";
 <main>
     <div class="row justify-content-center">
         <div class="col-lg-12">
-            <h1 class="h1 font-weight-bold mb-4">Past Matches</h1>
+            <h1 class="h1 font-weight-bold mb-4" style="float: left">Past Matches</h1>
+            <input class="form-control"
+                   placeholder="Team Name"
+                   type="text"
+                   id="teamNameSearchInput"
+                   onkeyup="teamNameSearch()"
+                   style="width: 30%; float: right; margin-top: 0.5rem"/>
             <?php
             $currTime = NULL;
             if ($row = mysqli_fetch_assoc($result)) {
-                echo '<table class="table">';
+                echo '<table class="table" data-name="matchTable">';
                 echo '<tbody>';
                 $currTime = $row['matchTime'];
-                echo '<h3 style="font-weight:bold">' . date('m/d/y h:i A', strtotime($currTime)) . '</h3>';
+                echo '<h3 style="font-weight:bold; clear: both;" class="dateHeading">' . htmlspecialchars(date('m/d/y h:i A', strtotime($currTime)), ENT_QUOTES, 'UTF-8') . '</h3>';
                 echo '<tr>';
-                echo '<td style="width: 50%;">' . $row['team1Name'] . ' vs ' . $row['team2Name'] . '</td>';
-                echo '<td>' . date('m/d/y h:i A', strtotime($row['matchTime'])) . '</td>';
-                echo '<td>' . $row['matchLocation'] . '</td>';
-                echo '<td><a class="btn btn-default" href="match-details.php?matchId=' . $row['id'] . '" role="button">View Scores</a></td>';
+                echo '<td style="width: 50%;">' . htmlspecialchars($row['team1Name'], ENT_QUOTES, 'UTF-8') . ' vs ' . htmlspecialchars($row['team2Name'], ENT_QUOTES, 'UTF-8') . '</td>';
+                echo '<td>' . htmlspecialchars(date('m/d/y h:i A', strtotime($row['matchTime'])), ENT_QUOTES, 'UTF-8') . '</td>';
+                echo '<td>' . htmlspecialchars($row['matchLocation'], ENT_QUOTES, 'UTF-8') . '</td>';
                 echo '</tr>';
                 while ($row = mysqli_fetch_assoc($result)) {
                     if ($row['matchTime'] != $currTime) {
                         $currTime = $row['matchTime'];
                         echo '</tbody>';
                         echo '</table>';
-                        echo '<h3 style="font-weight:bold">' . date('m/d/y h:i A', strtotime($currTime)) . '</h3>';
-                        echo '<table class="table">';
+                        echo '<h3 style="font-weight:bold; clear: both;" class="dateHeading">' . htmlspecialchars(date('m/d/y h:i A', strtotime($currTime)), ENT_QUOTES, 'UTF-8') . '</h3>';
+                        echo '<table class="table" data-name="matchTable">';
                         echo '<tbody>';
                     }
                     echo '<tr>';
-                    echo '<td style="width: 50%;">' . $row['team1Name'] . ' vs ' . $row['team2Name'] . '</td>';
-                    echo '<td>' . date('m/d/y h:i A', strtotime($row['matchTime'])) . '</td>';
-                    echo '<td>' . $row['matchLocation'] . '</td>';
-                    echo '<td><a class="btn btn-default" href="match-details.php?matchId=' . $row['id'] . '" role="button">View Scores</a></td>';
+                    echo '<td style="width: 50%;">' . htmlspecialchars($row['team1Name'], ENT_QUOTES, 'UTF-8') . ' vs ' . htmlspecialchars($row['team2Name'], ENT_QUOTES, 'UTF-8') . '</td>';
+                    echo '<td>' . htmlspecialchars(date('m/d/y h:i A', strtotime($row['matchTime'])), ENT_QUOTES, 'UTF-8') . '</td>';
+                    echo '<td>' . htmlspecialchars($row['matchLocation'], ENT_QUOTES, 'UTF-8') . '</td>';
                     echo '</tr>';
                 }
                 echo '</tbody>';
                 echo '</table>';
             } else {
-                echo '<h2>No Matches</h2>';
+                echo '<h2 style="clear:both">No Matches</h2>';
             }
             ?>
         </div>
@@ -99,5 +103,35 @@ include_once "includes/navbar.inc.php";
 
 <!-- Theme JS -->
 <script src="assets/js/argon.min.js"></script>
+<script type="text/javascript">
+    function teamNameSearch() {
+        let input, filter, tr, td, i, matchTables;
+        matchTables = document.querySelectorAll("table[data-name=matchTable]");
+        input = document.getElementById("teamNameSearchInput");
+        filter = input.value.toLowerCase();
+        matchTables.forEach(function (table) {
+            tr = table.getElementsByTagName("tr");
+            let hiddenCount = 0;
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    if (td.innerHTML.toLowerCase().indexOf(filter) > -1) {
+                        $(tr[i]).show();
+                    } else {
+                        $(tr[i]).hide();
+                        hiddenCount++;
+                    }
+                }
+            }
+            if (hiddenCount === tr.length) {
+                $(table).prev('.dateHeading').hide();
+                $(table).hide();
+            } else {
+                $(table).prev('.dateHeading').show();
+                $(table).show();
+            }
+        });
+    }
+</script>
 </body>
 </html>

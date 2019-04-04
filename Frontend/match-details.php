@@ -116,7 +116,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
 
     <title>Match Details</title>
 
-    <base href="<?php echo $baseURL; ?>">
+    <base href="<?php echo htmlspecialchars($baseURL, ENT_QUOTES, 'UTF-8'); ?>">
 
     <!-- Favicon -->
     <link href="assets/img/brand/favicon.png" rel="icon" type="image/png"/>
@@ -142,13 +142,13 @@ include_once "includes/navbar.inc.php";
     <div class="row justify-content-center">
         <div class="col-lg-12">
             <h1 class="h1 font-weight-bold mb-4">Match Details</h1>
-            <h3 class="h3"><?php echo($team1Name . ' vs ' . $team2Name); ?></h3>
-            <small><?php echo $matchTime; ?></small>
+            <h3 class="h3"><?php echo(htmlspecialchars($team1Name, ENT_QUOTES, 'UTF-8') . ' vs ' . htmlspecialchars($team2Name, ENT_QUOTES, 'UTF-8')); ?></h3>
+            <small><?php echo htmlspecialchars($matchTime, ENT_QUOTES, 'UTF-8'); ?></small>
             <br>
-            <small><?php echo $matchLocation; ?></small>
+            <small><?php echo htmlspecialchars($matchLocation, ENT_QUOTES, 'UTF-8'); ?></small>
             <hr>
             <?php if ($scoresAvailable) { ?>
-                <h4 class="h4"><?php echo $team1Name; ?></h4>
+                <h4 class="h4"><?php echo htmlspecialchars($team1Name, ENT_QUOTES, 'UTF-8'); ?></h4>
                 <table class="table">
                     <thead>
                     <tr>
@@ -167,15 +167,15 @@ include_once "includes/navbar.inc.php";
                     $scoreIndex = 0;
                     for ($i = 0; $i < count($team1Members); $i++) {
                         echo '<tr>';
-                        echo '<th>' . $team1Members[$i] . '</th>';
-                        echo '<td>' . $team1Handicaps[$i] . '</td>';
-                        echo '<td>' . $team1Scores[$scoreIndex] . '</td>';
-                        echo '<td>' . $team1Scores[($scoreIndex + 1)] . '</td>';
-                        echo '<td>' . $team1Scores[($scoreIndex + 2)] . '</td>';
+                        echo '<th>' . htmlspecialchars($team1Members[$i], ENT_QUOTES, 'UTF-8') . '</th>';
+                        echo '<td>' . htmlspecialchars($team1Handicaps[$i], ENT_QUOTES, 'UTF-8') . '</td>';
+                        echo '<td>' . htmlspecialchars($team1Scores[$scoreIndex], ENT_QUOTES, 'UTF-8') . '</td>';
+                        echo '<td>' . htmlspecialchars($team1Scores[($scoreIndex + 1)], ENT_QUOTES, 'UTF-8') . '</td>';
+                        echo '<td>' . htmlspecialchars($team1Scores[($scoreIndex + 2)], ENT_QUOTES, 'UTF-8') . '</td>';
                         $totalScratch = $team1Scores[$scoreIndex] + $team1Scores[($scoreIndex + 1)] + $team1Scores[($scoreIndex + 2)];
-                        echo '<td style="border-left: 2px solid">' . $totalScratch . '</td>';
-                        echo '<td>' . ($team1Handicaps[$i] * 3) . '</td>';
-                        echo '<td>' . ($totalScratch + ($team1Handicaps[$i] * 3)) . '</td>';
+                        echo '<td style="border-left: 2px solid">' . htmlspecialchars($totalScratch, ENT_QUOTES, 'UTF-8') . '</td>';
+                        echo '<td>' . htmlspecialchars(($team1Handicaps[$i] * 3), ENT_QUOTES, 'UTF-8') . '</td>';
+                        echo '<td>' . htmlspecialchars(($totalScratch + ($team1Handicaps[$i] * 3)), ENT_QUOTES, 'UTF-8') . '</td>';
                         echo '</tr>';
                         $scoreIndex += 3;
                     }
@@ -183,19 +183,19 @@ include_once "includes/navbar.inc.php";
                     <tr style="border-top: 3px solid">
                         <th>Team Total (Scratch)</th>
                         <td></td>
-                        <td><?php echo $team1Game1Scratch; ?></td>
-                        <td><?php echo $team1Game2Scratch; ?></td>
-                        <td><?php echo $team1Game3Scratch; ?></td>
+                        <td><?php echo htmlspecialchars($team1Game1Scratch, ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?php echo htmlspecialchars($team1Game2Scratch, ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?php echo htmlspecialchars($team1Game3Scratch, ENT_QUOTES, 'UTF-8'); ?></td>
                         <td style="border-left: 2px solid"></td>
                         <td></td>
                         <td></td>
                     </tr>
                     <tr>
                         <th>Team Handicap</th>
-                        <td><?php echo $team1TotalHandicap; ?></td>
-                        <td><?php echo $team1TotalHandicap; ?></td>
-                        <td><?php echo $team1TotalHandicap; ?></td>
-                        <td><?php echo $team1TotalHandicap; ?></td>
+                        <td><?php echo htmlspecialchars($team1TotalHandicap, ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?php echo htmlspecialchars($team1TotalHandicap, ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?php echo htmlspecialchars($team1TotalHandicap, ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?php echo htmlspecialchars($team1TotalHandicap, ENT_QUOTES, 'UTF-8'); ?></td>
                         <td style="border-left: 2px solid"></td>
                         <td></td>
                         <td></td>
@@ -204,24 +204,24 @@ include_once "includes/navbar.inc.php";
                         <th>Team Total (Overall)</th>
                         <td></td>
                         <?php echo(($team1Game1Total >= $team2Game1Total) ?
-                            '<td class="text-success">' . $team1Game1Total . '</td>' :
-                            '<td class="text-danger">' . $team1Game1Total . '</td>'); ?>
+                            '<td class="text-success">' . htmlspecialchars($team1Game1Total, ENT_QUOTES, 'UTF-8') . '</td>' :
+                            '<td class="text-danger">' . htmlspecialchars($team1Game1Total, ENT_QUOTES, 'UTF-8') . '</td>'); ?>
                         <?php echo(($team1Game2Total >= $team2Game2Total) ?
-                            '<td class="text-success">' . $team1Game2Total . '</td>' :
-                            '<td class="text-danger">' . $team1Game2Total . '</td>'); ?>
+                            '<td class="text-success">' . htmlspecialchars($team1Game2Total, ENT_QUOTES, 'UTF-8') . '</td>' :
+                            '<td class="text-danger">' . htmlspecialchars($team1Game2Total, ENT_QUOTES, 'UTF-8') . '</td>'); ?>
                         <?php echo(($team1Game3Total >= $team2Game3Total) ?
-                            '<td class="text-success">' . $team1Game3Total . '</td>' :
-                            '<td class="text-danger">' . $team1Game3Total . '</td>'); ?>
+                            '<td class="text-success">' . htmlspecialchars($team1Game3Total, ENT_QUOTES, 'UTF-8') . '</td>' :
+                            '<td class="text-danger">' . htmlspecialchars($team1Game3Total, ENT_QUOTES, 'UTF-8') . '</td>'); ?>
                         <td style="border-left: 2px solid"></td>
                         <td></td>
                         <?php echo(($team1OverallTotal >= $team2OverallTotal) ?
-                            '<td class="text-success">' . $team1OverallTotal . '</td>' :
-                            '<td class="text-danger">' . $team1OverallTotal . '</td>'); ?>
+                            '<td class="text-success">' . htmlspecialchars($team1OverallTotal, ENT_QUOTES, 'UTF-8') . '</td>' :
+                            '<td class="text-danger">' . htmlspecialchars($team1OverallTotal, ENT_QUOTES, 'UTF-8') . '</td>'); ?>
                     </tr>
                     </tbody>
                 </table>
                 <hr>
-                <h4 class="h4"><?php echo $team2Name; ?></h4>
+                <h4 class="h4"><?php echo htmlspecialchars($team2Name, ENT_QUOTES, 'UTF-8'); ?></h4>
                 <table class="table">
                     <thead>
                     <tr>
@@ -240,15 +240,15 @@ include_once "includes/navbar.inc.php";
                     $scoreIndex = 0;
                     for ($i = 0; $i < count($team2Members); $i++) {
                         echo '<tr>';
-                        echo '<th>' . $team2Members[$i] . '</th>';
-                        echo '<td>' . $team2Handicaps[$i] . '</td>';
-                        echo '<td>' . $team2Scores[$scoreIndex] . '</td>';
-                        echo '<td>' . $team2Scores[($scoreIndex + 1)] . '</td>';
-                        echo '<td>' . $team2Scores[($scoreIndex + 2)] . '</td>';
+                        echo '<th>' . htmlspecialchars($team2Members[$i], ENT_QUOTES, 'UTF-8') . '</th>';
+                        echo '<td>' . htmlspecialchars($team2Handicaps[$i], ENT_QUOTES, 'UTF-8') . '</td>';
+                        echo '<td>' . htmlspecialchars($team2Scores[$scoreIndex], ENT_QUOTES, 'UTF-8') . '</td>';
+                        echo '<td>' . htmlspecialchars($team2Scores[($scoreIndex + 1)], ENT_QUOTES, 'UTF-8') . '</td>';
+                        echo '<td>' . htmlspecialchars($team2Scores[($scoreIndex + 2)], ENT_QUOTES, 'UTF-8') . '</td>';
                         $totalScratch = $team2Scores[$scoreIndex] + $team2Scores[($scoreIndex + 1)] + $team2Scores[($scoreIndex + 2)];
-                        echo '<td style="border-left: 2px solid">' . $totalScratch . '</td>';
-                        echo '<td>' . ($team2Handicaps[$i] * 3) . '</td>';
-                        echo '<td>' . ($totalScratch + ($team2Handicaps[$i] * 3)) . '</td>';
+                        echo '<td style="border-left: 2px solid">' . htmlspecialchars($totalScratch, ENT_QUOTES, 'UTF-8') . '</td>';
+                        echo '<td>' . htmlspecialchars(($team2Handicaps[$i] * 3), ENT_QUOTES, 'UTF-8') . '</td>';
+                        echo '<td>' . htmlspecialchars(($totalScratch + ($team2Handicaps[$i] * 3)), ENT_QUOTES, 'UTF-8') . '</td>';
                         echo '</tr>';
                         $scoreIndex += 3;
                     }
@@ -256,19 +256,19 @@ include_once "includes/navbar.inc.php";
                     <tr style="border-top: 3px solid">
                         <th>Team Total (Scratch)</th>
                         <td></td>
-                        <td><?php echo $team2Game1Scratch; ?></td>
-                        <td><?php echo $team2Game2Scratch; ?></td>
-                        <td><?php echo $team2Game3Scratch; ?></td>
+                        <td><?php echo htmlspecialchars($team2Game1Scratch, ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?php echo htmlspecialchars($team2Game2Scratch, ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?php echo htmlspecialchars($team2Game3Scratch, ENT_QUOTES, 'UTF-8'); ?></td>
                         <td style="border-left: 2px solid"></td>
                         <td></td>
                         <td></td>
                     </tr>
                     <tr>
                         <th>Team Handicap</th>
-                        <td><?php echo $team2TotalHandicap; ?></td>
-                        <td><?php echo $team2TotalHandicap; ?></td>
-                        <td><?php echo $team2TotalHandicap; ?></td>
-                        <td><?php echo $team2TotalHandicap; ?></td>
+                        <td><?php echo htmlspecialchars($team2TotalHandicap, ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?php echo htmlspecialchars($team2TotalHandicap, ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?php echo htmlspecialchars($team2TotalHandicap, ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?php echo htmlspecialchars($team2TotalHandicap, ENT_QUOTES, 'UTF-8'); ?></td>
                         <td style="border-left: 2px solid"></td>
                         <td></td>
                         <td></td>
@@ -277,19 +277,19 @@ include_once "includes/navbar.inc.php";
                         <th>Team Total (Overall)</th>
                         <td></td>
                         <?php echo(($team2Game1Total >= $team1Game1Total) ?
-                            '<td class="text-success">' . $team2Game1Total . '</td>' :
-                            '<td class="text-danger">' . $team2Game1Total . '</td>'); ?>
+                            '<td class="text-success">' . htmlspecialchars($team2Game1Total, ENT_QUOTES, 'UTF-8') . '</td>' :
+                            '<td class="text-danger">' . htmlspecialchars($team2Game1Total, ENT_QUOTES, 'UTF-8') . '</td>'); ?>
                         <?php echo(($team2Game2Total >= $team1Game2Total) ?
-                            '<td class="text-success">' . $team2Game2Total . '</td>' :
-                            '<td class="text-danger">' . $team2Game2Total . '</td>'); ?>
+                            '<td class="text-success">' . htmlspecialchars($team2Game2Total, ENT_QUOTES, 'UTF-8') . '</td>' :
+                            '<td class="text-danger">' . htmlspecialchars($team2Game2Total, ENT_QUOTES, 'UTF-8') . '</td>'); ?>
                         <?php echo(($team2Game3Total >= $team1Game3Total) ?
-                            '<td class="text-success">' . $team2Game3Total . '</td>' :
-                            '<td class="text-danger">' . $team2Game3Total . '</td>'); ?>
+                            '<td class="text-success">' . htmlspecialchars($team2Game3Total, ENT_QUOTES, 'UTF-8') . '</td>' :
+                            '<td class="text-danger">' . htmlspecialchars($team2Game3Total, ENT_QUOTES, 'UTF-8') . '</td>'); ?>
                         <td style="border-left: 2px solid"></td>
                         <td></td>
                         <?php echo(($team2OverallTotal >= $team1OverallTotal) ?
-                            '<td class="text-success">' . $team2OverallTotal . '</td>' :
-                            '<td class="text-danger">' . $team2OverallTotal . '</td>'); ?>
+                            '<td class="text-success">' . htmlspecialchars($team2OverallTotal, ENT_QUOTES, 'UTF-8') . '</td>' :
+                            '<td class="text-danger">' . htmlspecialchars($team2OverallTotal, ENT_QUOTES, 'UTF-8') . '</td>'); ?>
                     </tr>
                     </tbody>
                 </table>

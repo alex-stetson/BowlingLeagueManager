@@ -31,7 +31,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
 
     <title>Matches</title>
 
-    <base href="<?php echo $baseURL; ?>">
+    <base href="<?php echo htmlspecialchars($baseURL, ENT_QUOTES, 'UTF-8'); ?>">
 
     <!-- Favicon -->
     <link href="assets/img/brand/favicon.png" rel="icon" type="image/png"/>
@@ -72,9 +72,9 @@ include_once "../includes/navbar.inc.php";
         <?php
         while ($row = mysqli_fetch_assoc($result)) {
             echo '<tr>';
-            echo '<td>' . $row['team1Name'] . ' vs ' . $row['team2Name'] . '</td>';
-            echo '<td>' . (empty($row['matchTime']) ? '' : date('m/d/y h:i A', strtotime($row['matchTime']))) . '</td>';
-            echo '<td>' . $row['matchLocation'] . '</td>';
+            echo '<td>' . htmlspecialchars($row['team1Name'], ENT_QUOTES, 'UTF-8') . ' vs ' . htmlspecialchars($row['team2Name'], ENT_QUOTES, 'UTF-8') . '</td>';
+            echo '<td>' . (empty($row['matchTime']) ? '' : htmlspecialchars(date('m/d/y h:i A', strtotime($row['matchTime'])), ENT_QUOTES, 'UTF-8')) . '</td>';
+            echo '<td>' . htmlspecialchars($row['matchLocation'], ENT_QUOTES, 'UTF-8') . '</td>';
             echo '<td><a class="btn btn-default" href="admin/edit-match.php?matchId=' . $row['id'] . '" role="button">Edit Match</a></td>';
             echo '<td><a class="btn btn-default" href="admin/match-scoresheet.php?matchId=' . $row['id'] . '" role="button">Generate Scoresheet</a></td>';
             echo '<td><a class="btn btn-default" href="admin/score-entry.php?matchId=' . $row['id'] . '" role="button">Enter Scores</a></td>';

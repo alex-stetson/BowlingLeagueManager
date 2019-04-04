@@ -49,7 +49,7 @@ if (empty($playerEmail)) {
 
     <title>Edit Player</title>
 
-    <base href="<?php echo $baseURL; ?>">
+    <base href="<?php echo htmlspecialchars($baseURL, ENT_QUOTES, 'UTF-8'); ?>">
 
     <!-- Favicon -->
     <link href="assets/img/brand/favicon.png" rel="icon" type="image/png"/>
@@ -86,13 +86,14 @@ include_once "../includes/navbar.inc.php";
                                 } else if ($_GET['error'] = "playerExists") {
                                     echo '<small class="text-danger">Player already exists</small>';
                                 } else {
-                                    echo '<small class="text-danger">Unknown error occured. Please try again</small>';
+                                    echo '<small class="text-danger">Unknown error occurred. Please try again</small>';
                                 }
                             }
                             ?>
                         </div>
                         <form role="form" action="admin/includes/edit-player.inc.php" method="post">
-                            <input type="hidden" name="playerEmail" value="<?php echo $playerEmail; ?>">
+                            <input type="hidden" name="playerEmail"
+                                   value="<?php echo htmlspecialchars($playerEmail, ENT_QUOTES, 'UTF-8'); ?>">
                             <div class="form-group">
                                 <div class="input-group input-group-alternative">
                                     <div class="input-group-prepend">
@@ -105,7 +106,7 @@ include_once "../includes/navbar.inc.php";
                                             placeholder="Name"
                                             type="text"
                                             name="playerName"
-                                            value="<?php echo $playerName; ?>"
+                                            value="<?php echo htmlspecialchars($playerName, ENT_QUOTES, 'UTF-8'); ?>"
                                     />
                                 </div>
                             </div>

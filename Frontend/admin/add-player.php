@@ -17,7 +17,7 @@ require "../includes/config.inc.php";
 
     <title>Add Player</title>
 
-    <base href="<?php echo $baseURL; ?>">
+    <base href="<?php echo htmlspecialchars($baseURL, ENT_QUOTES, 'UTF-8'); ?>">
 
     <!-- Favicon -->
     <link href="assets/img/brand/favicon.png" rel="icon" type="image/png"/>
@@ -56,7 +56,7 @@ include_once "../includes/navbar.inc.php";
                                 } else if ($_GET['error'] = "playerExists") {
                                     echo '<small class="text-danger">Player already exists</small>';
                                 } else {
-                                    echo '<small class="text-danger">Unknown error occured. Please try again</small>';
+                                    echo '<small class="text-danger">Unknown error occurred. Please try again</small>';
                                 }
                             }
                             ?>

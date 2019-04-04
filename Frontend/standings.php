@@ -28,7 +28,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
 
     <title>Standings</title>
 
-    <base href="<?php echo $baseURL; ?>">
+    <base href="<?php echo htmlspecialchars($baseURL, ENT_QUOTES, 'UTF-8'); ?>">
 
     <!-- Favicon -->
     <link href="assets/img/brand/favicon.png" rel="icon" type="image/png"/>
@@ -66,9 +66,9 @@ include_once "includes/navbar.inc.php";
                 <?php
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo '<tr>';
-                    echo '<th scope="row">' . $row['Rank'] . '</th>';
-                    echo '<td>' . $row['teamName'] . '</td>';
-                    echo '<td>' . $row['totalPoints'] . '</td>';
+                    echo '<th scope="row">' . htmlspecialchars($row['Rank'], ENT_QUOTES, 'UTF-8') . '</th>';
+                    echo '<td>' . htmlspecialchars($row['teamName'], ENT_QUOTES, 'UTF-8') . '</td>';
+                    echo '<td>' . htmlspecialchars($row['totalPoints'], ENT_QUOTES, 'UTF-8') . '</td>';
                     echo '</tr>';
                 }
                 ?>

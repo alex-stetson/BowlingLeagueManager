@@ -17,7 +17,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
 
 $teamDropdownContent = '<option value="NULL" selected>Choose...</option>';
 while ($row = mysqli_fetch_assoc($result)) {
-    $teamDropdownContent .= '<option value="' . $row['id'] . '">' . $row['teamName'] . '</option>';
+    $teamDropdownContent .= '<option value="' . $row['id'] . '">' . htmlspecialchars($row['teamName'], ENT_QUOTES, 'UTF-8') . '</option>';
 }
 
 ?>
@@ -33,7 +33,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
     <title>Create Match</title>
 
-    <base href="<?php echo $baseURL; ?>">
+    <base href="<?php echo htmlspecialchars($baseURL, ENT_QUOTES, 'UTF-8'); ?>">
 
     <!-- Favicon -->
     <link href="assets/img/brand/favicon.png" rel="icon" type="image/png"/>

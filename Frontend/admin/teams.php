@@ -30,7 +30,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
 
     <title>Teams</title>
 
-    <base href="<?php echo $baseURL; ?>">
+    <base href="<?php echo htmlspecialchars($baseURL, ENT_QUOTES, 'UTF-8'); ?>">
 
     <!-- Favicon -->
     <link href="assets/img/brand/favicon.png" rel="icon" type="image/png"/>
@@ -69,8 +69,8 @@ include_once "../includes/navbar.inc.php";
         while ($row = mysqli_fetch_assoc($result)) {
             $teamMembers = str_replace(",", ", ", $row['teamMembers']);
             echo '<tr>';
-            echo '<td>' . $row['teamName'] . '</td>';
-            echo '<td>' . $teamMembers . '</td>';
+            echo '<td>' . htmlspecialchars($row['teamName'], ENT_QUOTES, 'UTF-8') . '</td>';
+            echo '<td>' . htmlspecialchars($teamMembers, ENT_QUOTES, 'UTF-8') . '</td>';
             echo '<td><a class="btn btn-default" href="admin/edit-team.php?teamId=' . $row['id'] . '" role="button">Edit Team</a></td>';
             echo '</tr>';
         }
