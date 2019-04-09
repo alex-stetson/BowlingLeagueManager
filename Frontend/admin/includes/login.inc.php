@@ -100,7 +100,7 @@ if (isset($_POST['login-submit'])) {
     cleanEntries($link);
     rateLimit($email, $link);
 
-    $sql = "SELECT * FROM users WHERE username=?;";
+    $sql = "SELECT * FROM users WHERE username=? AND casUser=0 AND password IS NOT NULL;";
     if ($stmt = mysqli_prepare($link, $sql)) {
         mysqli_stmt_bind_param($stmt, "s", $email);
         mysqli_stmt_execute($stmt);
@@ -110,7 +110,7 @@ if (isset($_POST['login-submit'])) {
             if (password_verify($password, $row['password'])) {
                 clearCurrIP($link);
                 session_start();
-                $_SESSION['userID'] = $row['userId'];
+                $_SESSION['userId'] = $row['userId'];
                 $_SESSION['userRole'] = $row['role'];
                 header("Location: " . $baseURL);
                 exit();

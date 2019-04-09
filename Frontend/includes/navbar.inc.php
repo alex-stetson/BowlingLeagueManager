@@ -54,7 +54,7 @@
                     </li>
                     <?php
                     session_start();
-                    if (isset($_SESSION['userID']) && $_SESSION['userID'] != '') { ?>
+                    if (isset($_SESSION['userId']) && $_SESSION['userId'] != '') { ?>
                         <li class="nav-item dropdown">
                             <a class="nav-link" data-toggle="dropdown" href="#" role="button">
                                 <span class="nav-link-inner--text">Administration</span>
@@ -63,6 +63,10 @@
                                 <a href="admin/matches.php" class="dropdown-item">Matches</a>
                                 <a href="admin/teams.php" class="dropdown-item">Teams</a>
                                 <a href="admin/players.php" class="dropdown-item">Players</a>
+                                <?php if (isset($_SESSION['userRole']) && $_SESSION['userRole'] === 'admin') { ?>
+                                    <a href="admin/manage-accounts.php" class="dropdown-item">Manage Accounts</a>
+                                <?php } ?>
+                                <a href="admin/account.php" class="dropdown-item">My Account</a>
                                 <a href="admin/logout.php" class="dropdown-item">Logout</a>
                             </div>
                         </li>

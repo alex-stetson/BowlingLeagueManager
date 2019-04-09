@@ -32,7 +32,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
     mysqli_stmt_close($stmt);
     if ($row = mysqli_fetch_assoc($result)) {
         session_start();
-        $_SESSION['userID'] = $casUser;
+        $_SESSION['userId'] = $row['userId'];
         $_SESSION['userRole'] = $row['role'];
         header("Location: " . $baseURL);
         exit();

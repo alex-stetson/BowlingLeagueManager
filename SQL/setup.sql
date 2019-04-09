@@ -1,11 +1,11 @@
 CREATE TABLE users
 (
-  userId   int(11)                             NOT NULL UNIQUE AUTO_INCREMENT,
-  username VARCHAR(255)                        NOT NULL UNIQUE,
-  password VARCHAR(255)                        NOT NULL,
-  role     enum ("admin", "manager", "scorer") NOT NULL,
-  casUser  BOOLEAN                             NOT NULL DEFAULT FALSE,
-  PRIMARY KEY (userID)
+    userId   int(11)                             NOT NULL UNIQUE AUTO_INCREMENT,
+    username VARCHAR(255)                        NOT NULL UNIQUE,
+    password VARCHAR(255)                        NOT NULL,
+    role     enum ("admin", "manager", "scorer")          DEFAULT NULL,
+    casUser  BOOLEAN                             NOT NULL DEFAULT FALSE,
+    PRIMARY KEY (userID)
 );
 
 CREATE TABLE failedLogins (
