@@ -2,7 +2,7 @@
 
 Simple php website used to manage the 2019 Georgia Tech Spring Bowling League
 
-Note: This is not perfect, production level software and was created for a specific event. See disclaimer below.
+Note: This is not production level software. It was created for a specific event and has limitations due to the narrow scope of its intended use. See disclaimer below.
 
 #### Installation
 
